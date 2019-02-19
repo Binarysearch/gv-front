@@ -1,5 +1,16 @@
+:host{
+    height: var(--header-height);
+    width: calc(100% - var(--header-height));
+    position: absolute;
+    background-color: rgb(50, 50, 50);
+    color: rgb(200, 200, 200);
+    padding-left: var(--header-height);
+    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.08), 4px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
 header {
     display: flex;
+    height: 100%;
 }
 header > div:last-child {
     margin-left: auto;

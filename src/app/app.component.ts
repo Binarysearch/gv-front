@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'gv-front';
+  asideMenuVisible = true;
+
+  closeAsideMenu(){
+    this.asideMenuVisible = false;
+  }
+
+  toggleAsideMenu(){
+    this.asideMenuVisible = !this.asideMenuVisible;
+  }
+
 }

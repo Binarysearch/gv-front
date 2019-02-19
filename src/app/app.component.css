@@ -1,26 +1,7 @@
-.container {
-    display: grid;    
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: var(--header-height) auto var(--footer-height);
-    min-height: 100vh;
-    max-height: 100vh;
-}
-app-header{
-    grid-column: span 12;
-    background-color: lightskyblue;
-}
-app-aside {
+#btn-menu{
     position: absolute;
-    top: var(--header-height);
-    width: var(--aside-menu-width);
-    height: calc(100% - var(--header-height) - var(--footer-height));
-    background-color: lightcoral;
-}
-app-main {
-    grid-column: span 12;
-    background-color: lightgreen;
-}
-app-footer {
-    grid-column: span 12;
-    background-color: lightslategray;
+    top:0px;
+    width: var(--header-height);
+    height: var(--header-height);
+    z-index: 1002;
 }

@@ -1,11 +1,34 @@
 @import '~font-awesome/css/font-awesome.css';
 
 :root{
-    --header-height: 30px;
-    --footer-height: 30px;
+    --header-height: 44px;
+    --footer-height: 32px;
     --aside-menu-width: 280px;
 }
 
 body{
     margin:0;
+}
+
+.btn{
+    box-sizing: border-box;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+}
+.btn-nav{
+    background-color: transparent;
+    border: none;
+    color: rgb(200, 200, 200, 200);
+    padding: calc(var(--header-height)/4);
+    font-size: calc(var(--header-height)/2);
+    height: var(--header-height);
+}
+.btn-nav.active{
+    background-color: rgb(30, 30, 30);
+    color: white;
+}
+.btn-nav:hover{
+    background-color: black;
+    color: white;
 }

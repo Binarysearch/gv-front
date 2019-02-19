@@ -1,0 +1,13 @@
+:host {
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    height: calc(100% - var(--header-height) - var(--footer-height));
+    z-index: 1000;
+}
+#container {
+    position: absolute;
+    width: var(--aside-menu-width);
+    height: 100%;
+    background-color: rgb(50, 50, 50);
+}

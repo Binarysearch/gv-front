@@ -1,0 +1,7 @@
+:host{
+    position: absolute;
+    top: calc(100% - var(--footer-height));
+    height: var(--footer-height);
+    width: 100%;
+    background-color: rgb(50, 50, 50);
+}
