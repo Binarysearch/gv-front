@@ -9,7 +9,7 @@ app-header{
     grid-column: span 12;
     background-color: lightskyblue;
 }
-aside {
+app-aside {
     position: absolute;
     top: var(--header-height);
     width: var(--aside-menu-width);
