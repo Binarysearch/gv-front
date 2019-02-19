@@ -1,4 +1,8 @@
 <header>
-  <div *ngFor="let button of buttons" class='btn btn-nav'><i class="fa {{button.icon}}" aria-hidden="true"></i> {{ button.text }}</div>
-  <div class='btn btn-nav'><i class="fa fa-user" aria-hidden="true"></i> Nick</div>
+  <a *ngFor="let button of buttons" class='btn btn-nav' routerLink="{{button.link}}" routerLinkActive="active"><i class="fa {{button.icon}}" aria-hidden="true"></i> {{ button.text }}</a>
+  <div>
+    <a class='btn btn-nav' routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
+    <a class='btn btn-nav'  routerLink="/register" routerLinkActive="active"><i class="fa fa-id-card" aria-hidden="true"></i> Register</a>
+    <a class='btn btn-nav'><i class="fa fa-user" aria-hidden="true"></i> Nick</a>
+  </div>
 </header>

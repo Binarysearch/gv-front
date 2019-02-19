@@ -8,16 +8,7 @@ import { NavButton } from './header/header.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  asideMenuVisible = true;
-
-  navButtons: NavButton[] = [
-    {text:"Galaxia", icon: "fa-map"},
-    {text:"Colonias", icon: "fa-university"},
-    {text:"Flota", icon: "fa-space-shuttle"},
-    {text:"Planetas", icon: "fa-globe"},
-    {text:"Comercio", icon: "fa-exchange"},
-    {text:"Investigación", icon: "fa-flask"},
-  ];
+  asideMenuVisible = false;
   
   asideMenuOptions: AsideOption[] = [
     {text:"Option 1", onclick:()=>{alert();}},

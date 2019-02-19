@@ -1,7 +1,0 @@
-:host{
-    position: absolute;
-    top: calc(var(--header-height));
-    height: calc(100% - var(--header-height) - var(--footer-height));
-    width: 100%;
-    background-color: lightgreen;
-}

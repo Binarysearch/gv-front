@@ -2,7 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export interface NavButton{
   text:string,
-  icon:string
+  icon:string,
+  link:string
 }
 
 @Component({
@@ -12,8 +13,15 @@ export interface NavButton{
 })
 export class HeaderComponent implements OnInit {
 
-  @Input("buttons") buttons: NavButton[];
-
+  buttons: NavButton[] = [
+    {text:"Galaxia", icon: "fa-map", link:"/galaxy"},
+    {text:"Colonias", icon: "fa-university", link:"/colonies"},
+    {text:"Flota", icon: "fa-space-shuttle", link:"/fleets"},
+    {text:"Planetas", icon: "fa-globe", link:"/planets"},
+    {text:"Comercio", icon: "fa-exchange", link:"/commerce"},
+    {text:"Investigación", icon: "fa-flask", link:"/research"},
+  ];
+  
   constructor() { }
 
   ngOnInit() {

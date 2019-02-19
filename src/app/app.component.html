@@ -1,7 +1,7 @@
 <div (click)="closeAsideMenu()" class="container">
-  <app-header [buttons]="navButtons"></app-header>
+  <app-header></app-header>
   <app-aside [open]="asideMenuVisible" [options]="asideMenuOptions"></app-aside>
-  <app-main></app-main>
+  <div id="router-outlet-container"><router-outlet></router-outlet></div>
   <app-footer></app-footer>
 </div>
 <div id='btn-menu' (click)="toggleAsideMenu()" [class.active]="asideMenuVisible" class="btn btn-nav"><i class="fa fa-bars" aria-hidden="true"></i></div>
