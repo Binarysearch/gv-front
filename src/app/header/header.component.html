@@ -1,5 +1,4 @@
 <header>
-  <div class='btn btn-nav'>btn1</div>
-  <div class='btn btn-nav'>btn2</div>
-  <div class='btn btn-nav'><i class="fa fa-user" aria-hidden="true"></i> User-menu</div>
+  <div *ngFor="let button of buttons" class='btn btn-nav'><i class="fa {{button.icon}}" aria-hidden="true"></i> {{ button.text }}</div>
+  <div class='btn btn-nav'><i class="fa fa-user" aria-hidden="true"></i> Nick</div>
 </header>

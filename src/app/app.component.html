@@ -1,5 +1,5 @@
 <div (click)="closeAsideMenu()" class="container">
-  <app-header></app-header>
+  <app-header [buttons]="navButtons"></app-header>
   <app-aside [open]="asideMenuVisible" [options]="asideMenuOptions"></app-aside>
   <app-main></app-main>
   <app-footer></app-footer>
