@@ -1,8 +1,18 @@
 <header>
-  <a *ngFor="let button of buttons" class='btn btn-nav' routerLink="{{button.link}}" routerLinkActive="active"><i class="fa {{button.icon}}" aria-hidden="true"></i> {{ button.text }}</a>
+  <div *ngIf="authService.isAuthenticated">
+    <a class='btn btn-nav' routerLink="/galaxy" routerLinkActive="active"><i class="fa fa-map" aria-hidden="true"></i> {{ ts.strings.galaxy }}</a>
+    <a class='btn btn-nav' routerLink="/colonies" routerLinkActive="active"><i class="fa fa-university" aria-hidden="true"></i> {{ ts.strings.colonies }}</a>
+    <a class='btn btn-nav' routerLink="/fleets" routerLinkActive="active"><i class="fa fa-space-shuttle" aria-hidden="true"></i> {{ ts.strings.fleets }}</a>
+    <a class='btn btn-nav' routerLink="/planets" routerLinkActive="active"><i class="fa fa-globe" aria-hidden="true"></i> {{ ts.strings.planets }}</a>
+    <a class='btn btn-nav' routerLink="/commerce" routerLinkActive="active"><i class="fa fa-exchange" aria-hidden="true"></i> {{ ts.strings.commerce }}</a>
+    <a class='btn btn-nav' routerLink="/research" routerLinkActive="active"><i class="fa fa-flask" aria-hidden="true"></i> {{ ts.strings.research }}</a>
+  </div>
   <div>
-    <a class='btn btn-nav' routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
-    <a class='btn btn-nav'  routerLink="/register" routerLinkActive="active"><i class="fa fa-id-card" aria-hidden="true"></i> Register</a>
-    <a class='btn btn-nav'><i class="fa fa-user" aria-hidden="true"></i> Nick</a>
+    <div *ngIf="!authService.isAuthenticated">
+      <a class='btn btn-nav' routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in" aria-hidden="true"></i> {{ ts.strings.login }}</a>
+      <a class='btn btn-nav'  routerLink="/register" routerLinkActive="active"><i class="fa fa-id-card" aria-hidden="true"></i> {{ ts.strings.register }}</a>
+    </div>
+    <a *ngIf="authService.isAuthenticated" class='btn btn-nav'><i class="fa fa-user" aria-hidden="true"></i> Nick</a>
+    <a *ngIf="authService.isAuthenticated" class='btn btn-nav' (click)="authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> {{ ts.strings.logout }}</a>
   </div>
 </header>

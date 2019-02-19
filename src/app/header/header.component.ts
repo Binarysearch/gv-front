@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { TextService } from '../services/text.service';
 
 export interface NavButton{
   text:string,
@@ -12,17 +14,8 @@ export interface NavButton{
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
-  buttons: NavButton[] = [
-    {text:"Galaxia", icon: "fa-map", link:"/galaxy"},
-    {text:"Colonias", icon: "fa-university", link:"/colonies"},
-    {text:"Flota", icon: "fa-space-shuttle", link:"/fleets"},
-    {text:"Planetas", icon: "fa-globe", link:"/planets"},
-    {text:"Comercio", icon: "fa-exchange", link:"/commerce"},
-    {text:"Investigación", icon: "fa-flask", link:"/research"},
-  ];
   
-  constructor() { }
+  constructor(private authService: AuthService, private ts: TextService) { }
 
   ngOnInit() {
   }

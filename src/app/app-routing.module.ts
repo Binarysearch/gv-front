@@ -8,15 +8,16 @@ import { CommerceComponent } from './commerce/commerce.component';
 import { ResearchComponent } from './research/research.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'galaxy', pathMatch: 'full' },
-  { path: 'galaxy', component: GalaxyComponent },
-  { path: 'colonies', component: ColoniesComponent },
-  { path: 'fleets', component: FleetsComponent },
-  { path: 'planets', component: PlanetsComponent },
-  { path: 'commerce', component: CommerceComponent },
-  { path: 'research', component: ResearchComponent },
+  { path: 'galaxy', component: GalaxyComponent, canActivate: [AuthGuard] },
+  { path: 'colonies', component: ColoniesComponent, canActivate: [AuthGuard] },
+  { path: 'fleets', component: FleetsComponent, canActivate: [AuthGuard] },
+  { path: 'planets', component: PlanetsComponent, canActivate: [AuthGuard] },
+  { path: 'commerce', component: CommerceComponent, canActivate: [AuthGuard] },
+  { path: 'research', component: ResearchComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 ];
