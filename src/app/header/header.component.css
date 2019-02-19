@@ -1,0 +1,6 @@
+header {
+    display: flex;
+}
+header > div:last-child {
+    margin-left: auto;
+}

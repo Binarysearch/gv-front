@@ -1,4 +1,3 @@
-
 .container {
     display: grid;    
     grid-template-columns: repeat(12, 1fr);
@@ -6,13 +5,9 @@
     min-height: 100vh;
     max-height: 100vh;
 }
-header {
+app-header{
     grid-column: span 12;
-    display: flex;
     background-color: lightskyblue;
-}
-header > div:last-child {
-    margin-left: auto;
 }
 aside {
     position: absolute;
