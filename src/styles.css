@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@import '~font-awesome/css/font-awesome.css';
+
+:root{
+    --header-height: 30px;
+    --footer-height: 30px;
+    --aside-menu-width: 280px;
+}
+
+body{
+    margin:0;
+}
