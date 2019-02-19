@@ -16,7 +16,7 @@ app-aside {
     height: calc(100% - var(--header-height) - var(--footer-height));
     background-color: lightcoral;
 }
-main {
+app-main {
     grid-column: span 12;
     background-color: lightgreen;
 }
