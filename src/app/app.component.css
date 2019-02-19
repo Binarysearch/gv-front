@@ -20,7 +20,7 @@ app-main {
     grid-column: span 12;
     background-color: lightgreen;
 }
-footer {
+app-footer {
     grid-column: span 12;
     background-color: lightslategray;
 }
