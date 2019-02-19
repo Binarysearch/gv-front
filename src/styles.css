@@ -2,7 +2,7 @@
 
 :root{
     --header-height: 44px;
-    --footer-height: 32px;
+    --footer-height: 22px;
     --aside-menu-width: 280px;
 }
 
@@ -19,7 +19,7 @@ body{
 .btn-nav{
     background-color: transparent;
     border: none;
-    color: rgb(200, 200, 200, 200);
+    color: rgb(200, 200, 200);
     padding: calc(var(--header-height)/4);
     font-size: calc(var(--header-height)/2);
     height: var(--header-height);

@@ -1,3 +1,5 @@
 <div *ngIf="open" id="container">
-    
+    <ul>
+        <li *ngFor="let option of options" (click)="option.onclick()">{{option.text}}</li>
+    </ul>
 </div>
