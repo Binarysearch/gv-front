@@ -11,35 +11,36 @@ import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 export class GalaxyRenderer implements Renderer{
 
     private gl: any;
-    private animate: boolean;
+    private animate: boolean = true;
     private starRenderer: StarRenderer;
     private camera: Camera
     
     constructor(private starSystemsService: StarSystemsService, private shaderCompiler: ShaderProgramCompiler){
         this.camera = new Camera();
         this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
-    }
-
-    setup(gl: any){
-        this.animate = false;
-        this.gl = gl;
-        gl.clearColor(0, 0, 0, 1);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        this.starRenderer.setup(gl);
-
-        this.animate = true;
         let animate = () => {
             if(this.animate){
                 window.requestAnimationFrame(animate);
-                this.render(this.gl);
+                if(this.gl){
+                    this.render(this.gl);
+                }
             }
         };
         animate();
     }
 
+    setup(gl: any){
+        this.animate = false;
+        this.gl = gl;
+        this.starRenderer.setup(gl);
+        this.animate = true;
+        gl.clearColor(0, 0, 0, 1);
+    }
+
     prepareRender(){}
 
     render(gl: any){
+        gl.clear(gl.COLOR_BUFFER_BIT);
         this.starRenderer.prepareRender(gl);
         this.starSystemsService.starSystems.forEach(starSystem => {
             this.starRenderer.render(gl, starSystem);
