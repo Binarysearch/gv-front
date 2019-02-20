@@ -1,3 +1,18 @@
-<p>
-  register works!
-</p>
+<div class="container">
+  <h1>{{ ts.strings.register }}</h1>
+  <div class="field">
+    <label>{{ ts.strings.email }}</label>
+    <input #emailInput class="input" type="email" [(ngModel)]="email">
+  </div>
+  <div class="field">
+    <label>{{ ts.strings.password }}</label>
+    <input #passwordInput type="password" [(ngModel)]="password" (keyup)="passwordChange()">
+  </div>
+  <div class="field">
+    <label>{{ ts.strings.repeatPassword }}</label>
+    <input #repeatPasswordInput type="password" [(ngModel)]="repeatPassword" (keydown)="passwordKeyDown($event)" (keyup)="passwordChange()">
+  </div>
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <button class="btn" (click)="register()">{{ ts.strings.send }}</button>
+</div>
+  

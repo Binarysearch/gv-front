@@ -13,13 +13,15 @@ export class TextService {
     commerce: "Comercio",
     research: "Investigación",
     logout: "Cerrar sesión",
-    register: "Registrar",
+    register: "Crear una cuenta",
     login: "Iniciar Sesión",
     password: "Contraseña",
+    repeatPassword: "Repetir Contraseña",
     email: "Email",
     send: "Enviar",
     home: "Inicio",
-    invalidLoginCredentials: "Email o Contraseña incorrecta"
+    invalidLoginCredentials: "Email o Contraseña incorrecta",
+    passwordsDontMatch: "Las contraseñas no coinciden"
   };
 
   constructor() { }
