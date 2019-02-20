@@ -1,13 +1,9 @@
-import { Injectable } from '@angular/core';
 import { Camera } from './camera';
 import { StarSystem } from './services/star-systems.service';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE } from './gl/shaders/star-system-shader';
 
-@Injectable({
-    providedIn: 'root'
-})
 export class StarRenderer implements Renderer{
     program: WebGLShader;
     vao: WebGLVertexArrayObjectOES;
@@ -22,8 +18,7 @@ export class StarRenderer implements Renderer{
 
     constructor(private camera: Camera, private shaderCompiler: ShaderProgramCompiler){}
 
-    setup(){
-        let gl = this.camera.gl as WebGLRenderingContext;
+    setup(gl: any){
         this.program = this.shaderCompiler.createShaderProgram(gl, STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE);
         
         this.vao = (gl as any).createVertexArray();
@@ -46,23 +41,22 @@ export class StarRenderer implements Renderer{
         this.civilizationColorUniformLocation = gl.getUniformLocation(this.program, "civilizationColor");
     }
     
-    prepareRender(){
+    prepareRender(gl: any){
         let zoom = this.camera.zoom;
         let aspect = this.camera.aspectRatio;
-        this.camera.gl.enable(this.camera.gl.BLEND);
-        this.camera.gl.blendFunc(this.camera.gl.SRC_ALPHA, this.camera.gl.ONE_MINUS_SRC_ALPHA);
-        this.camera.gl.useProgram(this.program);
-        this.camera.gl.bindVertexArray(this.vao);
+        gl.enable(gl.BLEND);
+        gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+        gl.useProgram(this.program);
+        gl.bindVertexArray(this.vao);
         
         var time = (656454%(Math.PI*2000))*0.001;
 
-        this.camera.gl.uniform1f(this.timeUniformLocation, time);
-        this.camera.gl.uniform1f(this.zoomUniformLocation, zoom);
-        this.camera.gl.uniform1f(this.aspectUniformLocation, aspect);
+        gl.uniform1f(this.timeUniformLocation, time);
+        gl.uniform1f(this.zoomUniformLocation, zoom);
+        gl.uniform1f(this.aspectUniformLocation, aspect);
     }
 
-    render(star: StarSystem){
-        let gl = this.camera.gl;
+    render(gl:any, star: StarSystem){
         let zoom = this.camera.zoom;
         let nz = 4;
 

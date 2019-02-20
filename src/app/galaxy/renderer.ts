@@ -1,5 +1,5 @@
 export interface Renderer {
-    setup(): void;
-    prepareRender(): void;
-    render(elem: any): void;
+    setup(gl: any): void;
+    prepareRender(gl: any): void;
+    render(gl:any, elem: any): void;
 }

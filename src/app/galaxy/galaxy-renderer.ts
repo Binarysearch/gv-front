@@ -3,26 +3,51 @@ import { StarRenderer } from './star-renderer';
 import { StarSystemsService } from './services/star-systems.service';
 import { Camera } from './camera';
 import { Renderer } from './renderer';
+import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GalaxyRenderer implements Renderer{
 
-    constructor(private starSystemsService: StarSystemsService, private starRenderer: StarRenderer, private camera: Camera){}
+    private gl: any;
+    private animate: boolean;
+    private starRenderer: StarRenderer;
+    private camera: Camera
+    
+    constructor(private starSystemsService: StarSystemsService, private shaderCompiler: ShaderProgramCompiler){
+        this.camera = new Camera();
+        this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
+    }
 
-    setup(){
-        let gl = this.camera.gl;
+    setup(gl: any){
+        this.animate = false;
+        this.gl = gl;
+        gl.clearColor(0, 0, 0, 1);
         gl.clear(gl.COLOR_BUFFER_BIT);
-        this.starRenderer.setup();
+        this.starRenderer.setup(gl);
+
+        this.animate = true;
+        let animate = () => {
+            if(this.animate){
+                window.requestAnimationFrame(animate);
+                this.render(this.gl);
+            }
+        };
+        animate();
     }
 
     prepareRender(){}
 
-    render(){
-        this.starRenderer.prepareRender();
+    render(gl: any){
+        this.starRenderer.prepareRender(gl);
         this.starSystemsService.starSystems.forEach(starSystem => {
-            this.starRenderer.render(starSystem);
+            this.starRenderer.render(gl, starSystem);
         });
+    }
+
+    setViewport(width: number, height: number){
+        this.gl.viewport(0, 0, width, height);
+        this.camera.aspectRatio = width / height;
     }
 }
