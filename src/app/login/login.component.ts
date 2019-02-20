@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.email, this.password).subscribe(null, error => {
       if(error.status == 401){
         this.errorMessage = this.ts.strings.invalidLoginCredentials;
-        this.passwordInput.nativeElement.focus();
+        this.emailInput.nativeElement.focus();
         this.password = "";
       }
     });

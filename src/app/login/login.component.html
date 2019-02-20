@@ -8,6 +8,6 @@
     <label>{{ ts.strings.password }}</label>
     <input #passwordInput type="password" [(ngModel)]="password" (keydown)="passwordKeyDown($event)">
   </div>
-  <div *ngIf="errorMessage">{{ errorMessage }}</div>
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
   <button class="btn" (click)="login()">{{ ts.strings.send }}</button>
 </div>
