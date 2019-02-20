@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { TextService } from '../services/text.service';
 
@@ -15,9 +15,15 @@ export interface NavButton{
 })
 export class HeaderComponent implements OnInit {
   
+  @Output("btnMenuClick") btnMenuClick = new EventEmitter();
+
   constructor(private authService: AuthService, private ts: TextService) { }
 
   ngOnInit() {
   }
 
+  emitEventBtnMenu(event: Event){
+    this.btnMenuClick.emit();
+    event.stopPropagation();
+  }
 }

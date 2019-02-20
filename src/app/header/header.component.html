@@ -1,4 +1,5 @@
 <header>
+  <div id='btn-menu' (click)="emitEventBtnMenu($event)" [class.active]="asideMenuVisible" class="btn btn-nav"><i class="fa fa-bars" aria-hidden="true"></i></div>
   <div *ngIf="authService.isAuthenticated">
     <a class='btn btn-nav' routerLink="/galaxy" routerLinkActive="active"><i class="fa fa-map" aria-hidden="true"></i> {{ ts.strings.galaxy }}</a>
     <a class='btn btn-nav' routerLink="/colonies" routerLinkActive="active"><i class="fa fa-university" aria-hidden="true"></i> {{ ts.strings.colonies }}</a>

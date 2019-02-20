@@ -1,10 +1,9 @@
 :host{
     height: var(--header-height);
-    width: calc(100% - var(--header-height));
+    width: 100%;
     position: absolute;
     background-color: rgb(50, 50, 50);
     color: rgb(200, 200, 200);
-    padding-left: var(--header-height);
     box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.08), 4px 0px 10px rgba(0, 0, 0, 0.2);
     z-index: 1001;
 }
@@ -14,4 +13,22 @@ header {
 }
 header > div:last-child {
     margin-left: auto;
+}
+
+.btn-nav{
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    color: rgb(200, 200, 200);
+    padding: calc(var(--header-height)/4);
+    font-size: calc(var(--header-height)/2);
+    height: var(--header-height);
+}
+.btn-nav.active{
+    background-color: rgb(30, 30, 30);
+    color: white;
+}
+.btn-nav:hover{
+    background-color: black;
+    color: white;
 }
