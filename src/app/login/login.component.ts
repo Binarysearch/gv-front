@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService, Session } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { TextService } from '../services/text.service';
 
 @Component({
   selector: 'app-login',
@@ -13,23 +13,28 @@ export class LoginComponent implements OnInit {
   password: string;
   errorMessage: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  @ViewChild("emailInput") emailInput: ElementRef;
+  @ViewChild("passwordInput") passwordInput: ElementRef;
+
+  constructor(private authService: AuthService, private ts: TextService) { }
 
   ngOnInit() {
+    this.emailInput.nativeElement.focus();
   }
 
   login(){
-    this.authService.login(this.email, this.password).subscribe((session: Session) => {
-      if(session.token){
-        localStorage.setItem("session", JSON.stringify(session));
-
-        this.router.navigate([this.authService.redirectUrl]);
-      }
-    }, error => {
+    this.authService.login(this.email, this.password).subscribe(null, error => {
       if(error.status == 401){
-        this.errorMessage = error.error.message;
+        this.errorMessage = this.ts.strings.invalidLoginCredentials;
+        this.passwordInput.nativeElement.focus();
+        this.password = "";
       }
     });
   }
 
+  passwordKeyDown(event: KeyboardEvent){
+    if(event.keyCode==13){
+      this.login();
+    }
+  }
 }

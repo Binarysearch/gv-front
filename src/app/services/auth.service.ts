@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 export interface Session{
   token: string,
@@ -16,42 +17,50 @@ export interface Session{
 })
 export class AuthService {
 
-  redirectUrl: string = "";
+  redirectUrl: string = "/galaxy";
 
   private loginUrl = 'https://galaxyvictor.com/api/login';
   private registerUrl = 'https://galaxyvictor.com/api/register';
+  private session: Session;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) {
+    const sessionString = localStorage.getItem('session');
+    this.session = JSON.parse(sessionString);
+  }
 
   public get isAuthenticated(): boolean {
-    const sessionString = localStorage.getItem('session');
-    const session: Session = JSON.parse(sessionString);
-    return session != null && session.token != null;
+    return this.session != null && this.session.token != null;
+  }
+
+  public get currentSession(){
+    return this.session;
   }
 
   public logout(){
+    //TODO: logout in server, destroy session
     localStorage.removeItem('session');
+    this.session = null;
+    this.router.navigate(['']);
   }
 
   login(email:string, password: string): Observable<Session> {
-    return this.http.post<Session>(this.loginUrl, {email:email, password:password});
+    return this.http.post<Session>(this.loginUrl, {email:email, password:password}).pipe(
+      tap<Session>((session: Session)=> {
+        this.session = session;
+        localStorage.setItem("session", JSON.stringify(session));
+        this.router.navigate([this.redirectUrl]);
+      })
+    );
   }
 
   register(email:string, password: string): Observable<Session> {
-    return this.http.post<Session>(this.registerUrl, {email:email, password:password});
+    return this.http.post<Session>(this.registerUrl, {email:email, password:password}).pipe(
+      tap<Session>((session: Session)=> {
+        this.session = session;
+        localStorage.setItem("session", JSON.stringify(session));
+        this.router.navigate([this.redirectUrl]);
+      })
+    );
   }
-  
-  private handleError(operation: String) {
-    return (err: any) => {
-        let errMsg = `error in ${operation}() retrieving ${this.loginUrl}`;
-        console.log(`${errMsg}:`, err);
-        if(err instanceof HttpErrorResponse) {
-          if(err.status == 401){
-            errMsg = err.error.message;
-          }
-        }
-        return Observable.throw(errMsg);
-    }
-}
 
 }

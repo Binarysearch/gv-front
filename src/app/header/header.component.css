@@ -4,7 +4,7 @@
     position: absolute;
     background-color: rgb(50, 50, 50);
     color: rgb(200, 200, 200);
-    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.08), 4px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 0px 10px var(--box-shadow-color);
     z-index: 1001;
 }
 header {
@@ -16,6 +16,11 @@ header > div:last-child {
 }
 
 .btn-nav{
+    box-sizing: border-box;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border:none;
     text-decoration: none;
     background-color: transparent;
     border: none;

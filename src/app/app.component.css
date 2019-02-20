@@ -10,5 +10,7 @@
     top: var(--header-height);
     height: calc(100% - var(--header-height) - var(--footer-height));
     width: 100%;
-    background-color: lightgreen;
+    background-color: rgb(0, 0, 0);
+    color: rgb(200, 200, 200);
+
 }

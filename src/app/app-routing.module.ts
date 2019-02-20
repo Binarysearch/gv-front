@@ -9,9 +9,10 @@ import { ResearchComponent } from './research/research.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './services/auth-guard.service';
+import { LandingComponent } from './landing/landing.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'galaxy', pathMatch: 'full' },
+  { path: '', component: LandingComponent },
   { path: 'galaxy', component: GalaxyComponent, canActivate: [AuthGuard] },
   { path: 'colonies', component: ColoniesComponent, canActivate: [AuthGuard] },
   { path: 'fleets', component: FleetsComponent, canActivate: [AuthGuard] },

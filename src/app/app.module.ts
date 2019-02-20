@@ -16,6 +16,7 @@ import { ResearchComponent } from './research/research.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
     CommerceComponent,
     ResearchComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,9 @@
     --header-height: 44px;
     --footer-height: 22px;
     --aside-menu-width: 280px;
+    --border-radius: 4px;
+    --box-shadow-color: rgba(1, 0, 75, 0.3);
+    --error-background: rgba(255, 0, 0, 0.5);
 }
 
 body{
@@ -13,7 +16,22 @@ body{
 
 .btn{
     box-sizing: border-box;
+    font-size: 14px;
+    font-weight: 600;
     text-align: center;
     display: inline-block;
     cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    padding: 0.75em 2em;
+    box-shadow: 0 0 5px var(--box-shadow-color);
+    background-color: rgb(30, 30, 30);
+    border: none;
+    color: rgb(200, 200, 200);
+}
+.btn:hover{
+    filter: brightness(85%);
+}
+.btn:focus, .btn:active{
+    outline: 1px solid rgba(0,0,255,0.2)
 }

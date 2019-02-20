@@ -14,7 +14,12 @@ export class TextService {
     research: "Investigación",
     logout: "Cerrar sesión",
     register: "Registrar",
-    login: "Iniciar Sesión"
+    login: "Iniciar Sesión",
+    password: "Contraseña",
+    email: "Email",
+    send: "Enviar",
+    home: "Inicio",
+    invalidLoginCredentials: "Email o Contraseña incorrecta"
   };
 
   constructor() { }
