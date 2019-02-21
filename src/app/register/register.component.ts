@@ -55,6 +55,8 @@ export class RegisterComponent implements OnInit {
   passwordChange(){
     if(this.password != this.repeatPassword){
       this.errorMessage = this.ts.strings.passwordsDontMatch;
+    }else{
+      this.errorMessage = '';
     }
   }
 }
