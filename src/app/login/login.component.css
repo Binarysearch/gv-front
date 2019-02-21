@@ -15,14 +15,8 @@ input:focus{
 .container{
     font-size: 18px;
     width: 500px;
-    display: block;
-    background-color: rgb(50, 50, 50);
-    color: rgb(200, 200, 200);
-    box-shadow: 0 0 10px var(--box-shadow-color);
     margin-left: auto;
     margin-right: auto;
-    padding: 1em 2em 2em 2em;
-    border-radius: var(--border-radius);
     margin-top: 2em;
 }
 .error{

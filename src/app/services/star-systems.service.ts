@@ -17,21 +17,28 @@ export interface StarSystem{
 })
 export class StarSystemsService {
 
-  private starSystemsUrl = 'https://galaxyvictor.com/api/star-systems?galaxy=164';
+  private starSystemsUrl = 'https://galaxyvictor.com/api/star-systems';
 
   public _starSystems: StarSystem[];
+  private currentGalaxyId: number;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   public get starSystems(){
+    let galaxyId = this.authService.currentSession.user.currentGalaxy.id;
+    if(this.currentGalaxyId != galaxyId){
+      this._starSystems = null;
+    }
+    this.currentGalaxyId = galaxyId;
+    
     if(!this._starSystems){
       this._starSystems = [];
-      this.getStarSystems().subscribe();
+      this.getStarSystems(galaxyId).subscribe();
     }
     return this._starSystems;
   }
 
-  private getStarSystems(): Observable<StarSystem[]> {
+  private getStarSystems(galaxyId: number): Observable<StarSystem[]> {
     const subject: Subject<StarSystem[]> = new Subject();
 
     const httpOptions = {
@@ -41,7 +48,7 @@ export class StarSystemsService {
       })
     };
 
-    this.http.get<StarSystem[]>(this.starSystemsUrl, httpOptions)
+    this.http.get<StarSystem[]>(this.starSystemsUrl + `?galaxy=${galaxyId}`, httpOptions)
       .subscribe((data: StarSystem[])=>{
         this._starSystems = data;
         subject.next(data);

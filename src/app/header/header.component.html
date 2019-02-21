@@ -2,12 +2,15 @@
   <div id='btn-menu' (click)="emitEventBtnMenu($event)" [class.active]="asideMenuVisible" class="btn-nav"><i class="fa fa-bars" aria-hidden="true"></i></div>
   <a *ngIf="!authService.isAuthenticated" class='btn-nav' routerLink="/" ><i class="fa fa-home" aria-hidden="true"></i> {{ ts.strings.home }}</a>
   <div *ngIf="authService.isAuthenticated">
-    <a class='btn-nav' routerLink="/galaxy" routerLinkActive="active"><i class="fa fa-map" aria-hidden="true"></i> {{ ts.strings.galaxy }}</a>
-    <a class='btn-nav' routerLink="/colonies" routerLinkActive="active"><i class="fa fa-university" aria-hidden="true"></i> {{ ts.strings.colonies }}</a>
-    <a class='btn-nav' routerLink="/fleets" routerLinkActive="active"><i class="fa fa-space-shuttle" aria-hidden="true"></i> {{ ts.strings.fleets }}</a>
-    <a class='btn-nav' routerLink="/planets" routerLinkActive="active"><i class="fa fa-globe" aria-hidden="true"></i> {{ ts.strings.planets }}</a>
-    <a class='btn-nav' routerLink="/commerce" routerLinkActive="active"><i class="fa fa-exchange" aria-hidden="true"></i> {{ ts.strings.commerce }}</a>
-    <a class='btn-nav' routerLink="/research" routerLinkActive="active"><i class="fa fa-flask" aria-hidden="true"></i> {{ ts.strings.research }}</a>
+    <a *ngIf="!authService.currentSession.user.currentGalaxy" class='btn-nav' routerLink="/galaxies" routerLinkActive="active"><i class="fa fa-list-ul" aria-hidden="true"></i> {{ ts.strings.selectGalaxy }}</a>
+    <div *ngIf="authService.currentSession.user.currentGalaxy">
+      <a class='btn-nav' routerLink="/galaxy" routerLinkActive="active"><i class="fa fa-map" aria-hidden="true"></i> {{ ts.strings.galaxy }}</a>
+      <a class='btn-nav' routerLink="/colonies" routerLinkActive="active"><i class="fa fa-university" aria-hidden="true"></i> {{ ts.strings.colonies }}</a>
+      <a class='btn-nav' routerLink="/fleets" routerLinkActive="active"><i class="fa fa-space-shuttle" aria-hidden="true"></i> {{ ts.strings.fleets }}</a>
+      <a class='btn-nav' routerLink="/planets" routerLinkActive="active"><i class="fa fa-globe" aria-hidden="true"></i> {{ ts.strings.planets }}</a>
+      <a class='btn-nav' routerLink="/commerce" routerLinkActive="active"><i class="fa fa-exchange" aria-hidden="true"></i> {{ ts.strings.commerce }}</a>
+      <a class='btn-nav' routerLink="/research" routerLinkActive="active"><i class="fa fa-flask" aria-hidden="true"></i> {{ ts.strings.research }}</a>
+    </div>
   </div>
   <div>
     <div *ngIf="!authService.isAuthenticated">

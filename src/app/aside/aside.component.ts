@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { TextService } from '../services/text.service';
+import { AuthService } from '../services/auth.service';
 
 export interface AsideOption{
   text: string,
@@ -14,9 +16,7 @@ export class AsideComponent implements OnInit {
 
   @Input("open") open = false;
 
-  @Input("options") options: AsideOption[];
-
-  constructor() { }
+  constructor(public ts: TextService, public authService: AuthService) { }
 
   ngOnInit() {
   }

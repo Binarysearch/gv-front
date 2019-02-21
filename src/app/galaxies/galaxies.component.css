@@ -1,0 +1,24 @@
+h1{
+    text-align: center;
+}
+
+.container{
+    font-size: 18px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+}
+ul{
+    padding-left: 0;
+}
+li{
+    list-style-type: none;
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 1em;
+}
+li:hover{
+    filter: brightness(200%);
+}

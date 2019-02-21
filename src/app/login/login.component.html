@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container box">
   <h1>{{ ts.strings.login }}</h1>
   <div class="field">
     <label>{{ ts.strings.email }}</label>
@@ -10,5 +10,4 @@
   </div>
   <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
   <button class="btn" (click)="login()">{{ ts.strings.send }}</button>
-  <button class="btn" (click)="authService.test()">test</button>
 </div>

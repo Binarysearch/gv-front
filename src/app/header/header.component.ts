@@ -16,8 +16,9 @@ export interface NavButton{
 export class HeaderComponent implements OnInit {
   
   @Output("btnMenuClick") btnMenuClick = new EventEmitter();
+  @Input("asideMenuVisible") asideMenuVisible: boolean;
 
-  constructor(private authService: AuthService, private ts: TextService) { }
+  constructor(public authService: AuthService, public ts: TextService) { }
 
   ngOnInit() {
   }

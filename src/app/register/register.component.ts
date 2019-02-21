@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
   @ViewChild("passwordInput") passwordInput: ElementRef;
   @ViewChild("repeatPasswordInput") repeatPasswordInput: ElementRef;
 
-  constructor(private authService: AuthService, private ts: TextService) { }
+  constructor(private authService: AuthService, public ts: TextService) { }
 
   ngOnInit() {
     this.emailInput.nativeElement.focus();

@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   @ViewChild("emailInput") emailInput: ElementRef;
   @ViewChild("passwordInput") passwordInput: ElementRef;
 
-  constructor(private authService: AuthService, private ts: TextService) { }
+  constructor(public authService: AuthService, public ts: TextService) { }
 
   ngOnInit() {
     this.emailInput.nativeElement.focus();

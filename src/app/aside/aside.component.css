@@ -10,6 +10,7 @@
     width: var(--aside-menu-width);
     height: 100%;
     background-color: rgb(50, 50, 50);
+    padding-top: 1em;
 }
 ul{
     padding: 0;
@@ -24,4 +25,15 @@ li{
 li:hover{
     background-color: black;
     color: white;
+}
+a{
+    box-sizing: border-box;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    border:none;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    color: rgb(200, 200, 200);
 }

@@ -43,6 +43,12 @@ export class AuthService {
     return this.session;
   }
 
+  public set currentSession(session: Session){
+    this.session = session;
+    this.onLoginSubject.next(session);
+    localStorage.setItem("session", JSON.stringify(session));
+  }
+
   public logout(){
     //TODO: logout in server, destroy session
     localStorage.removeItem('session');
@@ -67,9 +73,7 @@ export class AuthService {
   }
 
   private onSessionStart(session: Session){
-    this.session = session;
-    this.onLoginSubject.next(session);
-    localStorage.setItem("session", JSON.stringify(session));
+    this.currentSession = session;
     this.router.navigate([this.redirectUrl]);
   }
 

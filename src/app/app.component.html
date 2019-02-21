@@ -1,6 +1,6 @@
 <div class="container" (click)="closeAsideMenu()">
-  <app-header (btnMenuClick)="toggleAsideMenu()"></app-header>
-  <app-aside [open]="asideMenuVisible" [options]="asideMenuOptions"></app-aside>
+  <app-header (btnMenuClick)="toggleAsideMenu()" [asideMenuVisible]="asideMenuVisible"></app-header>
+  <app-aside [open]="asideMenuVisible"></app-aside>
   <div id="router-outlet-container"><router-outlet></router-outlet></div>
   <app-footer></app-footer>
 </div>

@@ -1,5 +1,5 @@
 import { Camera } from './camera';
-import { StarSystem } from './services/star-systems.service';
+import { StarSystem } from '../services/star-systems.service';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE } from './gl/shaders/star-system-shader';

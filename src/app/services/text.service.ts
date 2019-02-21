@@ -20,6 +20,7 @@ export class TextService {
     email: "Email",
     send: "Enviar",
     home: "Inicio",
+    selectGalaxy: "Seleccionar galaxia",
     invalidLoginCredentials: "Email o Contraseña incorrecta",
     passwordsDontMatch: "Las contraseñas no coinciden"
   };

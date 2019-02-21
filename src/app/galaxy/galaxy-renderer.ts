@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StarRenderer } from './star-renderer';
-import { StarSystemsService } from './services/star-systems.service';
+import { StarSystemsService } from '../services/star-systems.service';
 import { Camera } from './camera';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
