@@ -17,6 +17,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LandingComponent } from './landing/landing.component';
+import { GalaxiesComponent } from './galaxies/galaxies.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { LandingComponent } from './landing/landing.component';
     ResearchComponent,
     LoginComponent,
     RegisterComponent,
-    LandingComponent
+    LandingComponent,
+    GalaxiesComponent
   ],
   imports: [
     BrowserModule,

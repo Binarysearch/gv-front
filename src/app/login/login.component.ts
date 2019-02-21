@@ -9,8 +9,8 @@ import { TextService } from '../services/text.service';
 })
 export class LoginComponent implements OnInit {
 
-  email: string;
-  password: string;
+  email: string = "admin@galaxyvictor.com";
+  password: string = "12345";
   errorMessage: string;
 
   @ViewChild("emailInput") emailInput: ElementRef;

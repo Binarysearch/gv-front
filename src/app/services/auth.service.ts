@@ -3,12 +3,14 @@ import { Observable, of, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Galaxy } from './galaxies.service';
 
 export interface Session{
   token: string,
   user: {
     id: number,
-    email: String
+    email: String,
+    currentGalaxy?: Galaxy
   }
 }
 
@@ -22,13 +24,18 @@ export class AuthService {
   private loginUrl = 'https://galaxyvictor.com/api/login';
   private registerUrl = 'https://galaxyvictor.com/api/register';
   private session: Session;
+  private onLoginSubject: Subject<Session> = new Subject<Session>();
 
   constructor(private http: HttpClient, private router: Router) {
-    const sessionString = localStorage.getItem('session');
-    this.session = JSON.parse(sessionString);
+    
   }
 
   public get isAuthenticated(): boolean {
+    if(!this.session){
+      const sessionString = localStorage.getItem('session');
+      this.session = JSON.parse(sessionString);
+      this.onLoginSubject.next(this.session);
+    }
     return this.session != null && this.session.token != null;
   }
 
@@ -46,9 +53,7 @@ export class AuthService {
   login(email:string, password: string): Observable<Session> {
     return this.http.post<Session>(this.loginUrl, {email:email, password:password}).pipe(
       tap<Session>((session: Session)=> {
-        this.session = session;
-        localStorage.setItem("session", JSON.stringify(session));
-        this.router.navigate([this.redirectUrl]);
+        this.onSessionStart(session);
       })
     );
   }
@@ -56,11 +61,20 @@ export class AuthService {
   register(email:string, password: string): Observable<Session> {
     return this.http.post<Session>(this.registerUrl, {email:email, password:password}).pipe(
       tap<Session>((session: Session)=> {
-        this.session = session;
-        localStorage.setItem("session", JSON.stringify(session));
-        this.router.navigate([this.redirectUrl]);
+        this.onSessionStart(session);
       })
     );
+  }
+
+  private onSessionStart(session: Session){
+    this.session = session;
+    this.onLoginSubject.next(session);
+    localStorage.setItem("session", JSON.stringify(session));
+    this.router.navigate([this.redirectUrl]);
+  }
+
+  public onLogin(): Observable<Session>{
+    return this.onLoginSubject.asObservable();
   }
 
 }

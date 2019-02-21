@@ -10,15 +10,18 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './services/auth-guard.service';
 import { LandingComponent } from './landing/landing.component';
+import { SelectGalaxyGuard } from './services/select-galaxy-guard.service';
+import { GalaxiesComponent } from './galaxies/galaxies.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'galaxy', component: GalaxyComponent, canActivate: [AuthGuard] },
-  { path: 'colonies', component: ColoniesComponent, canActivate: [AuthGuard] },
-  { path: 'fleets', component: FleetsComponent, canActivate: [AuthGuard] },
-  { path: 'planets', component: PlanetsComponent, canActivate: [AuthGuard] },
-  { path: 'commerce', component: CommerceComponent, canActivate: [AuthGuard] },
-  { path: 'research', component: ResearchComponent, canActivate: [AuthGuard] },
+  { path: 'galaxies', component: GalaxiesComponent, canActivate: [AuthGuard] },
+  { path: 'galaxy', component: GalaxyComponent, canActivate: [SelectGalaxyGuard] },
+  { path: 'colonies', component: ColoniesComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
+  { path: 'fleets', component: FleetsComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
+  { path: 'planets', component: PlanetsComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
+  { path: 'commerce', component: CommerceComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
+  { path: 'research', component: ResearchComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 ];
