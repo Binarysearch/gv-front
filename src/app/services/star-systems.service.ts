@@ -3,13 +3,13 @@ import { Observable, of, Subject, Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth.service';
 
-export interface StarSystem{
-  id: number,
-  name?: string,
-  x: number,
-  y: number,
-  type: number,
-  size: number
+export interface StarSystem {
+  id: number;
+  name?: string;
+  x: number;
+  y: number;
+  type: number;
+  size: number;
 }
 
 @Injectable({
@@ -24,14 +24,14 @@ export class StarSystemsService {
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  public get starSystems(){
-    let galaxyId = this.authService.currentSession.user.currentGalaxy.id;
-    if(this.currentGalaxyId != galaxyId){
+  public get starSystems() {
+    const galaxyId = this.authService.currentSession.user.currentGalaxy.id;
+    if (this.currentGalaxyId !== galaxyId) {
       this._starSystems = null;
     }
     this.currentGalaxyId = galaxyId;
-    
-    if(!this._starSystems){
+
+    if (!this._starSystems) {
       this._starSystems = [];
       this.getStarSystems(galaxyId).subscribe();
     }
@@ -49,16 +49,16 @@ export class StarSystemsService {
     };
 
     this.http.get<StarSystem[]>(this.starSystemsUrl + `?galaxy=${galaxyId}`, httpOptions)
-      .subscribe((data: StarSystem[])=>{
+      .subscribe((data: StarSystem[]) => {
         this._starSystems = data;
         subject.next(data);
-      },(error: any)=>{
+      }, (error: any) => {
         subject.error(error);
-      },()=>{
+      }, () => {
         subject.complete();
       });
 
     return subject.asObservable();
-    
+
   }
 }

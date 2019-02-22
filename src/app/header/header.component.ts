@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { TextService } from '../services/text.service';
+import { CoreService } from '../services/core.service';
 
-export interface NavButton{
-  text:string,
-  icon:string,
-  link:string
+export interface NavButton {
+  text: string;
+  icon: string;
+  link: string;
 }
 
 @Component({
@@ -14,16 +15,16 @@ export interface NavButton{
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
-  @Output("btnMenuClick") btnMenuClick = new EventEmitter();
-  @Input("asideMenuVisible") asideMenuVisible: boolean;
 
-  constructor(public authService: AuthService, public ts: TextService) { }
+  @Output() btnMenuClick = new EventEmitter();
+  @Input() asideMenuVisible: boolean;
+
+  constructor(public coreService: CoreService, public ts: TextService) { }
 
   ngOnInit() {
   }
 
-  emitEventBtnMenu(event: Event){
+  emitEventBtnMenu(event: Event) {
     this.btnMenuClick.emit();
     event.stopPropagation();
   }

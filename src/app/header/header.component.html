@@ -1,9 +1,9 @@
 <header>
   <div id='btn-menu' (click)="emitEventBtnMenu($event)" [class.active]="asideMenuVisible" class="btn-nav"><i class="fa fa-bars" aria-hidden="true"></i></div>
-  <a *ngIf="!authService.isAuthenticated" class='btn-nav' routerLink="/" ><i class="fa fa-home" aria-hidden="true"></i> {{ ts.strings.home }}</a>
-  <div *ngIf="authService.isAuthenticated">
-    <a *ngIf="!authService.currentSession.user.currentGalaxy" class='btn-nav' routerLink="/galaxies" routerLinkActive="active"><i class="fa fa-list-ul" aria-hidden="true"></i> {{ ts.strings.selectGalaxy }}</a>
-    <div *ngIf="authService.currentSession.user.currentGalaxy">
+  <a *ngIf="!coreService.isAuthenticated" class='btn-nav' routerLink="/" ><i class="fa fa-home" aria-hidden="true"></i> {{ ts.strings.home }}</a>
+  <div *ngIf="coreService.isAuthenticated">
+    <a *ngIf="!coreService.currentSession.user.currentGalaxy" class='btn-nav' routerLink="/galaxies" routerLinkActive="active"><i class="fa fa-list-ul" aria-hidden="true"></i> {{ ts.strings.selectGalaxy }}</a>
+    <div *ngIf="coreService.currentGalaxy">
       <a class='btn-nav' routerLink="/galaxy" routerLinkActive="active"><i class="fa fa-map" aria-hidden="true"></i> {{ ts.strings.galaxy }}</a>
       <a class='btn-nav' routerLink="/colonies" routerLinkActive="active"><i class="fa fa-university" aria-hidden="true"></i> {{ ts.strings.colonies }}</a>
       <a class='btn-nav' routerLink="/fleets" routerLinkActive="active"><i class="fa fa-space-shuttle" aria-hidden="true"></i> {{ ts.strings.fleets }}</a>
@@ -13,11 +13,11 @@
     </div>
   </div>
   <div>
-    <div *ngIf="!authService.isAuthenticated">
+    <div *ngIf="!coreService.isAuthenticated">
       <a class='btn-nav' routerLink="/login" routerLinkActive="active"><i class="fa fa-sign-in" aria-hidden="true"></i> {{ ts.strings.login }}</a>
       <a class='btn-nav'  routerLink="/register" routerLinkActive="active"><i class="fa fa-id-card" aria-hidden="true"></i> {{ ts.strings.register }}</a>
     </div>
-    <a *ngIf="authService.isAuthenticated" class='btn-nav'><i class="fa fa-user" aria-hidden="true"></i> {{ authService.currentSession.user.email }}</a>
-    <a *ngIf="authService.isAuthenticated" class='btn-nav' (click)="authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> {{ ts.strings.logout }}</a>
+    <a *ngIf="coreService.isAuthenticated" class='btn-nav'><i class="fa fa-user" aria-hidden="true"></i> {{ coreService.currentSession.user.email }}</a>
+    <a *ngIf="coreService.isAuthenticated" class='btn-nav' (click)="coreService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> {{ ts.strings.logout }}</a>
   </div>
 </header>

@@ -6,23 +6,23 @@ import { Injectable } from '@angular/core';
 export class TextService {
 
   private _strings = {
-    galaxy: "Galaxia",
-    colonies: "Colonias",
-    fleets: "Flotas",
-    planets: "Planetas",
-    commerce: "Comercio",
-    research: "Investigación",
-    logout: "Cerrar sesión",
-    register: "Crear una cuenta",
-    login: "Iniciar Sesión",
-    password: "Contraseña",
-    repeatPassword: "Repetir Contraseña",
-    email: "Email",
-    send: "Enviar",
-    home: "Inicio",
-    selectGalaxy: "Seleccionar galaxia",
-    invalidLoginCredentials: "Email o Contraseña incorrecta",
-    passwordsDontMatch: "Las contraseñas no coinciden"
+    galaxy: 'Galaxia',
+    colonies: 'Colonias',
+    fleets: 'Flotas',
+    planets: 'Planetas',
+    commerce: 'Comercio',
+    research: 'Investigación',
+    logout: 'Cerrar sesión',
+    register: 'Crear una cuenta',
+    login: 'Iniciar Sesión',
+    password: 'Contraseña',
+    repeatPassword: 'Repetir Contraseña',
+    email: 'Email',
+    send: 'Enviar',
+    home: 'Inicio',
+    selectGalaxy: 'Seleccionar galaxia',
+    invalidLoginCredentials: 'Email o Contraseña incorrecta',
+    passwordsDontMatch: 'Las contraseñas no coinciden'
   };
 
   constructor() { }
