@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Session } from '../entities/session';

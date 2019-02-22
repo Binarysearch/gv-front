@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subject, Subscription } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { AuthService } from 'src/app/services/auth.service';
+import { Observable, Subject } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 export interface StarSystem {
   id: number;

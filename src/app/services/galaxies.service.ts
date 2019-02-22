@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService, Session } from './auth.service';
+import { AuthService } from './auth.service';
 import { tap } from 'rxjs/operators';
 import { Galaxy } from '../entities/galaxy';
+import { Session } from '../entities/session';
 
 @Injectable({
   providedIn: 'root'
