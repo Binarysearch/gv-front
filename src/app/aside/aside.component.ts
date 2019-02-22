@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TextService } from '../services/text.service';
-import { AuthService } from '../services/auth.service';
+import { CoreService } from '../services/core.service';
 
 export interface AsideOption {
 
@@ -17,7 +17,7 @@ export class AsideComponent implements OnInit {
 
   @Input() open = false;
 
-  constructor(public ts: TextService, public authService: AuthService) { }
+  constructor(public ts: TextService, public coreService: CoreService) { }
 
   ngOnInit() {
   }

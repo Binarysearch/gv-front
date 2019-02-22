@@ -1,5 +1,5 @@
+import { CoreService } from './../services/core.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { AuthService, Session } from '../services/auth.service';
 import { TextService } from '../services/text.service';
 
 @Component({
@@ -9,32 +9,30 @@ import { TextService } from '../services/text.service';
 })
 export class LoginComponent implements OnInit {
 
-  email: string = "admin@galaxyvictor.com";
-  password: string = "12345";
+  email = 'admin@galaxyvictor.com';
+  password = '12345';
   errorMessage: string;
 
-  @ViewChild("emailInput") emailInput: ElementRef;
-  @ViewChild("passwordInput") passwordInput: ElementRef;
+  @ViewChild('emailInput') emailInput: ElementRef;
+  @ViewChild('passwordInput') passwordInput: ElementRef;
 
-  constructor(public authService: AuthService, public ts: TextService) { }
+  constructor(public core: CoreService, public ts: TextService) { }
 
   ngOnInit() {
     this.emailInput.nativeElement.focus();
   }
 
-  login(){
-    this.authService.login(this.email, this.password).subscribe(null, error => {
-      if(error.status == 401){
+  login() {
+    this.core.login(this.email, this.password).subscribe(null, error => {
+      if (error.status === 401) {
         this.errorMessage = this.ts.strings.invalidLoginCredentials;
         this.emailInput.nativeElement.focus();
-        this.password = "";
+        this.password = '';
       }
     });
   }
 
-  passwordKeyDown(event: KeyboardEvent){
-    if(event.keyCode==13){
-      this.login();
-    }
+  passwordKeyEnterDown() {
+    this.login();
   }
 }

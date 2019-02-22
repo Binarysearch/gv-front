@@ -1,27 +1,28 @@
 import { Injectable } from '@angular/core';
 import { StarRenderer } from './star-renderer';
-import { StarSystemsService } from '../services/star-systems.service';
 import { Camera } from './camera';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
+import { CoreService } from '../services/core.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GalaxyRenderer implements Renderer{
+export class GalaxyRenderer implements Renderer {
 
     private gl: any;
-    private animate: boolean = true;
+    private animate: boolean;
     private starRenderer: StarRenderer;
-    private camera: Camera
-    
-    constructor(private starSystemsService: StarSystemsService, private shaderCompiler: ShaderProgramCompiler){
+    private camera: Camera;
+
+    constructor(private core: CoreService, private shaderCompiler: ShaderProgramCompiler) {
         this.camera = new Camera();
+        this.animate = true;
         this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
-        let animate = () => {
-            if(this.animate){
+        const animate = () => {
+            if (this.animate) {
                 window.requestAnimationFrame(animate);
-                if(this.gl){
+                if (this.gl) {
                     this.render(this.gl);
                 }
             }
@@ -29,7 +30,7 @@ export class GalaxyRenderer implements Renderer{
         animate();
     }
 
-    setup(gl: any){
+    setup(gl: any) {
         this.animate = false;
         this.gl = gl;
         this.starRenderer.setup(gl);
@@ -37,17 +38,17 @@ export class GalaxyRenderer implements Renderer{
         gl.clearColor(0, 0, 0, 1);
     }
 
-    prepareRender(){}
+    prepareRender() {}
 
-    render(gl: any){
+    render(gl: any) {
         gl.clear(gl.COLOR_BUFFER_BIT);
         this.starRenderer.prepareRender(gl);
-        this.starSystemsService.starSystems.forEach(starSystem => {
+        this.core.starSystems.forEach(starSystem => {
             this.starRenderer.render(gl, starSystem);
         });
     }
 
-    setViewport(width: number, height: number){
+    setViewport(width: number, height: number) {
         this.gl.viewport(0, 0, width, height);
         this.camera.aspectRatio = width / height;
     }

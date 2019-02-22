@@ -10,9 +10,8 @@
   </div>
   <div class="field">
     <label>{{ ts.strings.repeatPassword }}</label>
-    <input #repeatPasswordInput type="password" [(ngModel)]="repeatPassword" (keydown)="passwordKeyDown($event)" (keyup)="passwordChange()">
+    <input #repeatPasswordInput type="password" [(ngModel)]="repeatPassword" (keydown.enter)="passwordKeyEnterDown()" (keyup)="passwordChange()">
   </div>
   <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
   <button class="btn" (click)="register()">{{ ts.strings.send }}</button>
 </div>
-  

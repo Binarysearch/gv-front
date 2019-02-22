@@ -3,16 +3,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Galaxy } from './galaxies.service';
-
-export interface Session {
-  token: string;
-  user: {
-    id: number,
-    email: String,
-    currentGalaxy?: Galaxy
-  };
-}
+import { Session } from '../entities/session';
 
 @Injectable({
   providedIn: 'root'

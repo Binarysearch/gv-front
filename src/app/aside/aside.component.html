@@ -1,5 +1,5 @@
 <div *ngIf="open" id="container">
-    <ul *ngIf="authService.isAuthenticated">
+    <ul *ngIf="coreService.isAuthenticated">
         <li><a routerLink="/galaxies" routerLinkActive="active"><i class="fa fa-list-ul" aria-hidden="true"></i> {{ ts.strings.selectGalaxy }}</a></li>
     </ul>
 </div>

@@ -7,12 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   asideMenuVisible = false;
-  
-  closeAsideMenu(){
+
+  closeAsideMenu() {
     this.asideMenuVisible = false;
   }
 
-  toggleAsideMenu(){
+  toggleAsideMenu() {
     this.asideMenuVisible = !this.asideMenuVisible;
   }
 
