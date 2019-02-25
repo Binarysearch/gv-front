@@ -23,6 +23,16 @@ export class GalaxyComponent implements OnInit {
     this.onResize();
   }
 
+  onScroll(event: WheelEvent) {
+    this.renderer.zoomEvent(event.deltaY);
+    event.preventDefault();
+  }
+
+  @HostListener('window:wheel')
+  cancelWindowWheel() {
+    event.preventDefault();
+  }
+
   @HostListener('window:resize')
   onResize() {
     const displayWidth  = this.canvas.clientWidth;
