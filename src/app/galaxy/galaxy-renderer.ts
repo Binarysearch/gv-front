@@ -14,6 +14,8 @@ export class GalaxyRenderer implements Renderer {
   private animate: boolean;
   private starRenderer: StarRenderer;
   private camera: Camera;
+  private _mouseX: number;
+  private _mouseY: number;
 
   constructor(private core: CoreService, private shaderCompiler: ShaderProgramCompiler) {
     this.camera = new Camera();
@@ -66,4 +68,33 @@ export class GalaxyRenderer implements Renderer {
     }
   }
 
+  mouseMoveEvent(x: number, y: number): any {
+    this._mouseX = x;
+    this._mouseY = y;
+
+    if (x < -0.99) {
+      this.camera.movingLeft = true;
+    } else if (x > 0.99) {
+      this.camera.movingRight = true;
+    } else {
+      this.camera.movingLeft = false;
+      this.camera.movingRight = false;
+    }
+
+    if (y < -0.95) {
+      this.camera.movingDown = true;
+    } else if (y > 0.95) {
+      this.camera.movingUp = true;
+    } else {
+      this.camera.movingDown = false;
+      this.camera.movingUp = false;
+    }
+  }
+
+  mouseOut() {
+    this.camera.movingLeft = false;
+    this.camera.movingRight = false;
+    this.camera.movingDown = false;
+    this.camera.movingUp = false;
+  }
 }

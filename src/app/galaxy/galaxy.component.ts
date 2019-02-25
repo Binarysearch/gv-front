@@ -28,6 +28,16 @@ export class GalaxyComponent implements OnInit {
     event.preventDefault();
   }
 
+  mouseMove(event: MouseEvent) {
+    const x = ((event.clientX - this.canvas.getBoundingClientRect().left) / this.canvas.width) * 2 - 1;
+    const y = -(((event.clientY - this.canvas.getBoundingClientRect().top) / this.canvas.height) * 2 - 1);
+    this.renderer.mouseMoveEvent(x, y);
+  }
+
+  mouseOut() {
+    this.renderer.mouseOut();
+  }
+
   @HostListener('window:wheel')
   cancelWindowWheel() {
     event.preventDefault();
@@ -45,4 +55,5 @@ export class GalaxyComponent implements OnInit {
 
     this.renderer.setViewport(this.canvas.width, this.canvas.height);
   }
+
 }
