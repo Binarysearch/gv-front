@@ -12,7 +12,7 @@ export class GalaxyComponent implements OnInit {
 
   canvas: HTMLCanvasElement;
 
-  constructor(private renderer: GalaxyRenderer) {}
+  constructor(public renderer: GalaxyRenderer) {}
 
   ngOnInit() {
     this.canvas = (this.canvasRef.nativeElement as HTMLCanvasElement);

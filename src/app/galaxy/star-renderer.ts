@@ -67,16 +67,26 @@ export class StarRenderer implements Renderer {
             return;
         }
 
-        const s = star.size * Math.min(Math.max((nz * zoom - starz) / (nz * zoom), 0), 1);
-        const scale = (0.015 * s + 0.01) / zoom + 0.0001;
 
         gl.uniform3f(this.civilizationColorUniformLocation, 1, 1, 1);
-        gl.uniform1f(this.scaleUniformLocation, scale);
+        gl.uniform1f(this.scaleUniformLocation, this.getStarRenderScale(star));
         gl.uniform2f(this.positionUniformLocation, star.x - this.camera.x, star.y - this.camera.y);
         gl.uniform3f(this.colorUniformLocation, 1, 1, 1);
         gl.uniform1f(this.hoverUniformLocation, 0.0);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
+    }
+
+    getStarRenderScale(ss: StarSystem): number {
+      const zoom = this.camera.zoom;
+      const nz = 4;
+
+      // z de estrella
+      const starz = 0;
+
+      const s = ss.size * Math.min(Math.max((nz * zoom - starz) / (nz * zoom), 0), 1);
+      const scale = (0.015 * s + 0.01) / zoom + 0.0001;
+      return scale;
     }
 }
