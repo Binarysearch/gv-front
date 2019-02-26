@@ -94,21 +94,30 @@ export class Camera {
 
   }
 
-  public set movingLeft(moving: boolean) {
-    this._movingLeft = moving;
+  mouseMoved(x: number, y: number): void {
+    if (x < -0.99) {
+      this._movingLeft = true;
+    } else if (x > 0.99) {
+      this._movingRight = true;
+    } else {
+      this._movingLeft = false;
+      this._movingRight = false;
+    }
+
+    if (y < -0.95) {
+      this._movingDown = true;
+    } else if (y > 0.95) {
+      this._movingUp = true;
+    } else {
+      this._movingDown = false;
+      this._movingUp = false;
+    }
   }
 
-  public set movingRight(moving: boolean) {
-    this._movingRight = moving;
+  stopMoving(): void {
+    this._movingLeft = false;
+    this._movingRight = false;
+    this._movingDown = false;
+    this._movingUp = false;
   }
-
-  public set movingDown(moving: boolean) {
-    this._movingDown = moving;
-  }
-
-  public set movingUp(moving: boolean) {
-    this._movingUp = moving;
-  }
-
-
 }

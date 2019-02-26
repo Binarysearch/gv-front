@@ -74,29 +74,9 @@ export class GalaxyRenderer implements Renderer {
     this._mouseX = x;
     this._mouseY = y;
 
-    this.checkCameraAutoMovement();
+    this.camera.mouseMoved(x, y);
 
     this.checkHover();
-  }
-
-  private checkCameraAutoMovement() {
-    if (this._mouseX < -0.99) {
-      this.camera.movingLeft = true;
-    } else if (this._mouseX > 0.99) {
-      this.camera.movingRight = true;
-    } else {
-      this.camera.movingLeft = false;
-      this.camera.movingRight = false;
-    }
-
-    if (this._mouseY < -0.95) {
-      this.camera.movingDown = true;
-    } else if (this._mouseY > 0.95) {
-      this.camera.movingUp = true;
-    } else {
-      this.camera.movingDown = false;
-      this.camera.movingUp = false;
-    }
   }
 
   private checkHover() {
@@ -146,10 +126,7 @@ export class GalaxyRenderer implements Renderer {
   }
 
   mouseOut() {
-    this.camera.movingLeft = false;
-    this.camera.movingRight = false;
-    this.camera.movingDown = false;
-    this.camera.movingUp = false;
+    this.camera.stopMoving();
   }
 
   public get hovered(): StarSystem {
