@@ -29,25 +29,20 @@ export class GalaxyComponent implements OnInit {
     event.preventDefault();
   }
 
-  mouseMove(event: MouseEvent) {
-    const x = ((event.clientX - this.canvas.getBoundingClientRect().left) / this.canvas.width) * 2 - 1;
-    const y = -(((event.clientY - this.canvas.getBoundingClientRect().top) / this.canvas.height) * 2 - 1);
-    this.renderer.mouseMoveEvent(x, y);
-  }
-
-  mouseOut() {
-    this.renderer.mouseOut();
-  }
-
   @HostListener('window:wheel')
   cancelWindowWheel() {
     event.preventDefault();
   }
 
+  @HostListener('window:mouseup')
+  windowMouseUp() {
+    this.renderer.onMouseUp();
+  }
+
   @HostListener('window:mousemove', ['$event'])
-  checkCameraMovement(event: MouseEvent) {
-    const x = event.clientX / window.innerWidth;
-    const y = event.clientY / window.innerHeight;
+  windowMouseMove(event: MouseEvent) {
+    const x = ((event.clientX - this.canvas.getBoundingClientRect().left) / this.canvas.width) * 2 - 1;
+    const y = -(((event.clientY - this.canvas.getBoundingClientRect().top) / this.canvas.height) * 2 - 1);
     this.renderer.mouseMoveOnWindow(x, y);
   }
 
@@ -70,5 +65,13 @@ export class GalaxyComponent implements OnInit {
 
   mouseClick() {
     this.renderer.mouseClick();
+  }
+
+  mouseDown() {
+    this.renderer.onMouseDown();
+  }
+
+  mouseUp() {
+    this.renderer.onMouseUp();
   }
 }

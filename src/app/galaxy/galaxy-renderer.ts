@@ -21,6 +21,11 @@ export class GalaxyRenderer {
   private _selected: GameObject;
   _mouseX: number;
   _mouseY: number;
+  mouseDownX: number;
+  mouseDownY: number;
+  mouseDown: boolean;
+  mouseDownCameraX: number;
+  mouseDownCameraY: number;
 
   constructor(private core: CoreService, shaderCompiler: ShaderProgramCompiler) {
     this.camera = new Camera();
@@ -93,18 +98,23 @@ export class GalaxyRenderer {
     }
   }
 
-  mouseMoveEvent(x: number, y: number): any {
+  mouseMoveOnWindow(x: number, y: number): any {
     this._mouseX = x;
     this._mouseY = y;
     this.hoverManager.mouseMoved(x, y);
-  }
-
-  mouseMoveOnWindow(x: number, y: number): any {
-    this.camera.mouseMoved(x, y);
-  }
-
-  mouseOut() {
-    this.camera.stopMoving();
+    if (this.mouseDown) {
+      const dx = (this.mouseDownX - this._mouseX) * 100;
+      const dy = (this.mouseDownY - this._mouseY) * 100;
+      const epsilon = 1;
+      const delta = dx * dx + dy * dy;
+      if (delta < epsilon) {
+        return;
+      }
+      const offseX = (x - this.mouseDownX) / this.camera.zoom * this.camera.aspectRatio;
+      const offseY = (y - this.mouseDownY) / this.camera.zoom;
+      this.camera.x = this.mouseDownCameraX - offseX;
+      this.camera.y = this.mouseDownCameraY - offseY;
+    }
   }
 
   public get hovered(): GameObject {
@@ -116,7 +126,26 @@ export class GalaxyRenderer {
   }
 
   mouseClick(): void {
+    const dx = (this.mouseDownX - this._mouseX) * 100;
+    const dy = (this.mouseDownY - this._mouseY) * 100;
+    const epsilon = 2;
+    const delta = dx * dx + dy * dy;
+    if (delta > epsilon) {
+      return;
+    }
     this._selected = this.hovered;
-    console.log(this._selected);
+  }
+
+  onMouseDown() {
+    this.mouseDown = true;
+    this.mouseDownX = this._mouseX;
+    this.mouseDownY = this._mouseY;
+    this.mouseDownCameraX = this.camera.x;
+    this.mouseDownCameraY = this.camera.y;
+
+  }
+
+  onMouseUp() {
+    this.mouseDown = false;
   }
 }
