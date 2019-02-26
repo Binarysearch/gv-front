@@ -19,13 +19,13 @@ export class GalaxyRenderer {
   private hoverManager: HoverManager;
   private hoverHubRenderer: HoverHubRenderer;
   private _selected: GameObject;
-  _mouseX: number;
-  _mouseY: number;
-  mouseDownX: number;
-  mouseDownY: number;
-  mouseDown: boolean;
-  mouseDownCameraX: number;
-  mouseDownCameraY: number;
+  private _mouseX: number;
+  private _mouseY: number;
+  private mouseDownX: number;
+  private mouseDownY: number;
+  private mouseDown: boolean;
+  private mouseDownCameraX: number;
+  private mouseDownCameraY: number;
 
   constructor(private core: CoreService, shaderCompiler: ShaderProgramCompiler) {
     this.camera = new Camera();
