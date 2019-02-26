@@ -1,6 +1,6 @@
 
 const MIN_ZOOM = 0.00001;
-const MAX_ZOOM = 0.0001;
+const MAX_ZOOM = 10;
 
 const MIN_X = 0;
 const MAX_X = 100000;
@@ -25,6 +25,8 @@ export class Camera {
   private _movingRight: boolean;
   private _movingUp: boolean;
   private _movingDown: boolean;
+  cX: number;
+  cY: number;
 
   constructor() {
     this._zoom = 0.00002;
@@ -34,6 +36,8 @@ export class Camera {
     this._y = 50000;
     this._speedX = 0;
     this._speedY = 0;
+    this.cX = 0;
+    this.cY = 0;
 
   }
 
@@ -57,11 +61,18 @@ export class Camera {
     return this._aspectRatio;
   }
 
-  public zoomIn() {
+  public zoomIn(x: number, y: number) {
+    this.setZoomCenter(x, y);
     this._vZoom += 0.02 * this._zoom;
   }
 
-  public zoomOut() {
+  setZoomCenter(x: number, y: number): any {
+    this.cX = x;
+    this.cY = y;
+  }
+
+  public zoomOut(x: number, y: number) {
+    this.setZoomCenter(x, y);
     this._vZoom -= 0.02 * this._zoom;
   }
 
@@ -83,11 +94,22 @@ export class Camera {
       this._speedY = -SPEED / this.zoom;
     }
 
-    this._zoom = Math.min(Math.max(this._zoom + this._vZoom, MIN_ZOOM), MAX_ZOOM);
+    let offsetX = 0;
+    let offsetY = 0;
+    const newZoom = Math.min(Math.max(this._zoom + this._vZoom, MIN_ZOOM), MAX_ZOOM);
+
+    if (this.cX !== 0) {
+      const oldZoom = this._zoom;
+      const zoomChange = oldZoom / newZoom;
+      offsetX = -(zoomChange * (this.cX - this.x) - this.cX + this.x);
+      offsetY = -(zoomChange * (this.cY - this.y) - this.cY + this.y);
+    }
+
+    this._zoom = newZoom;
     this._vZoom *= 0.9;
 
-    this._x = Math.min(Math.max(this._x + this._speedX, MIN_X), MAX_X);
-    this._y = Math.min(Math.max(this._y + this._speedY, MIN_Y), MAX_Y);
+    this._x = Math.min(Math.max(this._x + this._speedX + offsetX, MIN_X), MAX_X);
+    this._y = Math.min(Math.max(this._y + this._speedY + offsetY, MIN_Y), MAX_Y);
 
     this._speedX *= 0.95;
     this._speedY *= 0.95;

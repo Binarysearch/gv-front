@@ -17,8 +17,10 @@ export class GalaxyRenderer {
   private starRenderer: StarRenderer;
   private camera: Camera;
   private hoverManager: HoverManager;
-  hoverHubRenderer: HoverHubRenderer;
-  _selected: GameObject;
+  private hoverHubRenderer: HoverHubRenderer;
+  private _selected: GameObject;
+  _mouseX: number;
+  _mouseY: number;
 
   constructor(private core: CoreService, shaderCompiler: ShaderProgramCompiler) {
     this.camera = new Camera();
@@ -76,14 +78,24 @@ export class GalaxyRenderer {
   }
 
   zoomEvent(delta: number): any {
+    let x = this._mouseX / this.camera.zoom * this.camera.aspectRatio + this.camera.x;
+    let y = this._mouseY / this.camera.zoom + this.camera.y;
+
+    if (this.hovered) {
+      x = this.hovered.x;
+      y = this.hovered.y;
+    }
+
     if (delta < 0) {
-      this.camera.zoomIn();
+      this.camera.zoomIn(x, y);
     } else {
-      this.camera.zoomOut();
+      this.camera.zoomOut(x, y);
     }
   }
 
   mouseMoveEvent(x: number, y: number): any {
+    this._mouseX = x;
+    this._mouseY = y;
     this.hoverManager.mouseMoved(x, y);
   }
 
