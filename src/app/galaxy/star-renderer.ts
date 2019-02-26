@@ -1,5 +1,5 @@
 import { Camera } from './camera';
-import { StarSystem } from '../services/star-systems.service';
+import { StarSystem } from '../entities/star-system';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE } from './gl/shaders/star-system-shader';
@@ -69,7 +69,7 @@ export class StarRenderer implements Renderer {
 
 
         gl.uniform3f(this.civilizationColorUniformLocation, 1, 1, 1);
-        gl.uniform1f(this.scaleUniformLocation, this.getStarRenderScale(star));
+        gl.uniform1f(this.scaleUniformLocation, this.getElementRenderScale(star));
         gl.uniform2f(this.positionUniformLocation, star.x - this.camera.x, star.y - this.camera.y);
         gl.uniform3f(this.colorUniformLocation, 1, 1, 1);
         gl.uniform1f(this.hoverUniformLocation, 0.0);
@@ -78,7 +78,7 @@ export class StarRenderer implements Renderer {
 
     }
 
-    getStarRenderScale(ss: StarSystem): number {
+    getElementRenderScale(ss: StarSystem): number {
       const zoom = this.camera.zoom;
       const nz = 4;
 

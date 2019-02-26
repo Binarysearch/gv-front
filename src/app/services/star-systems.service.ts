@@ -2,15 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from './auth.service';
-
-export interface StarSystem {
-  id: number;
-  name?: string;
-  x: number;
-  y: number;
-  type: number;
-  size: number;
-}
+import { StarSystem } from '../entities/star-system';
 
 @Injectable({
   providedIn: 'root'
