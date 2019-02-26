@@ -95,7 +95,7 @@ export class Camera {
   }
 
   mouseMoved(x: number, y: number): void {
-    if (x < -0.99) {
+    if (x < 0.01) {
       this._movingLeft = true;
     } else if (x > 0.99) {
       this._movingRight = true;
@@ -104,10 +104,10 @@ export class Camera {
       this._movingRight = false;
     }
 
-    if (y < -0.95) {
-      this._movingDown = true;
-    } else if (y > 0.95) {
+    if (y < 0.01) {
       this._movingUp = true;
+    } else if (y > 0.99) {
+      this._movingDown = true;
     } else {
       this._movingDown = false;
       this._movingUp = false;

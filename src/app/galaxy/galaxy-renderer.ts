@@ -69,8 +69,11 @@ export class GalaxyRenderer {
   }
 
   mouseMoveEvent(x: number, y: number): any {
-    this.camera.mouseMoved(x, y);
     this.hoverManager.mouseMoved(x, y);
+  }
+
+  mouseMoveOnWindow(x: number, y: number): any {
+    this.camera.mouseMoved(x, y);
   }
 
   mouseOut() {

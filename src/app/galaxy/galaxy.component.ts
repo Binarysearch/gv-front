@@ -43,6 +43,13 @@ export class GalaxyComponent implements OnInit {
     event.preventDefault();
   }
 
+  @HostListener('window:mousemove', ['$event'])
+  checkCameraMovement(event: MouseEvent) {
+    const x = event.clientX / window.innerWidth;
+    const y = event.clientY / window.innerHeight;
+    this.renderer.mouseMoveOnWindow(x, y);
+  }
+
   @HostListener('window:resize')
   onResize() {
     const displayWidth  = this.canvas.clientWidth;
