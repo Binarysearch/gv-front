@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
-import { GalaxyRenderer } from './galaxy-renderer';
-import { rendererTypeName } from '@angular/compiler';
+import { GalaxyMap } from './galaxy-map';
 
 @Component({
   selector: 'app-galaxy',
@@ -13,7 +12,7 @@ export class GalaxyComponent implements OnInit {
 
   canvas: HTMLCanvasElement;
 
-  constructor(public renderer: GalaxyRenderer) {}
+  constructor(public renderer: GalaxyMap) {}
 
   ngOnInit() {
     this.canvas = (this.canvasRef.nativeElement as HTMLCanvasElement);

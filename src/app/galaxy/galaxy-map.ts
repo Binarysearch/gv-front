@@ -10,7 +10,7 @@ import { HoverHubRenderer } from './hover-hub-renderer';
 @Injectable({
   providedIn: 'root'
 })
-export class GalaxyRenderer {
+export class GalaxyMap {
 
   private gl: any;
   private animate: boolean;
