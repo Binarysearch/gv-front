@@ -42,7 +42,9 @@ export class StarSystemsService {
 
     this.http.get<StarSystem[]>(this.starSystemsUrl + `?galaxy=${galaxyId}`, httpOptions)
       .subscribe((data: StarSystem[]) => {
-        this._starSystems = data;
+        this._starSystems = data.map(ss => {
+          ss.objectType = 'StarSystem'; return ss;
+        });
         subject.next(data);
       }, (error: any) => {
         subject.error(error);

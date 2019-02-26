@@ -1,2 +1,2 @@
 <canvas #canvasRef id='canvas' [class.pointer]="renderer.hovered" (mousewheel)="onScroll($event)" (mousemove)="mouseMove($event)" (mouseout)="mouseOut();"></canvas>
-<div *ngIf="renderer.hovered" style="position: absolute;color:white;top: 200px; left:200px;">{{ renderer.hovered.id }}</div>
+<div *ngIf="renderer.hovered" style="position: absolute;color:white;bottom: 0; left:0;">{{ hoveredTitle }}</div>

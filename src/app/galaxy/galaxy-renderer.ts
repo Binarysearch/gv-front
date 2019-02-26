@@ -5,6 +5,7 @@ import { StarRenderer } from './star-renderer';
 import { Camera } from './camera';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { CoreService } from '../services/core.service';
+import { HoverHubRenderer } from './hover-hub-renderer';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,13 @@ export class GalaxyRenderer {
   private starRenderer: StarRenderer;
   private camera: Camera;
   private hoverManager: HoverManager;
+  hoverHubRenderer: HoverHubRenderer;
 
   constructor(private core: CoreService, shaderCompiler: ShaderProgramCompiler) {
     this.camera = new Camera();
     this.animate = true;
     this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
+    this.hoverHubRenderer = new HoverHubRenderer(this.camera, shaderCompiler);
     this.hoverManager = new HoverManager(core, this.starRenderer, this.camera);
     const animate = () => {
       if (this.animate) {
@@ -38,6 +41,7 @@ export class GalaxyRenderer {
     this.animate = false;
     this.gl = gl;
     this.starRenderer.setup(gl);
+    this.hoverHubRenderer.setup(gl);
     this.animate = true;
     gl.clearColor(0, 0, 0, 1);
   }
@@ -53,6 +57,12 @@ export class GalaxyRenderer {
     this.core.starSystems.forEach(starSystem => {
         this.starRenderer.render(gl, starSystem);
     });
+
+
+    if (this.hovered) {
+      this.hoverHubRenderer.prepareRender(gl);
+      this.hoverHubRenderer.render(gl, this.hovered);
+    }
   }
 
   setViewport(width: number, height: number) {

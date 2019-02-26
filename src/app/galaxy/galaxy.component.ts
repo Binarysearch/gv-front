@@ -63,4 +63,7 @@ export class GalaxyComponent implements OnInit {
     this.renderer.setViewport(this.canvas.width, this.canvas.height);
   }
 
+  get hoveredTitle(): string {
+    return this.renderer.hovered.objectType + ' ' + this.renderer.hovered.id;
+  }
 }
