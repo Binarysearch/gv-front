@@ -18,6 +18,7 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LandingComponent } from './landing/landing.component';
 import { GalaxiesComponent } from './galaxies/galaxies.component';
+import { StarSystemWindowComponent } from './galaxy/star-system-window/star-system-window.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { GalaxiesComponent } from './galaxies/galaxies.component';
     LoginComponent,
     RegisterComponent,
     LandingComponent,
-    GalaxiesComponent
+    GalaxiesComponent,
+    StarSystemWindowComponent
   ],
   imports: [
     BrowserModule,

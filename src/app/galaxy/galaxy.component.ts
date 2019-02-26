@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { GalaxyRenderer } from './galaxy-renderer';
+import { rendererTypeName } from '@angular/compiler';
 
 @Component({
   selector: 'app-galaxy',
@@ -65,5 +66,9 @@ export class GalaxyComponent implements OnInit {
 
   get hoveredTitle(): string {
     return this.renderer.hovered.objectType + ' ' + this.renderer.hovered.id;
+  }
+
+  mouseClick() {
+    this.renderer.mouseClick();
   }
 }

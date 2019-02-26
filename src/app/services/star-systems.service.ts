@@ -55,4 +55,15 @@ export class StarSystemsService {
     return subject.asObservable();
 
   }
+
+  getStarSystem(id: number): Observable<StarSystem> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'token': this.authService.currentSession.token
+      })
+    };
+
+    return this.http.get<StarSystem>(this.starSystemsUrl + `/${id}`, httpOptions);
+  }
 }

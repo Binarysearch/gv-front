@@ -18,6 +18,7 @@ export class GalaxyRenderer {
   private camera: Camera;
   private hoverManager: HoverManager;
   hoverHubRenderer: HoverHubRenderer;
+  _selected: GameObject;
 
   constructor(private core: CoreService, shaderCompiler: ShaderProgramCompiler) {
     this.camera = new Camera();
@@ -63,6 +64,10 @@ export class GalaxyRenderer {
       this.hoverHubRenderer.prepareRender(gl);
       this.hoverHubRenderer.render(gl, this.hovered);
     }
+    if (this.selected) {
+      this.hoverHubRenderer.prepareRender(gl);
+      this.hoverHubRenderer.render(gl, this.selected);
+    }
   }
 
   setViewport(width: number, height: number) {
@@ -92,5 +97,14 @@ export class GalaxyRenderer {
 
   public get hovered(): GameObject {
     return this.hoverManager.hovered;
+  }
+
+  public get selected(): GameObject {
+    return this._selected;
+  }
+
+  mouseClick(): void {
+    this._selected = this.hovered;
+    console.log(this._selected);
   }
 }

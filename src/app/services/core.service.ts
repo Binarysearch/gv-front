@@ -2,9 +2,10 @@ import { GalaxiesService } from './galaxies.service';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Galaxy } from '../entities/galaxy';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { StarSystemsService } from './star-systems.service';
 import { Session } from '../entities/session';
+import { StarSystem } from '../entities/star-system';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,7 @@ export class CoreService {
     return this.authService.register(email, password);
   }
 
-
+  public getStarSystem(id: number): Observable<StarSystem> {
+    return this.starSystemsService.getStarSystem(id);
+  }
 }
