@@ -5,5 +5,14 @@
     <div *ngIf="!maximized" class="maximize-button" (click)="maximizeButtonClick();"><i class="fa fa-window-maximize" aria-hidden="true"></i></div>
     <div *ngIf="maximized" class="restore-button" (click)="restoreButtonClick();"><i class="fa fa-window-restore" aria-hidden="true"></i></div>
   </div>
-  <div class="body"></div>
+  <div class="body">
+    <div class="tabs-header">
+      <div class="tab-btn"></div>
+      <div class="tab-btn"></div>
+    </div>
+    <div class="tabs-body">
+      <div class="tab"></div>
+      <div class="tab"></div>
+    </div>
+  </div>
 </div>
