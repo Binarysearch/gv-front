@@ -16,6 +16,11 @@ export class StarSystemWindowComponent implements OnInit {
   constructor(private core: CoreService) { }
 
   ngOnInit() {
+    const statusString = localStorage.getItem('star-system-window-status');
+    if (statusString) {
+      const status = JSON.parse(statusString);
+      this.maximized = status.maximized;
+    }
   }
 
   get title(): string {
@@ -28,11 +33,18 @@ export class StarSystemWindowComponent implements OnInit {
 
   maximizeButtonClick() {
     this.maximized = true;
+    this.storeStatus();
   }
 
   restoreButtonClick() {
     this.maximized = false;
+    this.storeStatus();
   }
 
-
+  storeStatus() {
+    const status = {
+      maximized: this.maximized
+    };
+    localStorage.setItem('star-system-window-status', JSON.stringify(status));
+  }
 }
