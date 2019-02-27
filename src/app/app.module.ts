@@ -20,6 +20,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LandingComponent } from './landing/landing.component';
 import { GalaxiesComponent } from './galaxies/galaxies.component';
 import { StarSystemWindowComponent } from './galaxy/star-system-window/star-system-window.component';
+import { StarDetailsComponent } from './galaxy/star-system-window/star-details/star-details.component';
+import { StarPlanetsComponent } from './galaxy/star-system-window/star-planets/star-planets.component';
+import { StarFleetsComponent } from './galaxy/star-system-window/star-fleets/star-fleets.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { StarSystemWindowComponent } from './galaxy/star-system-window/star-syst
     RegisterComponent,
     LandingComponent,
     GalaxiesComponent,
-    StarSystemWindowComponent
+    StarSystemWindowComponent,
+    StarDetailsComponent,
+    StarPlanetsComponent,
+    StarFleetsComponent
   ],
   imports: [
     BrowserModule,
