@@ -148,4 +148,8 @@ export class GalaxyMap {
   onMouseUp() {
     this.mouseDown = false;
   }
+
+  deselect() {
+    this._selected = null;
+  }
 }

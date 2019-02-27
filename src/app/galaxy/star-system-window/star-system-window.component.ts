@@ -1,5 +1,5 @@
 import { CoreService } from './../../services/core.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StarSystem } from '../../entities/star-system';
 
 @Component({
@@ -10,9 +10,19 @@ import { StarSystem } from '../../entities/star-system';
 export class StarSystemWindowComponent implements OnInit {
 
   @Input() starSystem: StarSystem;
+  @Output() closeButton = new EventEmitter();
 
   constructor(private core: CoreService) { }
 
   ngOnInit() {
   }
+
+  get title(): string {
+    return 'Star System ' + this.starSystem.id;
+  }
+
+  closeButtonClick() {
+    this.closeButton.emit();
+  }
+
 }
