@@ -1,3 +1,7 @@
-<p>
-  star-details works!
-</p>
+<div *ngIf="starSystem" class="container">
+    <div>Id: {{ starSystem.id }}</div>
+    <div>{{ ts.strings.name }}: {{ starSystem.name }}</div>
+    <div>{{ ts.strings.type }}: {{ starSystemType }}</div>
+    <div>{{ ts.strings.size }}: {{ starSystemSize }}</div>
+</div>
+<div *ngIf="!starSystem" class="container">{{ ts.strings.loading }} ...</div>

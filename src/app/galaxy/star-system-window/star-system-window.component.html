@@ -12,7 +12,7 @@
       <div class="tab-btn" (click)="activateTab('fleets')" [class.active]="activeTab === 'fleets'">{{ ts.strings.fleets }}</div>
     </div>
     <div class="tabs-body">
-      <app-star-details *ngIf="activeTab === 'star'"></app-star-details>
+      <app-star-details *ngIf="activeTab === 'star'" [starSystemId]="starSystem.id"></app-star-details>
       <app-star-planets *ngIf="activeTab === 'planets'"></app-star-planets>
       <app-star-fleets *ngIf="activeTab === 'fleets'">Flotas</app-star-fleets>
     </div>

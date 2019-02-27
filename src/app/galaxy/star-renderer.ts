@@ -3,14 +3,7 @@ import { StarSystem } from '../entities/star-system';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE } from './gl/shaders/star-system-shader';
-
-const STAR_COLORS = [
-  {r: 1, g: 0, b: 0}, // red
-  {r: 1, g: 1, b: 0}, // yellow
-  {r: 0, g: 0, b: 1}, // blue
-  {r: 1, g: 0.5, b: 0}, // orange
-  {r: 1, g: 1, b: 1} // white
-];
+import { STAR_COLORS } from './galaxy-constants';
 
 export class StarRenderer implements Renderer {
   program: WebGLShader;

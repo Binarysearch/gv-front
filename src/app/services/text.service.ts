@@ -8,6 +8,7 @@ export class TextService {
   private _strings = {
     galaxy: 'Galaxia',
     star: 'Estrella',
+    starSystem: 'Sistema estelar',
     colonies: 'Colonias',
     fleets: 'Flotas',
     planets: 'Planetas',
@@ -19,8 +20,12 @@ export class TextService {
     password: 'Contraseña',
     repeatPassword: 'Repetir Contraseña',
     email: 'Email',
+    name: 'Nombre',
     send: 'Enviar',
     home: 'Inicio',
+    type: 'Tipo',
+    size: 'Tamaño',
+    loading: 'Cargando',
     selectGalaxy: 'Seleccionar galaxia',
     invalidLoginCredentials: 'Email o Contraseña incorrecta',
     passwordsDontMatch: 'Las contraseñas no coinciden'

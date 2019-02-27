@@ -27,7 +27,7 @@ export class StarSystemWindowComponent implements OnInit {
   }
 
   get title(): string {
-    return 'Star System ' + this.starSystem.id;
+    return this.ts.strings.starSystem + ' ' + this.starSystem.id;
   }
 
   closeButtonClick() {
