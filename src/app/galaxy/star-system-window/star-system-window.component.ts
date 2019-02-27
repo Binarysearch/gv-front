@@ -11,6 +11,7 @@ export class StarSystemWindowComponent implements OnInit {
 
   @Input() starSystem: StarSystem;
   @Output() closeButton = new EventEmitter();
+  maximized = false;
 
   constructor(private core: CoreService) { }
 
@@ -24,5 +25,14 @@ export class StarSystemWindowComponent implements OnInit {
   closeButtonClick() {
     this.closeButton.emit();
   }
+
+  maximizeButtonClick() {
+    this.maximized = true;
+  }
+
+  restoreButtonClick() {
+    this.maximized = false;
+  }
+
 
 }

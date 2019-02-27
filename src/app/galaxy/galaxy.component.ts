@@ -12,19 +12,19 @@ export class GalaxyComponent implements OnInit {
 
   canvas: HTMLCanvasElement;
 
-  constructor(public renderer: GalaxyMap) {}
+  constructor(public galaxyMap: GalaxyMap) {}
 
   ngOnInit() {
     this.canvas = (this.canvasRef.nativeElement as HTMLCanvasElement);
     const gl = this.canvas.getContext('webgl2');
 
-    this.renderer.setup(gl);
+    this.galaxyMap.setup(gl);
 
     this.onResize();
   }
 
   onScroll(event: WheelEvent) {
-    this.renderer.zoomEvent(event.deltaY);
+    this.galaxyMap.zoomEvent(event.deltaY);
     event.preventDefault();
   }
 
@@ -35,14 +35,14 @@ export class GalaxyComponent implements OnInit {
 
   @HostListener('window:mouseup')
   windowMouseUp() {
-    this.renderer.onMouseUp();
+    this.galaxyMap.onMouseUp();
   }
 
   @HostListener('window:mousemove', ['$event'])
   windowMouseMove(event: MouseEvent) {
     const x = ((event.clientX - this.canvas.getBoundingClientRect().left) / this.canvas.width) * 2 - 1;
     const y = -(((event.clientY - this.canvas.getBoundingClientRect().top) / this.canvas.height) * 2 - 1);
-    this.renderer.mouseMoveOnWindow(x, y);
+    this.galaxyMap.mouseMoveOnWindow(x, y);
   }
 
   @HostListener('window:resize')
@@ -55,22 +55,22 @@ export class GalaxyComponent implements OnInit {
         this.canvas.height = displayHeight;
     }
 
-    this.renderer.setViewport(this.canvas.width, this.canvas.height);
+    this.galaxyMap.setViewport(this.canvas.width, this.canvas.height);
   }
 
   get hoveredTitle(): string {
-    return this.renderer.hovered.objectType + ' ' + this.renderer.hovered.id;
+    return this.galaxyMap.hovered.objectType + ' ' + this.galaxyMap.hovered.id;
   }
 
   mouseClick() {
-    this.renderer.mouseClick();
+    this.galaxyMap.mouseClick();
   }
 
   mouseDown() {
-    this.renderer.onMouseDown();
+    this.galaxyMap.onMouseDown();
   }
 
   mouseUp() {
-    this.renderer.onMouseUp();
+    this.galaxyMap.onMouseUp();
   }
 }

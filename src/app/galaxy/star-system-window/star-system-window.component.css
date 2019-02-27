@@ -1,16 +1,17 @@
-:host{
+.container{
   position: absolute;
   top: 10%;
   left: 20%;
   width: 60%;
   height: 80%;
+  background-color: rgba(50, 50, 50, 0.9);
 }
 
-.container{
-  position: absolute;
+.container.maximized{
+  top: 0%;
+  left: 0%;
   width: 100%;
   height: 100%;
-  background-color: rgba(50, 50, 50, 0.9);
 }
 
 .title{
@@ -19,7 +20,7 @@
 }
 
 .close-button{
-  padding: 0.5em;
+  padding: 5px;
   cursor: pointer;
   position: absolute;
   top:0px;
@@ -28,3 +29,15 @@
 .close-button:hover{
   color: red;
 }
+
+.maximize-button, .restore-button{
+  padding: 5px;
+  cursor: pointer;
+  position: absolute;
+  top:0px;
+  right:20px;
+}
+.maximize-button:hover, .restore-button:hover{
+  color: yellowgreen;
+}
+
