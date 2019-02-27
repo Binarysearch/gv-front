@@ -1,3 +1,4 @@
+import { TextService } from './../../services/text.service';
 import { CoreService } from './../../services/core.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { StarSystem } from '../../entities/star-system';
@@ -12,14 +13,16 @@ export class StarSystemWindowComponent implements OnInit {
   @Input() starSystem: StarSystem;
   @Output() closeButton = new EventEmitter();
   maximized = false;
+  activeTab = 'star';
 
-  constructor(private core: CoreService) { }
+  constructor(private core: CoreService, public ts: TextService) { }
 
   ngOnInit() {
     const statusString = localStorage.getItem('star-system-window-status');
     if (statusString) {
       const status = JSON.parse(statusString);
       this.maximized = status.maximized;
+      this.activeTab = status.activeTab;
     }
   }
 
@@ -41,9 +44,15 @@ export class StarSystemWindowComponent implements OnInit {
     this.storeStatus();
   }
 
+  activateTab(tabName: string) {
+    this.activeTab = tabName;
+    this.storeStatus();
+  }
+
   storeStatus() {
     const status = {
-      maximized: this.maximized
+      maximized: this.maximized,
+      activeTab: this.activeTab
     };
     localStorage.setItem('star-system-window-status', JSON.stringify(status));
   }

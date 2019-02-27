@@ -7,12 +7,14 @@
   </div>
   <div class="body">
     <div class="tabs-header">
-      <div class="tab-btn"></div>
-      <div class="tab-btn"></div>
+      <div class="tab-btn" (click)="activateTab('star')" [class.active]="activeTab === 'star'">{{ ts.strings.star }}</div>
+      <div class="tab-btn" (click)="activateTab('planets')" [class.active]="activeTab === 'planets'">{{ ts.strings.planets }}</div>
+      <div class="tab-btn" (click)="activateTab('fleets')" [class.active]="activeTab === 'fleets'">{{ ts.strings.fleets }}</div>
     </div>
     <div class="tabs-body">
-      <div class="tab"></div>
-      <div class="tab"></div>
+      <div *ngIf="activeTab === 'star'" class="tab">Detalles de estrella</div>
+      <div *ngIf="activeTab === 'planets'" class="tab">Planetas</div>
+      <div *ngIf="activeTab === 'fleets'" class="tab">Flotas</div>
     </div>
   </div>
 </div>

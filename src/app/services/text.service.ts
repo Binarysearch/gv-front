@@ -7,6 +7,7 @@ export class TextService {
 
   private _strings = {
     galaxy: 'Galaxia',
+    star: 'Estrella',
     colonies: 'Colonias',
     fleets: 'Flotas',
     planets: 'Planetas',
