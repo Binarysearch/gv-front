@@ -23,7 +23,6 @@ precision mediump float;
 out vec4 fragColor;
 in vec3 coord;
 uniform vec3 color;
-uniform vec3 civilizationColor;
 
 uniform float time;
 uniform float hover;
@@ -41,7 +40,7 @@ void main() {
 
 
         float s = f*f*f*f*f*10.0 + min(d/100.0,0.2);
-        fragColor = vec4(s,s,s,(s + a/5.0)*a) + vec4(1.0,1.0,1.0,0.0);
+        fragColor = vec4(s,s,s,(s + a/5.0)*a) + mix(vec4(color,0.0), vec4(1.0,1.0,1.0,0.0), 1.0-vC);
         return;
     }
 }
