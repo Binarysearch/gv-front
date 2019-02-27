@@ -1,12 +1,12 @@
 
-const MIN_ZOOM = 0.00001;
+const MIN_ZOOM = 0.00002;
 const MAX_ZOOM = 10;
 
-const MIN_X = 0;
-const MAX_X = 100000;
+const MIN_X = -60000;
+const MAX_X = 60000;
 
-const MIN_Y = 0;
-const MAX_Y = 100000;
+const MIN_Y = -60000;
+const MAX_Y = 60000;
 
 const SPEED = 0.02;
 
@@ -32,8 +32,8 @@ export class Camera {
     this._zoom = 0.00002;
     this._vZoom = 0;
 
-    this._x = 50000;
-    this._y = 50000;
+    this._x = 0;
+    this._y = 0;
     this._speedX = 0;
     this._speedY = 0;
     this.cX = 0;

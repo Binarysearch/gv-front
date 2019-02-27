@@ -1,3 +1,4 @@
+import { HttpInterceptorService } from './services/http-interceptor.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -15,7 +16,7 @@ import { CommerceComponent } from './commerce/commerce.component';
 import { ResearchComponent } from './research/research.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LandingComponent } from './landing/landing.component';
 import { GalaxiesComponent } from './galaxies/galaxies.component';
 import { StarSystemWindowComponent } from './galaxy/star-system-window/star-system-window.component';
@@ -44,7 +45,9 @@ import { StarSystemWindowComponent } from './galaxy/star-system-window/star-syst
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

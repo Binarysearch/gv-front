@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { StarSystem } from '../entities/star-system';
 
@@ -33,14 +33,7 @@ export class StarSystemsService {
   private getStarSystems(galaxyId: number): Observable<StarSystem[]> {
     const subject: Subject<StarSystem[]> = new Subject();
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'token': this.authService.currentSession.token
-      })
-    };
-
-    this.http.get<StarSystem[]>(this.starSystemsUrl + `?galaxy=${galaxyId}`, httpOptions)
+    this.http.get<StarSystem[]>(this.starSystemsUrl + `?galaxy=${galaxyId}`)
       .subscribe((data: StarSystem[]) => {
         this._starSystems = data.map(ss => {
           ss.objectType = 'StarSystem'; return ss;
@@ -57,13 +50,6 @@ export class StarSystemsService {
   }
 
   getStarSystem(id: number): Observable<StarSystem> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'token': this.authService.currentSession.token
-      })
-    };
-
-    return this.http.get<StarSystem>(this.starSystemsUrl + `/${id}`, httpOptions);
+    return this.http.get<StarSystem>(this.starSystemsUrl + `/${id}`);
   }
 }
