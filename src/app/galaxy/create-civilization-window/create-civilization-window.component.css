@@ -3,11 +3,32 @@
   top: 10%;
   left: 70%;
   width: 30%;
-  height: 80%;
   background-color: rgba(50, 50, 50, 0.9);
 }
 
 .title{
   text-align: center;
-  font-size: 18px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  box-sizing: border-box;
+}
+input:focus{
+  box-shadow: 0 0 2px var(--box-shadow-color);
+  outline: 2px solid rgba(0,0,255,0.3);
+
+}
+.error{
+  background-color: var(--error-background);
+  padding: 0.3em;
+  margin-bottom: 1em;
+}
+.btn{
+  float: right;
 }

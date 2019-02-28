@@ -1,8 +1,17 @@
 <div class="container box">
   <div class="header">
-    <div class="title">{{ title }}</div>
+    <h1 class="title">{{ ts.strings.createCivilization }}</h1>
   </div>
   <div class="body">
-
+    <div class="field">
+      <label>{{ ts.strings.civilizationName }}</label>
+      <input #nameInput class="input" type="text" [(ngModel)]="civilizationName">
+    </div>
+    <div class="field">
+      <label>{{ ts.strings.homeStarName }}</label>
+      <input #starNameInput type="text" [(ngModel)]="homeStarName" (keydown.enter)="createCivilization()">
+    </div>
+    <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <button class="btn" (click)="createCivilization()">{{ ts.strings.createCivilization }}</button>
   </div>
 </div>

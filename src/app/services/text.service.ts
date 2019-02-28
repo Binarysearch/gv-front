@@ -26,6 +26,9 @@ export class TextService {
     type: 'Tipo',
     size: 'Tamaño',
     loading: 'Cargando',
+    createCivilization: 'Crear civilización',
+    civilizationName: 'Nombre de la civilización',
+    homeStarName: 'Nombre de la estrella inicial',
     selectGalaxy: 'Seleccionar galaxia',
     invalidLoginCredentials: 'Email o Contraseña incorrecta',
     passwordsDontMatch: 'Las contraseñas no coinciden'
