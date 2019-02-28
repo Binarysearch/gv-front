@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { UserCivilization } from '../entities/user-civilization';
 import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,13 @@ export class CivilizationsService {
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   createCivilization(galaxyId: number, civilizationName: string, homeStarName: string): Observable<UserCivilization> {
-    throw new Error("Method not implemented.");
+    return this.http.post<UserCivilization>(this.civilizationUrl,
+      {galaxyId: galaxyId, name: civilizationName, homeStarName: homeStarName}
+      ).pipe(
+      tap<UserCivilization>((civ: UserCivilization) => {
+        this._currentCivilization = civ;
+      })
+    );
   }
 
   public get currentCivilization(): UserCivilization {
