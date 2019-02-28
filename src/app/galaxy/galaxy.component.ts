@@ -1,3 +1,4 @@
+import { CoreService } from './../services/core.service';
 import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { GalaxyMap } from './galaxy-map';
 
@@ -12,7 +13,7 @@ export class GalaxyComponent implements OnInit {
 
   canvas: HTMLCanvasElement;
 
-  constructor(public galaxyMap: GalaxyMap) {}
+  constructor(public galaxyMap: GalaxyMap, private core: CoreService) {}
 
   ngOnInit() {
     this.canvas = (this.canvasRef.nativeElement as HTMLCanvasElement);
@@ -72,5 +73,9 @@ export class GalaxyComponent implements OnInit {
 
   mouseUp() {
     this.galaxyMap.onMouseUp();
+  }
+
+  public get createCivilizationWindowVisible(): boolean {
+    return true;
   }
 }

@@ -23,6 +23,7 @@ import { StarSystemWindowComponent } from './galaxy/star-system-window/star-syst
 import { StarDetailsComponent } from './galaxy/star-system-window/star-details/star-details.component';
 import { StarPlanetsComponent } from './galaxy/star-system-window/star-planets/star-planets.component';
 import { StarFleetsComponent } from './galaxy/star-system-window/star-fleets/star-fleets.component';
+import { CreateCivilizationWindowComponent } from './galaxy/create-civilization-window/create-civilization-window.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { StarFleetsComponent } from './galaxy/star-system-window/star-fleets/sta
     StarSystemWindowComponent,
     StarDetailsComponent,
     StarPlanetsComponent,
-    StarFleetsComponent
+    StarFleetsComponent,
+    CreateCivilizationWindowComponent
   ],
   imports: [
     BrowserModule,
