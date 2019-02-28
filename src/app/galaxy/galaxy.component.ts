@@ -76,6 +76,6 @@ export class GalaxyComponent implements OnInit {
   }
 
   public get createCivilizationWindowVisible(): boolean {
-    return true;
+    return !this.core.hasCivilization;
   }
 }

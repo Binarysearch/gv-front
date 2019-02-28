@@ -1,3 +1,4 @@
+import { CivilizationsService } from './civilizations.service';
 import { GalaxiesService } from './galaxies.service';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
@@ -6,6 +7,7 @@ import { Observable, of } from 'rxjs';
 import { StarSystemsService } from './star-systems.service';
 import { Session } from '../entities/session';
 import { StarSystem } from '../entities/star-system';
+import { UserCivilization } from '../entities/user-civilization';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ export class CoreService {
   constructor(
     private authService: AuthService,
     private starSystemsService: StarSystemsService,
+    private civilizationsService: CivilizationsService,
     private galaxiesService: GalaxiesService
   ) { }
 
@@ -56,5 +59,13 @@ export class CoreService {
 
   public getStarSystem(id: number): Observable<StarSystem> {
     return this.starSystemsService.getStarSystem(id);
+  }
+
+  public createCivilization(civilizationName: string, homeStarName: string): Observable<UserCivilization> {
+    return this.civilizationsService.createCivilization(this.currentGalaxy.id, civilizationName, homeStarName);
+  }
+
+  public get hasCivilization(): boolean {
+    return this.civilizationsService.hasCivilization;
   }
 }
