@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Session } from '../entities/session';
+import { Galaxy } from '../entities/galaxy';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
   private loginUrl = 'https://galaxyvictor.com/api/login';
   private registerUrl = 'https://galaxyvictor.com/api/register';
   private session: Session;
-  private onLoginSubject: Subject<Session> = new Subject<Session>();
+  private currentSessionSubject: Subject<Session> = new Subject<Session>();
 
   constructor(private http: HttpClient, private router: Router) {
 
@@ -25,19 +26,13 @@ export class AuthService {
     if (!this.session) {
       const sessionString = localStorage.getItem('session');
       this.session = JSON.parse(sessionString);
-      this.onLoginSubject.next(this.session);
+      this.currentSessionSubject.next(this.session);
     }
     return this.session != null && this.session.token != null;
   }
 
   public get currentSession() {
     return this.session;
-  }
-
-  public set currentSession(session: Session) {
-    this.session = session;
-    this.onLoginSubject.next(session);
-    localStorage.setItem('session', JSON.stringify(session));
   }
 
   public logout() {
@@ -64,12 +59,10 @@ export class AuthService {
   }
 
   private onSessionStart(session: Session) {
-    this.currentSession = session;
+    this.session = session;
+    localStorage.setItem('session', JSON.stringify(session));
+    this.currentSessionSubject.next(this.session);
     this.router.navigate([this.redirectUrl]);
-  }
-
-  public onLogin(): Observable<Session> {
-    return this.onLoginSubject.asObservable();
   }
 
   public get sessionToken() {
@@ -78,11 +71,7 @@ export class AuthService {
     }
   }
 
-  public get currentGalaxy() {
-    if (this.isAuthenticated) {
-      return this.currentSession.user.currentGalaxy;
-    }
+  public getCurrentSession(): Observable<Session> {
+    return this.currentSessionSubject.asObservable();
   }
-
-
 }

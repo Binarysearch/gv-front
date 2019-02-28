@@ -26,7 +26,7 @@ export class CoreService {
   }
 
   public get currentGalaxy(): Galaxy {
-    return this.authService.currentGalaxy;
+    return this.galaxiesService.currentGalaxy;
   }
 
   public get currentSession(): Session {

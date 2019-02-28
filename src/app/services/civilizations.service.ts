@@ -4,6 +4,8 @@ import { Observable, Subject } from 'rxjs';
 import { UserCivilization } from '../entities/user-civilization';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { GalaxiesService } from './galaxies.service';
+import { Galaxy } from '../entities/galaxy';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,18 @@ export class CivilizationsService {
   private civilizationUrl = 'https://galaxyvictor.com/api/civilization';
 
   private _currentCivilization: UserCivilization;
-  currentGalaxyId: number;
+  private currentGalaxyId: number;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private galaxiesService: GalaxiesService) {
+    this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: Galaxy) => {
+      if (currentGalaxy) {
+        this.currentGalaxyId = currentGalaxy.id;
+      } else {
+        this.currentGalaxyId = null;
+      }
+      this.reloadCurrentCivilization();
+    });
+  }
 
   createCivilization(galaxyId: number, civilizationName: string, homeStarName: string): Observable<UserCivilization> {
     return this.http.post<UserCivilization>(this.civilizationUrl,
@@ -28,42 +39,24 @@ export class CivilizationsService {
   }
 
   public get currentCivilization(): UserCivilization {
-    const galaxyId = this.authService.currentSession.user.currentGalaxy.id;
-    if (this.currentGalaxyId !== galaxyId) {
-      this._currentCivilization = null;
-    }
-    this.currentGalaxyId = galaxyId;
-
-    if (!this._currentCivilization) {
-      this.getUserCivilization(galaxyId).subscribe();
-    }
     return this._currentCivilization;
   }
 
-  private getUserCivilization(galaxyId: number): Observable<UserCivilization> {
-    const subject: Subject<UserCivilization> = new Subject();
-
-    this.http.get<UserCivilization>(this.civilizationUrl + `?galaxy=${galaxyId}`)
-      .subscribe((data: UserCivilization) => {
-        this._currentCivilization = data;
-        subject.next(data);
-      }, (error: any) => {
-        this._currentCivilization = null;
-        subject.error(error);
-      }, () => {
-        subject.complete();
-      });
-
-    return subject.asObservable();
-
+  private reloadCurrentCivilization(): void {
+    if (this.currentGalaxyId) {
+      this.http.get<UserCivilization>(this.civilizationUrl + `?galaxy=${this.currentGalaxyId}`)
+        .subscribe((data: UserCivilization) => {
+          this._currentCivilization = data;
+        }, (error: any) => {
+          this._currentCivilization = null;
+          console.log(error);
+        });
+    } else {
+      this._currentCivilization = null;
+    }
   }
 
   public get hasCivilization(): boolean {
-    const galaxyId = this.authService.currentSession.user.currentGalaxy.id;
-    if (this.currentGalaxyId !== galaxyId) {
-      this.getUserCivilization(galaxyId).subscribe();
-    }
-    this.currentGalaxyId = galaxyId;
     return this._currentCivilization != null;
   }
 }

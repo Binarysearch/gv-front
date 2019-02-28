@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { StarSystem } from '../entities/star-system';
+import { Galaxy } from '../entities/galaxy';
+import { GalaxiesService } from './galaxies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,45 +13,40 @@ export class StarSystemsService {
 
   private starSystemsUrl = 'https://galaxyvictor.com/api/star-systems';
 
-  public _starSystems: StarSystem[];
+  public _starSystems: StarSystem[] = [];
   private currentGalaxyId: number;
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
-
-  public get starSystems() {
-    const galaxyId = this.authService.currentSession.user.currentGalaxy.id;
-    if (this.currentGalaxyId !== galaxyId) {
-      this._starSystems = null;
-    }
-    this.currentGalaxyId = galaxyId;
-
-    if (!this._starSystems) {
-      this._starSystems = [];
-      this.getStarSystems(galaxyId).subscribe();
-    }
-    return this._starSystems;
+  constructor(private http: HttpClient, private galaxiesService: GalaxiesService) {
+    this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: Galaxy) => {
+      if (currentGalaxy) {
+        this.currentGalaxyId = currentGalaxy.id;
+      } else {
+        this.currentGalaxyId = null;
+      }
+      this.reloadStarSystems();
+    });
   }
 
-  private getStarSystems(galaxyId: number): Observable<StarSystem[]> {
-    const subject: Subject<StarSystem[]> = new Subject();
-
-    this.http.get<StarSystem[]>(this.starSystemsUrl + `?galaxy=${galaxyId}`)
-      .subscribe((data: StarSystem[]) => {
-        this._starSystems = data.map(ss => {
-          ss.objectType = 'StarSystem'; return ss;
-        });
-        subject.next(data);
-      }, (error: any) => {
-        subject.error(error);
-      }, () => {
-        subject.complete();
-      });
-
-    return subject.asObservable();
-
+  public get starSystems() {
+    return this._starSystems;
   }
 
   getStarSystem(id: number): Observable<StarSystem> {
     return this.http.get<StarSystem>(this.starSystemsUrl + `/${id}`);
+  }
+
+  private reloadStarSystems() {
+    if (this.currentGalaxyId) {
+      this.http.get<StarSystem[]>(this.starSystemsUrl + `?galaxy=${this.currentGalaxyId}`)
+      .subscribe((data: StarSystem[]) => {
+        this._starSystems = data.map(ss => {
+          ss.objectType = 'StarSystem'; return ss;
+        });
+      }, (error: any) => {
+        console.log(error);
+      });
+    } else {
+      this._starSystems = [];
+    }
   }
 }
