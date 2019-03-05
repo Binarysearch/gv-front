@@ -59,6 +59,12 @@ export class GalaxyComponent implements OnInit {
     this.galaxyMap.setViewport(this.canvas.width, this.canvas.height);
   }
 
+  @HostListener('window:keydown.control.h', ['$event'])
+  focusHome(event: KeyboardEvent) {
+    this.galaxyMap.focusHome();
+    event.preventDefault();
+  }
+
   get hoveredTitle(): string {
     return this.galaxyMap.hovered.objectType + ' ' + this.galaxyMap.hovered.id;
   }

@@ -72,4 +72,10 @@ export class CoreService {
   getCurrentCivilization(): Observable<UserCivilization> {
     return this.civilizationsService.getCurrentCivilization();
   }
+
+  public get currentCivilization(): UserCivilization {
+    return this.civilizationsService.currentCivilization;
+  }
+
+
 }
