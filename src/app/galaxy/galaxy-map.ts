@@ -35,6 +35,7 @@ export class GalaxyMap {
     this.hoverHubRenderer = new HoverHubRenderer(this.camera, shaderCompiler);
     this.hoverManager = new HoverManager(core, this.starRenderer, this.camera);
 
+    this.focusHome();
     core.getCurrentCivilization().subscribe((civ: UserCivilization) => {
       this.camera.x = civ.homeworld.starSystem.x;
       this.camera.y = civ.homeworld.starSystem.y;
