@@ -15,6 +15,7 @@ export class CivilizationsService {
   private civilizationUrl = 'https://galaxyvictor.com/api/civilization';
 
   private _currentCivilization: UserCivilization;
+  private currentCivilizationSubject: Subject<UserCivilization> = new Subject<UserCivilization>();
   private currentGalaxyId: number;
 
   constructor(private http: HttpClient, private galaxiesService: GalaxiesService) {
@@ -33,6 +34,7 @@ export class CivilizationsService {
       {galaxyId: galaxyId, name: civilizationName, homeStarName: homeStarName}
       ).pipe(
       tap<UserCivilization>((civ: UserCivilization) => {
+        this.currentCivilizationSubject.next(civ);
         this._currentCivilization = civ;
       })
     );
@@ -46,6 +48,7 @@ export class CivilizationsService {
     if (this.currentGalaxyId) {
       this.http.get<UserCivilization>(this.civilizationUrl + `?galaxy=${this.currentGalaxyId}`)
         .subscribe((data: UserCivilization) => {
+          this.currentCivilizationSubject.next(data);
           this._currentCivilization = data;
         }, (error: any) => {
           this._currentCivilization = null;
@@ -59,4 +62,9 @@ export class CivilizationsService {
   public get hasCivilization(): boolean {
     return this._currentCivilization != null;
   }
+
+  public getCurrentCivilization(): Observable<UserCivilization> {
+    return this.currentCivilizationSubject.asObservable();
+  }
+
 }

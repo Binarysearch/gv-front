@@ -68,4 +68,8 @@ export class CoreService {
   public get hasCivilization(): boolean {
     return this.civilizationsService.hasCivilization;
   }
+
+  getCurrentCivilization(): Observable<UserCivilization> {
+    return this.civilizationsService.getCurrentCivilization();
+  }
 }

@@ -57,6 +57,10 @@ export class Camera {
     this._y = y;
   }
 
+  set zoom(zoom: number) {
+    this._zoom = zoom;
+  }
+
   get zoom() {
     return this._zoom;
   }

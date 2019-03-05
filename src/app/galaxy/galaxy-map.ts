@@ -1,3 +1,4 @@
+import { UserCivilization } from './../entities/user-civilization';
 import { GameObject } from './../entities/game-object';
 import { HoverManager } from './hover-manager';
 import { Injectable } from '@angular/core';
@@ -33,6 +34,14 @@ export class GalaxyMap {
     this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
     this.hoverHubRenderer = new HoverHubRenderer(this.camera, shaderCompiler);
     this.hoverManager = new HoverManager(core, this.starRenderer, this.camera);
+
+    core.getCurrentCivilization().subscribe((civ: UserCivilization) => {
+      this.camera.x = civ.homeworld.starSystem.x;
+      this.camera.y = civ.homeworld.starSystem.y;
+      this.camera.zoom = 5;
+      this._selected = {...civ.homeworld.starSystem, objectType: 'StarSystem'};
+    });
+
     const animate = () => {
       if (this.animate) {
         window.requestAnimationFrame(animate);
