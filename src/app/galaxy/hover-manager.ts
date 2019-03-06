@@ -1,5 +1,5 @@
+import { Store } from './../store';
 import { StarRenderer } from './star-renderer';
-import { CoreService } from './../services/core.service';
 import { Camera } from './camera';
 import { Renderer } from './renderer';
 import { GameObject } from '../game-objects/game-object';
@@ -14,7 +14,7 @@ export class HoverManager {
 
   private _hovered: GameObject;
 
-  constructor(private core: CoreService, private starRenderer: StarRenderer, private camera: Camera) {
+  constructor(private store: Store, private starRenderer: StarRenderer, private camera: Camera) {
 
   }
 
@@ -50,7 +50,7 @@ export class HoverManager {
   }
 
   getintersectingStars(x: number, y: number) {
-    return this.getIntersectingElements(x, y, this.core.starSystems, this.starRenderer);
+    return this.getIntersectingElements(x, y, this.store.starSystems, this.starRenderer);
   }
 
   getIntersectingElements(x: number, y: number, elements: GameObject[], renderer: Renderer): IntersectingElement[] {

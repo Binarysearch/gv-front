@@ -47,14 +47,6 @@ export class CoreService {
     return this.galaxiesService.selectGalaxy(id);
   }
 
-  public get starSystems() {
-    return this.starSystemsService.starSystems;
-  }
-
-  public get planets() {
-    return this.planetsService.planets;
-  }
-
   public login(email: string, password: string): Observable<SessionDTO> {
     return this.authService.login(email, password);
   }

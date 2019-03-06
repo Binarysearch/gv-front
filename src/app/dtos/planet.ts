@@ -1,9 +1,7 @@
-import { GameObject } from '../game-objects/game-object';
 
-export interface PlanetDTO extends GameObject {
+export interface PlanetDTO {
   id: number;
-  starX: number;
-  starY: number;
+  starSystem: number;
   type: number;
   size: number;
   orbit: number;

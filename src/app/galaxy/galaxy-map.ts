@@ -8,6 +8,7 @@ import { CoreService } from '../services/core.service';
 import { HoverHubRenderer } from './hover-hub-renderer';
 import { PlanetRenderer } from './planet-renderer';
 import { GameObject } from '../game-objects/game-object';
+import { Store } from '../store';
 
 @Injectable({
   providedIn: 'root'
@@ -30,13 +31,13 @@ export class GalaxyMap {
   private mouseDownCameraX: number;
   private mouseDownCameraY: number;
 
-  constructor(private core: CoreService, shaderCompiler: ShaderProgramCompiler) {
+  constructor(private core: CoreService, shaderCompiler: ShaderProgramCompiler, private store: Store) {
     this.camera = new Camera();
     this.animate = true;
     this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
     this.planetRenderer = new PlanetRenderer(this.camera, shaderCompiler);
     this.hoverHubRenderer = new HoverHubRenderer(this.camera, shaderCompiler);
-    this.hoverManager = new HoverManager(core, this.starRenderer, this.camera);
+    this.hoverManager = new HoverManager(store, this.starRenderer, this.camera);
 
     this.focusHome();
     core.getCurrentCivilization().subscribe((civ: UserCivilizationDTO) => {
@@ -77,13 +78,13 @@ export class GalaxyMap {
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     this.starRenderer.prepareRender(gl);
-    this.core.starSystems.forEach(starSystem => {
+    this.store.starSystems.forEach(starSystem => {
         this.starRenderer.render(gl, starSystem);
     });
 
 
     this.planetRenderer.prepareRender(gl);
-    this.core.planets.forEach(planet => {
+    this.store.planets.forEach(planet => {
         this.planetRenderer.render(gl, planet);
     });
 

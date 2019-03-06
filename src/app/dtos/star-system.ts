@@ -1,6 +1,4 @@
-import { GameObject } from '../game-objects/game-object';
-
-export interface StarSystemDTO extends GameObject {
+export interface StarSystemDTO {
   id: number;
   name?: string;
   x: number;

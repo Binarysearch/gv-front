@@ -4,6 +4,7 @@ import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { PLANET_VS_SOURCE, PLANET_FS_SOURCE } from './gl/shaders/planet-shader';
 import { PLANET_COLORS, PLANET_ROTATION_SPEED_MULT } from './galaxy-constants';
+import { Planet } from '../game-objects/planet';
 
 export class PlanetRenderer implements Renderer {
   program: WebGLShader;
@@ -51,37 +52,21 @@ export class PlanetRenderer implements Renderer {
     gl.uniform1f(this.aspectUniformLocation, aspect);
   }
 
-  render(gl: any, planet: PlanetDTO) {
-
-    const startingAngle = (planet.id * planet.id) % (Math.PI * 2);
-    const time = new Date().getTime() * 0.001;
-    const speed = PLANET_ROTATION_SPEED_MULT / Math.sqrt(planet.orbit);
-    const angle = startingAngle + (speed * time) % (Math.PI * 2);
-
+  render(gl: any, planet: Planet) {
     const color = PLANET_COLORS[planet.type - 1];
-
-    const planetX = this.getPlanetX(planet, angle);
-    const planetY = this.getPlanetY(planet, angle);
+    const angle = planet.angle;
 
     gl.uniform1f(this.scaleUniformLocation, this.getElementRenderScale(planet));
-    gl.uniform2f(this.positionUniformLocation, planetX - this.camera.x, planetY - this.camera.y);
+    gl.uniform2f(this.positionUniformLocation, planet.x - this.camera.x, planet.y - this.camera.y);
     gl.uniform2f(this.starPositionUniformLocation, -Math.cos(angle), -Math.sin(angle));
     gl.uniform3f(this.colorUniformLocation, color.r, color.g, color.b);
 
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
 
-  getElementRenderScale(p: PlanetDTO): number {
+  getElementRenderScale(p: Planet): number {
     const zoom = this.camera.zoom;
     const scale = (0.0001 * p.size * p.size + 0.003) / zoom + (0.0001 * p.size * p.size);
     return scale;
-  }
-
-  getPlanetX(p: PlanetDTO, angle: number) {
-    return Math.cos(angle) * p.orbit * 0.01 + p.starX;
-  }
-
-  getPlanetY(p: PlanetDTO, angle: number) {
-    return Math.sin(angle) * p.orbit * 0.01 + p.starY;
   }
 }
