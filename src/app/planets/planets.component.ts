@@ -1,8 +1,10 @@
+import { GalaxyMap } from './../galaxy/galaxy-map';
 import { TextService } from './../services/text.service';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '../store';
 import { PLANET_TYPES, PLANET_SIZES } from '../galaxy/galaxy-constants';
 import { Planet } from '../game-objects/planet';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-planets',
@@ -15,7 +17,7 @@ export class PlanetsComponent implements OnInit {
   orderBy = 'type';
   orderDir = -1;
 
-  constructor(private store: Store, public ts: TextService) { }
+  constructor(private store: Store, public ts: TextService, private galaxyMap: GalaxyMap, private router: Router) { }
 
   ngOnInit() {
 
@@ -52,5 +54,10 @@ export class PlanetsComponent implements OnInit {
       this.orderBy = fieldName;
     }
     this._planets = [];
+  }
+
+  public clickInPlanet(id: number) {
+    this.galaxyMap.selectAndFocus(id);
+    this.router.navigate(['galaxy']);
   }
 }

@@ -179,11 +179,15 @@ export class GalaxyMap {
 
   focusHome(): void {
     if (this.core.hasCivilization) {
-      const civ = this.core.currentCivilization;
-      this.camera.x = civ.homeworld.starSystem.x;
-      this.camera.y = civ.homeworld.starSystem.y;
-      this.camera.zoom = 5;
-      this._selected = {...civ.homeworld.starSystem, objectType: 'StarSystem'};
+      this.selectAndFocus(this.core.currentCivilization.homeworld.id);
     }
+  }
+
+  selectAndFocus(id: number) {
+    const element = this.store.getObjectById(id);
+    this.camera.x = element.x;
+    this.camera.y = element.y;
+    this.camera.zoom = 5;
+    this._selected = element;
   }
 }

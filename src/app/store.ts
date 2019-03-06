@@ -38,4 +38,8 @@ export class Store {
     this._starSystems = [];
   }
 
+  getObjectById(id: number) {
+    return this.objects.get(id);
+  }
+
 }

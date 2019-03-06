@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let planet of planets">
+    <tr *ngFor="let planet of planets" (click)="clickInPlanet(planet.id)" [title]="ts.strings.viewPlanetInMap">
       <td>{{ (planet.starSystem.name)?planet.starSystem.name:'Sistema ' + planet.starSystemId }}</td>
       <td>{{ planet.orbit }}</td>
       <td>{{ planetTypeName(planet.type) }}</td>

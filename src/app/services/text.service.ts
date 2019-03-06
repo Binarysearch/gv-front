@@ -28,6 +28,7 @@ export class TextService {
     size: 'Tamaño',
     orbit: 'Orbita',
     loading: 'Cargando',
+    viewPlanetInMap: 'Ver planeta en el mapa',
     createCivilization: 'Crear civilización',
     civilizationName: 'Nombre de la civilización',
     invalidCivilizationName: 'Nombre de civilización invalido: debe tener al menos 3 caracteres y no empezar ni acabar con espacio.',
