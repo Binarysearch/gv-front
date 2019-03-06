@@ -1,5 +1,5 @@
 import { Camera } from './camera';
-import { StarSystem } from '../entities/star-system';
+import { StarSystemDTO } from '../dtos/star-system';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE } from './gl/shaders/star-system-shader';
@@ -53,7 +53,7 @@ export class StarRenderer implements Renderer {
     gl.uniform1f(this.aspectUniformLocation, aspect);
   }
 
-  render(gl: any, star: StarSystem) {
+  render(gl: any, star: StarSystemDTO) {
 
     const color = STAR_COLORS[star.type - 1];
 
@@ -64,7 +64,7 @@ export class StarRenderer implements Renderer {
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
 
-  getElementRenderScale(ss: StarSystem): number {
+  getElementRenderScale(ss: StarSystemDTO): number {
     const zoom = this.camera.zoom;
     const scale = (0.01 * ss.size + 0.03) / zoom + 0.003;
     return scale;

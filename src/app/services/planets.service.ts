@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Planet } from '../entities/planet';
+import { PlanetDTO } from '../dtos/planet';
 import { GalaxiesService } from './galaxies.service';
-import { Galaxy } from '../entities/galaxy';
+import { GalaxyDTO } from '../dtos/galaxy';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,11 @@ export class PlanetsService {
 
   private planetsUrl = 'https://galaxyvictor.com/api/planets';
 
-  public _planets: Planet[] = [];
+  public _planets: PlanetDTO[] = [];
   private currentGalaxyId: number;
 
   constructor(private http: HttpClient, private galaxiesService: GalaxiesService) {
-    this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: Galaxy) => {
+    this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: GalaxyDTO) => {
       if (currentGalaxy) {
         this.currentGalaxyId = currentGalaxy.id;
       } else {
@@ -25,14 +25,14 @@ export class PlanetsService {
     });
   }
 
-  public get planets(): Planet[] {
+  public get planets(): PlanetDTO[] {
     return this._planets;
   }
 
   private reloadPlanets() {
     if (this.currentGalaxyId) {
-      this.http.get<Planet[]>(this.planetsUrl + `?galaxy=${this.currentGalaxyId}`)
-      .subscribe((data: Planet[]) => {
+      this.http.get<PlanetDTO[]>(this.planetsUrl + `?galaxy=${this.currentGalaxyId}`)
+      .subscribe((data: PlanetDTO[]) => {
         this._planets = data.map(p => {
           p.starX = 24687.8046875;
           p.starY = 620.1268310546875;

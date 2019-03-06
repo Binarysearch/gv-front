@@ -1,4 +1,4 @@
-import { GameObject } from './../entities/game-object';
+import { GameObject } from '../game-objects/game-object';
 
 export interface Renderer {
     setup(gl: any): void;

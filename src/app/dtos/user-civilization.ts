@@ -1,6 +1,6 @@
 
 
-export interface UserCivilization {
+export interface UserCivilizationDTO {
   id: number;
   name: string;
   homeworld: {

@@ -1,5 +1,4 @@
-import { UserCivilization } from './../entities/user-civilization';
-import { GameObject } from './../entities/game-object';
+import { UserCivilizationDTO } from './../dtos/user-civilization';
 import { HoverManager } from './hover-manager';
 import { Injectable } from '@angular/core';
 import { StarRenderer } from './star-renderer';
@@ -8,6 +7,7 @@ import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { CoreService } from '../services/core.service';
 import { HoverHubRenderer } from './hover-hub-renderer';
 import { PlanetRenderer } from './planet-renderer';
+import { GameObject } from '../game-objects/game-object';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +39,7 @@ export class GalaxyMap {
     this.hoverManager = new HoverManager(core, this.starRenderer, this.camera);
 
     this.focusHome();
-    core.getCurrentCivilization().subscribe((civ: UserCivilization) => {
+    core.getCurrentCivilization().subscribe((civ: UserCivilizationDTO) => {
       this.camera.x = civ.homeworld.starSystem.x;
       this.camera.y = civ.homeworld.starSystem.y;
       this.camera.zoom = 5;

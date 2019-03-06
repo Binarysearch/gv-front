@@ -1,4 +1,4 @@
-export interface Galaxy {
+export interface GalaxyDTO {
   id: number;
   name: string;
 }

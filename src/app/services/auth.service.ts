@@ -3,8 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { Session } from '../entities/session';
-import { Galaxy } from '../entities/galaxy';
+import { SessionDTO } from '../dtos/session';
+import { GalaxyDTO } from '../dtos/galaxy';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class AuthService {
 
   private loginUrl = 'https://galaxyvictor.com/api/login';
   private registerUrl = 'https://galaxyvictor.com/api/register';
-  private session: Session;
-  private currentSessionSubject: Subject<Session> = new Subject<Session>();
+  private session: SessionDTO;
+  private currentSessionSubject: Subject<SessionDTO> = new Subject<SessionDTO>();
 
   constructor(private http: HttpClient, private router: Router) {
 
@@ -42,23 +42,23 @@ export class AuthService {
     this.router.navigate(['']);
   }
 
-  login(email: string, password: string): Observable<Session> {
-    return this.http.post<Session>(this.loginUrl, {email: email, password: password}).pipe(
-      tap<Session>((session: Session) => {
+  login(email: string, password: string): Observable<SessionDTO> {
+    return this.http.post<SessionDTO>(this.loginUrl, {email: email, password: password}).pipe(
+      tap<SessionDTO>((session: SessionDTO) => {
         this.onSessionStart(session);
       })
     );
   }
 
-  register(email: string, password: string): Observable<Session> {
-    return this.http.post<Session>(this.registerUrl, {email: email, password: password}).pipe(
-      tap<Session>((session: Session) => {
+  register(email: string, password: string): Observable<SessionDTO> {
+    return this.http.post<SessionDTO>(this.registerUrl, {email: email, password: password}).pipe(
+      tap<SessionDTO>((session: SessionDTO) => {
         this.onSessionStart(session);
       })
     );
   }
 
-  private onSessionStart(session: Session) {
+  private onSessionStart(session: SessionDTO) {
     this.session = session;
     localStorage.setItem('session', JSON.stringify(session));
     this.currentSessionSubject.next(this.session);
@@ -71,7 +71,7 @@ export class AuthService {
     }
   }
 
-  public getCurrentSession(): Observable<Session> {
+  public getCurrentSession(): Observable<SessionDTO> {
     return this.currentSessionSubject.asObservable();
   }
 }

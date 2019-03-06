@@ -1,11 +1,11 @@
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { UserCivilization } from '../entities/user-civilization';
+import { UserCivilizationDTO } from '../dtos/user-civilization';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { GalaxiesService } from './galaxies.service';
-import { Galaxy } from '../entities/galaxy';
+import { GalaxyDTO } from '../dtos/galaxy';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,12 @@ export class CivilizationsService {
 
   private civilizationUrl = 'https://galaxyvictor.com/api/civilization';
 
-  private _currentCivilization: UserCivilization;
-  private currentCivilizationSubject: Subject<UserCivilization> = new Subject<UserCivilization>();
+  private _currentCivilization: UserCivilizationDTO;
+  private currentCivilizationSubject: Subject<UserCivilizationDTO> = new Subject<UserCivilizationDTO>();
   private currentGalaxyId: number;
 
   constructor(private http: HttpClient, private galaxiesService: GalaxiesService) {
-    this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: Galaxy) => {
+    this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: GalaxyDTO) => {
       if (currentGalaxy) {
         this.currentGalaxyId = currentGalaxy.id;
       } else {
@@ -29,25 +29,25 @@ export class CivilizationsService {
     });
   }
 
-  createCivilization(galaxyId: number, civilizationName: string, homeStarName: string): Observable<UserCivilization> {
-    return this.http.post<UserCivilization>(this.civilizationUrl,
+  createCivilization(galaxyId: number, civilizationName: string, homeStarName: string): Observable<UserCivilizationDTO> {
+    return this.http.post<UserCivilizationDTO>(this.civilizationUrl,
       {galaxyId: galaxyId, name: civilizationName, homeStarName: homeStarName}
       ).pipe(
-      tap<UserCivilization>((civ: UserCivilization) => {
+      tap<UserCivilizationDTO>((civ: UserCivilizationDTO) => {
         this.currentCivilizationSubject.next(civ);
         this._currentCivilization = civ;
       })
     );
   }
 
-  public get currentCivilization(): UserCivilization {
+  public get currentCivilization(): UserCivilizationDTO {
     return this._currentCivilization;
   }
 
   private reloadCurrentCivilization(): void {
     if (this.currentGalaxyId) {
-      this.http.get<UserCivilization>(this.civilizationUrl + `?galaxy=${this.currentGalaxyId}`)
-        .subscribe((data: UserCivilization) => {
+      this.http.get<UserCivilizationDTO>(this.civilizationUrl + `?galaxy=${this.currentGalaxyId}`)
+        .subscribe((data: UserCivilizationDTO) => {
           this.currentCivilizationSubject.next(data);
           this._currentCivilization = data;
         }, (error: any) => {
@@ -63,7 +63,7 @@ export class CivilizationsService {
     return this._currentCivilization != null;
   }
 
-  public getCurrentCivilization(): Observable<UserCivilization> {
+  public getCurrentCivilization(): Observable<UserCivilizationDTO> {
     return this.currentCivilizationSubject.asObservable();
   }
 

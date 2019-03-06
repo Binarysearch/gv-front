@@ -1,7 +1,7 @@
 import { TextService } from './../../services/text.service';
 import { CoreService } from './../../services/core.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { StarSystem } from '../../entities/star-system';
+import { StarSystemDTO } from '../../dtos/star-system';
 
 @Component({
   selector: 'app-star-system-window',
@@ -10,7 +10,7 @@ import { StarSystem } from '../../entities/star-system';
 })
 export class StarSystemWindowComponent implements OnInit {
 
-  @Input() starSystem: StarSystem;
+  @Input() starSystem: StarSystemDTO;
   @Output() closeButton = new EventEmitter();
   maximized = false;
   activeTab = 'star';

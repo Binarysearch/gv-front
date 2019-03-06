@@ -1,8 +1,8 @@
-import { GameObject } from './../entities/game-object';
 import { Camera } from './camera';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { HOVER_HUB_VS_SOURCE, HOVER_HUB_FS_SOURCE } from './gl/shaders/hover-hub-shader';
+import { GameObject } from '../game-objects/game-object';
 
 export class HoverHubRenderer implements Renderer {
     program: WebGLShader;

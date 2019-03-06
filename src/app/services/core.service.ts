@@ -2,12 +2,12 @@ import { CivilizationsService } from './civilizations.service';
 import { GalaxiesService } from './galaxies.service';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Galaxy } from '../entities/galaxy';
+import { GalaxyDTO } from '../dtos/galaxy';
 import { Observable, of } from 'rxjs';
 import { StarSystemsService } from './star-systems.service';
-import { Session } from '../entities/session';
-import { StarSystem } from '../entities/star-system';
-import { UserCivilization } from '../entities/user-civilization';
+import { SessionDTO } from '../dtos/session';
+import { StarSystemDTO } from '../dtos/star-system';
+import { UserCivilizationDTO } from '../dtos/user-civilization';
 import { PlanetsService } from './planets.service';
 
 @Injectable({
@@ -27,11 +27,11 @@ export class CoreService {
     return this.authService.isAuthenticated;
   }
 
-  public get currentGalaxy(): Galaxy {
+  public get currentGalaxy(): GalaxyDTO {
     return this.galaxiesService.currentGalaxy;
   }
 
-  public get currentSession(): Session {
+  public get currentSession(): SessionDTO {
     return this.authService.currentSession;
   }
 
@@ -39,11 +39,11 @@ export class CoreService {
     this.authService.logout();
   }
 
-  public getGalaxies(): Observable<Galaxy[]> {
+  public getGalaxies(): Observable<GalaxyDTO[]> {
     return this.galaxiesService.getGalaxies();
   }
 
-  public selectGalaxy(id: number): Observable<Galaxy> {
+  public selectGalaxy(id: number): Observable<GalaxyDTO> {
     return this.galaxiesService.selectGalaxy(id);
   }
 
@@ -55,19 +55,19 @@ export class CoreService {
     return this.planetsService.planets;
   }
 
-  public login(email: string, password: string): Observable<Session> {
+  public login(email: string, password: string): Observable<SessionDTO> {
     return this.authService.login(email, password);
   }
 
-  public register(email: string, password: string): Observable<Session> {
+  public register(email: string, password: string): Observable<SessionDTO> {
     return this.authService.register(email, password);
   }
 
-  public getStarSystem(id: number): Observable<StarSystem> {
+  public getStarSystem(id: number): Observable<StarSystemDTO> {
     return this.starSystemsService.getStarSystem(id);
   }
 
-  public createCivilization(civilizationName: string, homeStarName: string): Observable<UserCivilization> {
+  public createCivilization(civilizationName: string, homeStarName: string): Observable<UserCivilizationDTO> {
     return this.civilizationsService.createCivilization(this.currentGalaxy.id, civilizationName, homeStarName);
   }
 
@@ -75,11 +75,11 @@ export class CoreService {
     return this.civilizationsService.hasCivilization;
   }
 
-  getCurrentCivilization(): Observable<UserCivilization> {
+  getCurrentCivilization(): Observable<UserCivilizationDTO> {
     return this.civilizationsService.getCurrentCivilization();
   }
 
-  public get currentCivilization(): UserCivilization {
+  public get currentCivilization(): UserCivilizationDTO {
     return this.civilizationsService.currentCivilization;
   }
 

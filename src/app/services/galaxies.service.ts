@@ -3,8 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
 import { tap } from 'rxjs/operators';
-import { Galaxy } from '../entities/galaxy';
-import { Session } from '../entities/session';
+import { GalaxyDTO } from '../dtos/galaxy';
+import { SessionDTO } from '../dtos/session';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +14,11 @@ export class GalaxiesService {
   private galaxiesUrl = 'https://galaxyvictor.com/api/galaxies';
   private currentGalaxyUrl = 'https://galaxyvictor.com/api/current-galaxy';
 
-  private currentGalaxySubject: Subject<Galaxy> = new Subject<Galaxy>();
-  private _currentGalaxy: Galaxy;
+  private currentGalaxySubject: Subject<GalaxyDTO> = new Subject<GalaxyDTO>();
+  private _currentGalaxy: GalaxyDTO;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.authService.getCurrentSession().subscribe((session: Session) => {
+    this.authService.getCurrentSession().subscribe((session: SessionDTO) => {
       if (session) {
         this.currentGalaxySubject.next(session.user.currentGalaxy);
         this._currentGalaxy = session.user.currentGalaxy;
@@ -29,28 +29,28 @@ export class GalaxiesService {
     });
   }
 
-  public get currentGalaxy(): Galaxy {
+  public get currentGalaxy(): GalaxyDTO {
     return this._currentGalaxy;
   }
 
-  getGalaxies(): Observable<Galaxy[]> {
-    return this.http.get<Galaxy[]>(this.galaxiesUrl);
+  getGalaxies(): Observable<GalaxyDTO[]> {
+    return this.http.get<GalaxyDTO[]>(this.galaxiesUrl);
   }
 
-  selectGalaxy(id: number): Observable<Galaxy> {
-    return this.http.put<Galaxy>(this.currentGalaxyUrl, {id: id}).pipe(
-      tap<Galaxy>((galaxy: Galaxy) => {
+  selectGalaxy(id: number): Observable<GalaxyDTO> {
+    return this.http.put<GalaxyDTO>(this.currentGalaxyUrl, {id: id}).pipe(
+      tap<GalaxyDTO>((galaxy: GalaxyDTO) => {
         this.currentGalaxySubject.next(galaxy);
         this._currentGalaxy = galaxy;
         const sessionString = localStorage.getItem('session');
-        const session: Session = JSON.parse(sessionString);
+        const session: SessionDTO = JSON.parse(sessionString);
         session.user.currentGalaxy = this._currentGalaxy;
         localStorage.setItem('session', JSON.stringify(session));
       })
     );
   }
 
-  getCurrentGalaxy(): Observable<Galaxy> {
+  getCurrentGalaxy(): Observable<GalaxyDTO> {
     return this.currentGalaxySubject.asObservable();
   }
 }

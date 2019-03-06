@@ -1,8 +1,8 @@
 import { StarRenderer } from './star-renderer';
 import { CoreService } from './../services/core.service';
-import { GameObject } from '../entities/game-object';
 import { Camera } from './camera';
 import { Renderer } from './renderer';
+import { GameObject } from '../game-objects/game-object';
 
 interface IntersectingElement {
   x: number;

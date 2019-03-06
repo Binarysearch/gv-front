@@ -1,5 +1,5 @@
 import { Camera } from './camera';
-import { Planet } from '../entities/planet';
+import { PlanetDTO } from '../dtos/planet';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { PLANET_VS_SOURCE, PLANET_FS_SOURCE } from './gl/shaders/planet-shader';
@@ -51,7 +51,7 @@ export class PlanetRenderer implements Renderer {
     gl.uniform1f(this.aspectUniformLocation, aspect);
   }
 
-  render(gl: any, planet: Planet) {
+  render(gl: any, planet: PlanetDTO) {
 
     const startingAngle = (planet.id * planet.id) % (Math.PI * 2);
     const time = new Date().getTime() * 0.001;
@@ -71,17 +71,17 @@ export class PlanetRenderer implements Renderer {
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
 
-  getElementRenderScale(p: Planet): number {
+  getElementRenderScale(p: PlanetDTO): number {
     const zoom = this.camera.zoom;
     const scale = (0.0001 * p.size * p.size + 0.003) / zoom + (0.0001 * p.size * p.size);
     return scale;
   }
 
-  getPlanetX(p: Planet, angle: number) {
+  getPlanetX(p: PlanetDTO, angle: number) {
     return Math.cos(angle) * p.orbit * 0.01 + p.starX;
   }
 
-  getPlanetY(p: Planet, angle: number) {
+  getPlanetY(p: PlanetDTO, angle: number) {
     return Math.sin(angle) * p.orbit * 0.01 + p.starY;
   }
 }

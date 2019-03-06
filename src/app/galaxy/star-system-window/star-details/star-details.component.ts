@@ -1,5 +1,5 @@
 import { TextService } from './../../../services/text.service';
-import { StarSystem } from './../../../entities/star-system';
+import { StarSystemDTO } from './../../../dtos/star-system';
 import { CoreService } from './../../../services/core.service';
 import { Component, Input } from '@angular/core';
 import { STAR_TYPES, STAR_SIZES } from '../../galaxy-constants';
@@ -11,7 +11,7 @@ import { STAR_TYPES, STAR_SIZES } from '../../galaxy-constants';
 })
 export class StarDetailsComponent {
 
-  starSystem: StarSystem;
+  starSystem: StarSystemDTO;
 
   constructor(private core: CoreService, public ts: TextService) { }
 
