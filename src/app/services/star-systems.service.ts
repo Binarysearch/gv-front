@@ -27,7 +27,7 @@ export class StarSystemsService {
     });
   }
 
-  public get starSystems() {
+  public get starSystems(): StarSystem[] {
     return this._starSystems;
   }
 

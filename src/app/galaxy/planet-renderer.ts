@@ -1,24 +1,24 @@
 import { Camera } from './camera';
-import { StarSystem } from '../entities/star-system';
+import { Planet } from '../entities/planet';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
-import { STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE } from './gl/shaders/star-system-shader';
-import { STAR_COLORS } from './galaxy-constants';
+import { PLANET_VS_SOURCE, PLANET_FS_SOURCE } from './gl/shaders/planet-shader';
+import { PLANET_COLORS, PLANET_ROTATION_SPEED_MULT } from './galaxy-constants';
 
-export class StarRenderer implements Renderer {
+export class PlanetRenderer implements Renderer {
   program: WebGLShader;
   vao: WebGLVertexArrayObjectOES;
-  timeUniformLocation: WebGLUniformLocation;
   aspectUniformLocation: WebGLUniformLocation;
   scaleUniformLocation: WebGLUniformLocation;
   zoomUniformLocation: WebGLUniformLocation;
   positionUniformLocation: WebGLUniformLocation;
+  starPositionUniformLocation: WebGLUniformLocation;
   colorUniformLocation: WebGLUniformLocation;
 
   constructor(private camera: Camera, private shaderCompiler: ShaderProgramCompiler) {}
 
   setup(gl: any) {
-    this.program = this.shaderCompiler.createShaderProgram(gl, STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE);
+    this.program = this.shaderCompiler.createShaderProgram(gl, PLANET_VS_SOURCE, PLANET_FS_SOURCE);
 
     this.vao = (gl as any).createVertexArray();
     (gl as any).bindVertexArray(this.vao);
@@ -30,11 +30,11 @@ export class StarRenderer implements Renderer {
     gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(coord);
 
-    this.timeUniformLocation = gl.getUniformLocation(this.program, 'time');
     this.aspectUniformLocation = gl.getUniformLocation(this.program, 'aspect');
     this.scaleUniformLocation = gl.getUniformLocation(this.program, 'scale');
     this.zoomUniformLocation = gl.getUniformLocation(this.program, 'zoom');
     this.positionUniformLocation = gl.getUniformLocation(this.program, 'pos');
+    this.starPositionUniformLocation = gl.getUniformLocation(this.program, 'starPosition');
     this.colorUniformLocation = gl.getUniformLocation(this.program, 'color');
   }
 
@@ -46,27 +46,42 @@ export class StarRenderer implements Renderer {
     gl.useProgram(this.program);
     gl.bindVertexArray(this.vao);
 
-    const time = (656454 % (Math.PI * 2000)) * 0.001;
 
-    gl.uniform1f(this.timeUniformLocation, time);
     gl.uniform1f(this.zoomUniformLocation, zoom);
     gl.uniform1f(this.aspectUniformLocation, aspect);
   }
 
-  render(gl: any, star: StarSystem) {
+  render(gl: any, planet: Planet) {
 
-    const color = STAR_COLORS[star.type - 1];
+    const startingAngle = (planet.id * planet.id) % (Math.PI * 2);
+    const time = new Date().getTime() * 0.001;
+    const speed = PLANET_ROTATION_SPEED_MULT / Math.sqrt(planet.orbit);
+    const angle = startingAngle + (speed * time) % (Math.PI * 2);
 
-    gl.uniform1f(this.scaleUniformLocation, this.getElementRenderScale(star));
-    gl.uniform2f(this.positionUniformLocation, star.x - this.camera.x, star.y - this.camera.y);
+    const color = PLANET_COLORS[planet.type - 1];
+
+    const planetX = this.getPlanetX(planet, angle);
+    const planetY = this.getPlanetY(planet, angle);
+
+    gl.uniform1f(this.scaleUniformLocation, this.getElementRenderScale(planet));
+    gl.uniform2f(this.positionUniformLocation, planetX - this.camera.x, planetY - this.camera.y);
+    gl.uniform2f(this.starPositionUniformLocation, -Math.cos(angle), -Math.sin(angle));
     gl.uniform3f(this.colorUniformLocation, color.r, color.g, color.b);
 
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   }
 
-  getElementRenderScale(ss: StarSystem): number {
+  getElementRenderScale(p: Planet): number {
     const zoom = this.camera.zoom;
-    const scale = (0.01 * ss.size + 0.03) / zoom + 0.003;
+    const scale = (0.0001 * p.size * p.size + 0.003) / zoom + (0.0001 * p.size * p.size);
     return scale;
+  }
+
+  getPlanetX(p: Planet, angle: number) {
+    return Math.cos(angle) * p.orbit * 0.01 + p.starX;
+  }
+
+  getPlanetY(p: Planet, angle: number) {
+    return Math.sin(angle) * p.orbit * 0.01 + p.starY;
   }
 }

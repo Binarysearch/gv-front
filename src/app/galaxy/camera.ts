@@ -1,6 +1,6 @@
 
 const MIN_ZOOM = 0.00002;
-const MAX_ZOOM = 10;
+const MAX_ZOOM = 20;
 
 const MIN_X = -60000;
 const MAX_X = 60000;

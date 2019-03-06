@@ -8,6 +8,7 @@ import { StarSystemsService } from './star-systems.service';
 import { Session } from '../entities/session';
 import { StarSystem } from '../entities/star-system';
 import { UserCivilization } from '../entities/user-civilization';
+import { PlanetsService } from './planets.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class CoreService {
   constructor(
     private authService: AuthService,
     private starSystemsService: StarSystemsService,
+    private planetsService: PlanetsService,
     private civilizationsService: CivilizationsService,
     private galaxiesService: GalaxiesService
   ) { }
@@ -47,6 +49,10 @@ export class CoreService {
 
   public get starSystems() {
     return this.starSystemsService.starSystems;
+  }
+
+  public get planets() {
+    return this.planetsService.planets;
   }
 
   public login(email: string, password: string): Observable<Session> {

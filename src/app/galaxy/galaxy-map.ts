@@ -7,6 +7,7 @@ import { Camera } from './camera';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { CoreService } from '../services/core.service';
 import { HoverHubRenderer } from './hover-hub-renderer';
+import { PlanetRenderer } from './planet-renderer';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class GalaxyMap {
   private gl: any;
   private animate: boolean;
   private starRenderer: StarRenderer;
+  private planetRenderer: PlanetRenderer;
   private camera: Camera;
   private hoverManager: HoverManager;
   private hoverHubRenderer: HoverHubRenderer;
@@ -32,6 +34,7 @@ export class GalaxyMap {
     this.camera = new Camera();
     this.animate = true;
     this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
+    this.planetRenderer = new PlanetRenderer(this.camera, shaderCompiler);
     this.hoverHubRenderer = new HoverHubRenderer(this.camera, shaderCompiler);
     this.hoverManager = new HoverManager(core, this.starRenderer, this.camera);
 
@@ -59,6 +62,7 @@ export class GalaxyMap {
     this.animate = false;
     this.gl = gl;
     this.starRenderer.setup(gl);
+    this.planetRenderer.setup(gl);
     this.hoverHubRenderer.setup(gl);
     this.animate = true;
     gl.clearColor(0, 0, 0, 1);
@@ -71,9 +75,16 @@ export class GalaxyMap {
   render() {
     const gl = this.gl;
     gl.clear(gl.COLOR_BUFFER_BIT);
+
     this.starRenderer.prepareRender(gl);
     this.core.starSystems.forEach(starSystem => {
         this.starRenderer.render(gl, starSystem);
+    });
+
+
+    this.planetRenderer.prepareRender(gl);
+    this.core.planets.forEach(planet => {
+        this.planetRenderer.render(gl, planet);
     });
 
 
@@ -96,7 +107,10 @@ export class GalaxyMap {
     let x = this._mouseX / this.camera.zoom * this.camera.aspectRatio + this.camera.x;
     let y = this._mouseY / this.camera.zoom + this.camera.y;
 
-    if (this.hovered) {
+    if (this.selected) {
+      x = this.selected.x;
+      y = this.selected.y;
+    } else if (this.hovered) {
       x = this.hovered.x;
       y = this.hovered.y;
     }

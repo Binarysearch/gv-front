@@ -25,7 +25,6 @@ in vec3 coord;
 uniform vec3 color;
 
 uniform float time;
-uniform float hover;
 
 void main() {
     float vC = min(coord.z/0.001,1.0);
