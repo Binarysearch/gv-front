@@ -1,7 +1,6 @@
-import { Injectable, OnInit } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from './auth.service';
 import { StarSystem } from '../entities/star-system';
 import { Galaxy } from '../entities/galaxy';
 import { GalaxiesService } from './galaxies.service';
