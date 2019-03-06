@@ -37,7 +37,7 @@ export class GalaxyMap {
     this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
     this.planetRenderer = new PlanetRenderer(this.camera, shaderCompiler);
     this.hoverHubRenderer = new HoverHubRenderer(this.camera, shaderCompiler);
-    this.hoverManager = new HoverManager(store, this.starRenderer, this.camera);
+    this.hoverManager = new HoverManager(store, this.starRenderer, this.planetRenderer, this.camera);
 
     this.focusHome();
     core.getCurrentCivilization().subscribe((civ: UserCivilizationDTO) => {
@@ -77,6 +77,15 @@ export class GalaxyMap {
     const gl = this.gl;
     gl.clear(gl.COLOR_BUFFER_BIT);
 
+    if (this.hovered) {
+      this.hoverHubRenderer.prepareRender(gl);
+      this.hoverHubRenderer.render(gl, this.hovered);
+    }
+    if (this.selected) {
+      this.hoverHubRenderer.prepareRender(gl);
+      this.hoverHubRenderer.render(gl, this.selected);
+    }
+
     this.starRenderer.prepareRender(gl);
     this.store.starSystems.forEach(starSystem => {
         this.starRenderer.render(gl, starSystem);
@@ -87,16 +96,6 @@ export class GalaxyMap {
     this.store.planets.forEach(planet => {
         this.planetRenderer.render(gl, planet);
     });
-
-
-    if (this.hovered) {
-      this.hoverHubRenderer.prepareRender(gl);
-      this.hoverHubRenderer.render(gl, this.hovered);
-    }
-    if (this.selected) {
-      this.hoverHubRenderer.prepareRender(gl);
-      this.hoverHubRenderer.render(gl, this.selected);
-    }
   }
 
   setViewport(width: number, height: number) {
