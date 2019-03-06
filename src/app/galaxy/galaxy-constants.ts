@@ -36,4 +36,4 @@ export const PLANET_COLORS = [
   {r: 0.2, g: 2.2, b: 0.2}, // superterran
 ];
 
-export const PLANET_ROTATION_SPEED_MULT = 0.1;
+export const PLANET_ROTATION_SPEED_MULT = 0.01;

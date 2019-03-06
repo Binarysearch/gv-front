@@ -34,6 +34,7 @@ export class Store {
 
   public clear(): void {
     this.objects.clear();
+    this._planets = [];
     this._starSystems = [];
   }
 
