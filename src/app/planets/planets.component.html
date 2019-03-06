@@ -1,3 +1,19 @@
-<p>
-  planets works!
-</p>
+<h1>{{ ts.strings.knownPlanets }}</h1>
+<table>
+  <thead>
+    <tr>
+      <th>{{ ts.strings.starSystem }}</th>
+      <th>{{ ts.strings.orbit }}</th>
+      <th class="sortable" (click)="sortBy('type')">{{ ts.strings.type }} <span *ngIf="orderBy=='type'"><i *ngIf="orderDir==-1" class="fa fa-sort-desc" aria-hidden="true"></i><i *ngIf="orderDir==1" class="fa fa-sort-asc" aria-hidden="true"></i></span></th>
+      <th class="sortable" (click)="sortBy('size')">{{ ts.strings.size }} <span *ngIf="orderBy=='size'"><i *ngIf="orderDir==-1" class="fa fa-sort-desc" aria-hidden="true"></i><i *ngIf="orderDir==1" class="fa fa-sort-asc" aria-hidden="true"></i></span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let planet of planets">
+      <td>{{ (planet.starSystem.name)?planet.starSystem.name:'Sistema ' + planet.starSystemId }}</td>
+      <td>{{ planet.orbit }}</td>
+      <td>{{ planetTypeName(planet.type) }}</td>
+      <td>{{ planetSizeName(planet.size) }}</td>
+    </tr>
+  </tbody>
+</table>
