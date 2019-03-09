@@ -6,14 +6,16 @@
       <th>{{ ts.strings.orbit }}</th>
       <th class="sortable" (click)="sortBy('type')">{{ ts.strings.type }} <span *ngIf="orderBy=='type'"><i *ngIf="orderDir==-1" class="fa fa-sort-desc" aria-hidden="true"></i><i *ngIf="orderDir==1" class="fa fa-sort-asc" aria-hidden="true"></i></span></th>
       <th class="sortable" (click)="sortBy('size')">{{ ts.strings.size }} <span *ngIf="orderBy=='size'"><i *ngIf="orderDir==-1" class="fa fa-sort-desc" aria-hidden="true"></i><i *ngIf="orderDir==1" class="fa fa-sort-asc" aria-hidden="true"></i></span></th>
+      <th class="sortable" (click)="sortBy('colonizedBy')">{{ ts.strings.colony }} <span *ngIf="orderBy=='colonizedBy'"><i *ngIf="orderDir==-1" class="fa fa-sort-desc" aria-hidden="true"></i><i *ngIf="orderDir==1" class="fa fa-sort-asc" aria-hidden="true"></i></span></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let planet of planets" (click)="clickInPlanet(planet.id)" [title]="ts.strings.viewPlanetInMap">
+    <tr *ngFor="let planet of planets" (click)="clickInPlanet(planet.id)" [title]="ts.strings.viewPlanetInMap" [class.colonized]="planet.colony != null">
       <td>{{ (planet.starSystem.name)?planet.starSystem.name:'Sistema ' + planet.starSystemId }}</td>
       <td>{{ planet.orbit }}</td>
       <td>{{ planetTypeName(planet.type) }}</td>
       <td>{{ planetSizeName(planet.size) }}</td>
+      <td>{{ colonizedBy(planet) }}</td>
     </tr>
   </tbody>
 </table>

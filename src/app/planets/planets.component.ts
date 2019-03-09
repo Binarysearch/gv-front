@@ -39,12 +39,27 @@ export class PlanetsComponent implements OnInit {
         this._planets.push(p);
       });
 
-      this._planets.sort((p1, p2) => {
-        return this.orderDir * (p1[this.orderBy] - p2[this.orderBy]);
-      });
+      this.sortPlanets();
     }
 
     return this._planets;
+  }
+
+  private sortPlanets() {
+    let sortFunc = (p1, p2) => {
+
+      return this.orderDir * (p1[this.orderBy] - p2[this.orderBy]);
+    };
+
+    if (this.orderBy === 'colonizedBy') {
+      sortFunc = (p1: Planet, p2: Planet) => {
+        const n1 = p1.colony ? 1 : 0;
+        const n2 = p2.colony ? 1 : 0;
+        return this.orderDir * (n1 - n2);
+      };
+    }
+
+    this._planets.sort(sortFunc);
   }
 
   public sortBy(fieldName: string) {
@@ -59,5 +74,12 @@ export class PlanetsComponent implements OnInit {
   public clickInPlanet(id: number) {
     this.galaxyMap.selectAndFocus(id);
     this.router.navigate(['galaxy']);
+  }
+
+  colonizedBy(planet: Planet): string {
+    if (planet.colony) {
+      return planet.colony.civilization.name;
+    }
+    return this.ts.strings.notColonized;
   }
 }
