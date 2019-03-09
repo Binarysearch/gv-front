@@ -59,3 +59,4 @@ export const PLANET_SIZES = [
 ];
 
 export const PLANET_ROTATION_SPEED_MULT = 0.01;
+export const FLEET_ROTATION_SPEED_MULT = 0.02;
