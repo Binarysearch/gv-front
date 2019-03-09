@@ -12,11 +12,13 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LandingComponent } from './landing/landing.component';
 import { SelectGalaxyGuard } from './services/select-galaxy-guard.service';
 import { GalaxiesComponent } from './galaxies/galaxies.component';
+import { CivilizationsComponent } from './civilizations/civilizations.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'galaxies', component: GalaxiesComponent, canActivate: [AuthGuard] },
   { path: 'galaxy', component: GalaxyComponent, canActivate: [SelectGalaxyGuard] },
+  { path: 'civilizations', component: CivilizationsComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
   { path: 'colonies', component: ColoniesComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
   { path: 'fleets', component: FleetsComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
   { path: 'planets', component: PlanetsComponent, canActivate: [AuthGuard, SelectGalaxyGuard] },
