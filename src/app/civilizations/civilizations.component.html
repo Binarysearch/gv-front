@@ -1,3 +1,15 @@
-<p>
-  civilizations works!
-</p>
+<h1>{{ ts.strings.civilizations }}</h1>
+<table>
+  <thead>
+    <tr>
+      <th class="sortable" (click)="sortBy('name')">{{ ts.strings.name }} <span *ngIf="orderBy=='name'"><i *ngIf="orderDir==-1" class="fa fa-sort-desc" aria-hidden="true"></i><i *ngIf="orderDir==1" class="fa fa-sort-asc" aria-hidden="true"></i></span></th>
+      <th class="sortable" (click)="sortBy('homeworld')">{{ ts.strings.homeworld }} <span *ngIf="orderBy=='homeworld'"><i *ngIf="orderDir==-1" class="fa fa-sort-desc" aria-hidden="true"></i><i *ngIf="orderDir==1" class="fa fa-sort-asc" aria-hidden="true"></i></span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let civilization of civilizations" (click)="clickInCivilization(civilization.id)" [title]="ts.strings.viewCivilization">
+      <td>{{ civilization.name }}</td>
+      <td>{{ homeworldName(civilization) }}</td>
+    </tr>
+  </tbody>
+</table>

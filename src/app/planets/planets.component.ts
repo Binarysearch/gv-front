@@ -80,6 +80,6 @@ export class PlanetsComponent implements OnInit {
     if (planet.colony) {
       return planet.colony.civilization.name;
     }
-    return this.ts.strings.notColonized;
+    return this.ts.strings.na;
   }
 }

@@ -32,7 +32,9 @@ export class TextService {
     viewPlanetInMap: 'Ver planeta en el mapa',
     viewColonyInMap: 'Ver colonia en el mapa',
     createCivilization: 'Crear civilización',
+    homeworld: 'Mundo natal',
     civilization: 'Civilización',
+    viewCivilization: 'Ver civilización',
     civilizations: 'Civilizaciones',
     notColonized: 'Sin colonizar',
     colonized: 'Colonizado',
@@ -43,7 +45,9 @@ export class TextService {
     homeStarName: 'Nombre de la estrella inicial',
     selectGalaxy: 'Seleccionar galaxia',
     invalidLoginCredentials: 'Email o Contraseña incorrecta',
-    passwordsDontMatch: 'Las contraseñas no coinciden'
+    passwordsDontMatch: 'Las contraseñas no coinciden',
+    unknown: 'Desconocido',
+    na: 'N/A'
   };
 
   constructor() { }

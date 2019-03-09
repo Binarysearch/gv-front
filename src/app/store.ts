@@ -34,6 +34,10 @@ export class Store {
     return this._colonies;
   }
 
+  public get civilizations(): Civilization[] {
+    return this._civilizations;
+  }
+
   public addPlanet(planet: Planet): void {
     planet.starSystem = this.objects.get(planet.starSystemId) as StarSystem;
     this.objects.set(planet.id, planet);
