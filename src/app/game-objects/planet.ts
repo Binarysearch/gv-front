@@ -2,6 +2,7 @@ import { StarSystem } from './star-system';
 import { GameObject } from './game-object';
 import { PlanetDTO } from '../dtos/planet';
 import { PLANET_ROTATION_SPEED_MULT } from '../galaxy/galaxy-constants';
+import { Colony } from './colony';
 
 export class Planet implements GameObject {
   id: number;
@@ -10,6 +11,7 @@ export class Planet implements GameObject {
   size: number;
   orbit: number;
   starSystem: StarSystem;
+  colony: Colony;
 
   constructor (data: PlanetDTO) {
     this.id = data.id;

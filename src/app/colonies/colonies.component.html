@@ -11,7 +11,7 @@
     <tr *ngFor="let colony of colonies" (click)="clickInColony(colony.id)" [title]="ts.strings.viewColonyInMap">
       <td>{{ (colony.planet.starSystem.name)?colony.planet.starSystem.name:'Sistema ' + colony.planet.starSystemId }}</td>
       <td>{{ colony.planet.orbit }}</td>
-      <td>{{ colony.civilizationId }}</td>
+      <td>{{ colony.civilization.name }}</td>
     </tr>
   </tbody>
 </table>

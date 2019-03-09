@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { StarSystem } from './game-objects/star-system';
 import { Planet } from './game-objects/planet';
 import { Colony } from './game-objects/colony';
+import { Civilization } from './game-objects/civilization';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class Store {
 
   private _starSystems: StarSystem[] = [];
   private _planets: Planet[] = [];
+  private _civilizations: Civilization[] = [];
   private _colonies: Colony[] = [];
 
   public get starSystems(): StarSystem[] {
@@ -38,8 +40,16 @@ export class Store {
     this._planets.push(planet);
   }
 
+  addCivilization(civilization: Civilization): any {
+    civilization.homeworld = this.objects.get(civilization.homeworldId) as Planet;
+    this.objects.set(civilization.id, civilization);
+    this._civilizations.push(civilization);
+  }
+
   addColony(colony: Colony): any {
     colony.planet = this.objects.get(colony.planetId) as Planet;
+    colony.planet.colony = colony;
+    colony.civilization = this.objects.get(colony.civilizationId) as Civilization;
     this.objects.set(colony.id, colony);
     this._colonies.push(colony);
   }
@@ -47,6 +57,8 @@ export class Store {
   public clear(): void {
     this.objects.clear();
     this._planets = [];
+    this._civilizations = [];
+    this._colonies = [];
     this._starSystems = [];
   }
 

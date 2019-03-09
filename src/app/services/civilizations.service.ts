@@ -6,6 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { GalaxiesService } from './galaxies.service';
 import { GalaxyDTO } from '../dtos/galaxy';
+import { Store } from '../store';
+import { CivilizationDTO } from '../dtos/civilization';
+import { Civilization } from '../game-objects/civilization';
+import { ColoniesService } from './colonies.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +17,14 @@ import { GalaxyDTO } from '../dtos/galaxy';
 export class CivilizationsService {
 
   private civilizationUrl = 'https://galaxyvictor.com/api/civilization';
+  private civilizationsUrl = 'https://galaxyvictor.com/api/civilizations';
 
   private _currentCivilization: UserCivilizationDTO;
   private currentCivilizationSubject: Subject<UserCivilizationDTO> = new Subject<UserCivilizationDTO>();
   private currentGalaxyId: number;
 
-  constructor(private http: HttpClient, private galaxiesService: GalaxiesService) {
+  constructor(private http: HttpClient, private store: Store, private galaxiesService: GalaxiesService,
+     private coloniesService: ColoniesService) {
     this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: GalaxyDTO) => {
       if (currentGalaxy) {
         this.currentGalaxyId = currentGalaxy.id;
@@ -57,6 +63,18 @@ export class CivilizationsService {
     } else {
       this._currentCivilization = null;
     }
+  }
+
+  loadCivilizations(): any {
+    this.http.get<CivilizationDTO[]>(this.civilizationsUrl)
+    .subscribe((data: CivilizationDTO[]) => {
+      data.forEach(p => {
+        this.store.addCivilization(new Civilization(p));
+      });
+      this.coloniesService.loadColonies();
+    }, (error: any) => {
+      console.log(error);
+    });
   }
 
   public get hasCivilization(): boolean {
