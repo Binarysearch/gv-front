@@ -1,3 +1,15 @@
-<p>
-  fleets works!
-</p>
+<h1>{{ ts.strings.fleets }}</h1>
+<table>
+  <thead>
+    <tr>
+      <th>{{ ts.strings.civilization }}</th>
+      <th>{{ ts.strings.location }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let fleet of fleets" (click)="clickInFleet(fleet.id)" [title]="ts.strings.viewFleetInMap" >
+      <td>{{ fleet.civilization.name }}</td>
+      <td>{{ getFleetLocation(fleet) }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -10,6 +10,7 @@ import { Store } from '../store';
 import { CivilizationDTO } from '../dtos/civilization';
 import { Civilization } from '../game-objects/civilization';
 import { ColoniesService } from './colonies.service';
+import { FleetsService } from './fleets.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class CivilizationsService {
   private currentGalaxyId: number;
 
   constructor(private http: HttpClient, private store: Store, private galaxiesService: GalaxiesService,
-     private coloniesService: ColoniesService) {
+     private coloniesService: ColoniesService, private fleetsService: FleetsService) {
     this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: GalaxyDTO) => {
       if (currentGalaxy) {
         this.currentGalaxyId = currentGalaxy.id;
@@ -72,6 +73,7 @@ export class CivilizationsService {
         this.store.addCivilization(new Civilization(p));
       });
       this.coloniesService.loadColonies();
+      this.fleetsService.loadFleets();
     }, (error: any) => {
       console.log(error);
     });
