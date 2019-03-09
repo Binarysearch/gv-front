@@ -4,12 +4,13 @@
   <div *ngIf="coreService.isAuthenticated">
     <a *ngIf="!coreService.currentSession.user.currentGalaxy" class='btn-nav' routerLink="/galaxies" routerLinkActive="active"><i class="fa fa-list-ul" aria-hidden="true"></i> {{ ts.strings.selectGalaxy }}</a>
     <div *ngIf="coreService.currentGalaxy">
-      <a class='btn-nav' routerLink="/galaxy" routerLinkActive="active"><i class="fa fa-map" aria-hidden="true"></i> {{ ts.strings.galaxy }}</a>
-      <a class='btn-nav' routerLink="/colonies" routerLinkActive="active"><i class="fa fa-university" aria-hidden="true"></i> {{ ts.strings.colonies }}</a>
-      <a class='btn-nav' routerLink="/fleets" routerLinkActive="active"><i class="fa fa-space-shuttle" aria-hidden="true"></i> {{ ts.strings.fleets }}</a>
-      <a class='btn-nav' routerLink="/planets" routerLinkActive="active"><i class="fa fa-globe" aria-hidden="true"></i> {{ ts.strings.planets }}</a>
-      <a class='btn-nav' routerLink="/commerce" routerLinkActive="active"><i class="fa fa-exchange" aria-hidden="true"></i> {{ ts.strings.commerce }}</a>
-      <a class='btn-nav' routerLink="/research" routerLinkActive="active"><i class="fa fa-flask" aria-hidden="true"></i> {{ ts.strings.research }}</a>
+      <a class='btn-nav' routerLink="/galaxy" routerLinkActive="active" [title]="ts.strings.galaxy"><i class="fa fa-map" aria-hidden="true"></i></a>
+      <a class='btn-nav' routerLink="/colonies" routerLinkActive="active" [title]="ts.strings.colonies"><i class="fa fa-university" aria-hidden="true"></i></a>
+      <a class='btn-nav' routerLink="/civilizations" routerLinkActive="active" [title]="ts.strings.civilizations"><i class="fa fa-users" aria-hidden="true"></i></a>
+      <a class='btn-nav' routerLink="/fleets" routerLinkActive="active" [title]="ts.strings.fleets"><i class="fa fa-space-shuttle" aria-hidden="true"></i></a>
+      <a class='btn-nav' routerLink="/planets" routerLinkActive="active" [title]="ts.strings.planets"><i class="fa fa-globe" aria-hidden="true"></i></a>
+      <a class='btn-nav' routerLink="/commerce" routerLinkActive="active" [title]="ts.strings.commerce"><i class="fa fa-exchange" aria-hidden="true"></i></a>
+      <a class='btn-nav' routerLink="/research" routerLinkActive="active" [title]="ts.strings.research"><i class="fa fa-flask" aria-hidden="true"></i></a>
     </div>
   </div>
   <div>

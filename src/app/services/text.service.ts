@@ -32,6 +32,7 @@ export class TextService {
     viewColonyInMap: 'Ver colonia en el mapa',
     createCivilization: 'Crear civilización',
     civilization: 'Civilización',
+    civilizations: 'Civilizaciones',
     civilizationName: 'Nombre de la civilización',
     invalidCivilizationName: 'Nombre de civilización invalido: debe tener al menos 3 caracteres y no empezar ni acabar con espacio.',
     invalidHomeStarName: 'Nombre de estrella invalido: debe tener al menos 3 caracteres y no empezar ni acabar con espacio.',
