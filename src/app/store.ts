@@ -2,6 +2,7 @@ import { GameObject } from './game-objects/game-object';
 import { Injectable } from '@angular/core';
 import { StarSystem } from './game-objects/star-system';
 import { Planet } from './game-objects/planet';
+import { Colony } from './game-objects/colony';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class Store {
 
   private _starSystems: StarSystem[] = [];
   private _planets: Planet[] = [];
+  private _colonies: Colony[] = [];
 
   public get starSystems(): StarSystem[] {
     return this._starSystems;
@@ -26,10 +28,20 @@ export class Store {
     return this._planets;
   }
 
+  public get colonies(): Colony[] {
+    return this._colonies;
+  }
+
   public addPlanet(planet: Planet): void {
     planet.starSystem = this.objects.get(planet.starSystemId) as StarSystem;
     this.objects.set(planet.id, planet);
     this._planets.push(planet);
+  }
+
+  addColony(colony: Colony): any {
+    colony.planet = this.objects.get(colony.planetId) as Planet;
+    this.objects.set(colony.id, colony);
+    this._colonies.push(colony);
   }
 
   public clear(): void {
