@@ -9,6 +9,7 @@ import { HoverHubRenderer } from './hover-hub-renderer';
 import { PlanetRenderer } from './planet-renderer';
 import { GameObject } from '../game-objects/game-object';
 import { Store } from '../store';
+import { FleetRenderer } from './fleet-renderer';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class GalaxyMap {
   private animate: boolean;
   private starRenderer: StarRenderer;
   private planetRenderer: PlanetRenderer;
+  private fleetRenderer: FleetRenderer;
   private camera: Camera;
   private hoverManager: HoverManager;
   private hoverHubRenderer: HoverHubRenderer;
@@ -36,8 +38,9 @@ export class GalaxyMap {
     this.animate = true;
     this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
     this.planetRenderer = new PlanetRenderer(this.camera, shaderCompiler);
+    this.fleetRenderer = new FleetRenderer(this.camera, shaderCompiler);
     this.hoverHubRenderer = new HoverHubRenderer(this.camera, shaderCompiler);
-    this.hoverManager = new HoverManager(store, this.starRenderer, this.planetRenderer, this.camera);
+    this.hoverManager = new HoverManager(store, this.starRenderer, this.fleetRenderer, this.planetRenderer, this.camera);
 
     this.focusHome();
     core.getCurrentCivilization().subscribe((civ: UserCivilizationDTO) => {
@@ -64,6 +67,7 @@ export class GalaxyMap {
     this.gl = gl;
     this.starRenderer.setup(gl);
     this.planetRenderer.setup(gl);
+    this.fleetRenderer.setup(gl);
     this.hoverHubRenderer.setup(gl);
     this.animate = true;
     gl.clearColor(0, 0, 0, 1);
@@ -96,6 +100,14 @@ export class GalaxyMap {
     this.store.planets.forEach(planet => {
         this.planetRenderer.render(gl, planet);
     });
+
+
+    this.fleetRenderer.prepareRender(gl);
+    this.store.fleets.forEach(fleet => {
+        this.fleetRenderer.render(gl, fleet);
+    });
+
+
   }
 
   setViewport(width: number, height: number) {

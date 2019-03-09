@@ -4,6 +4,7 @@ import { Camera } from './camera';
 import { Renderer } from './renderer';
 import { GameObject } from '../game-objects/game-object';
 import { PlanetRenderer } from './planet-renderer';
+import { FleetRenderer } from './fleet-renderer';
 
 interface IntersectingElement {
   x: number;
@@ -15,7 +16,8 @@ export class HoverManager {
 
   private _hovered: GameObject;
 
-  constructor(private store: Store, private starRenderer: StarRenderer, private planetRenderer: PlanetRenderer, private camera: Camera) {
+  constructor(private store: Store, private starRenderer: StarRenderer, private fleetRenderer: FleetRenderer,
+     private planetRenderer: PlanetRenderer, private camera: Camera) {
 
   }
 
@@ -27,8 +29,9 @@ export class HoverManager {
   mouseMoved(x: number, y: number): void {
     const intersectingStars = this.getintersectingStars(x, y);
     const intersectingPlanets = this.getintersectingPlanets(x, y);
+    const intersectingFleets = this.getintersectingFleets(x, y);
 
-    const closest = this.getClosestElement(x, y, [intersectingStars, intersectingPlanets]);
+    const closest = this.getClosestElement(x, y, [intersectingStars, intersectingPlanets, intersectingFleets]);
 
     this._hovered = closest;
   }
@@ -57,6 +60,10 @@ export class HoverManager {
 
   getintersectingPlanets(x: number, y: number) {
     return this.getIntersectingElements(x, y, this.store.planets, this.planetRenderer);
+  }
+
+  getintersectingFleets(x: number, y: number) {
+    return this.getIntersectingElements(x, y, this.store.fleets, this.fleetRenderer);
   }
 
   getIntersectingElements(x: number, y: number, elements: GameObject[], renderer: Renderer): IntersectingElement[] {
