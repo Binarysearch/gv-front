@@ -1,5 +1,6 @@
 import { StarSystemDTO } from './../dtos/star-system';
 import { GameObject } from './game-object';
+import { Planet } from './planet';
 
 export class StarSystem implements GameObject {
   id: number;
@@ -8,6 +9,7 @@ export class StarSystem implements GameObject {
   y: number;
   type: number;
   size: number;
+  planets: Planet[];
 
   constructor (data: StarSystemDTO) {
     this.id = data.id;

@@ -1,6 +1,8 @@
 import { CivilizationDTO } from './../dtos/civilization';
 import { GameObject } from './game-object';
 import { Planet } from './planet';
+import { Colony } from './colony';
+import { Fleet } from './fleet';
 
 export class Civilization implements GameObject {
 
@@ -8,6 +10,8 @@ export class Civilization implements GameObject {
   name: string;
   homeworld: Planet;
   homeworldId: number;
+  colonies: Colony[];
+  fleets: Fleet[];
 
   constructor(data: CivilizationDTO) {
     this.id = data.id;

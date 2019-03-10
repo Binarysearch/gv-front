@@ -23,11 +23,6 @@ export class Store {
     return this._starSystems;
   }
 
-  public addStarSystem(starSystem: StarSystem): void {
-    this.objects.set(starSystem.id, starSystem);
-    this._starSystems.push(starSystem);
-  }
-
   public get planets(): Planet[] {
     return this._planets;
   }
@@ -44,8 +39,14 @@ export class Store {
     return this._civilizations;
   }
 
+  public addStarSystem(starSystem: StarSystem): void {
+    this.objects.set(starSystem.id, starSystem);
+    this._starSystems.push(starSystem);
+  }
+
   public addPlanet(planet: Planet): void {
     planet.starSystem = this.objects.get(planet.starSystemId) as StarSystem;
+    planet.starSystem.planets.push(planet);
     this.objects.set(planet.id, planet);
     this._planets.push(planet);
   }
@@ -60,6 +61,7 @@ export class Store {
     colony.planet = this.objects.get(colony.planetId) as Planet;
     colony.planet.colony = colony;
     colony.civilization = this.objects.get(colony.civilizationId) as Civilization;
+    colony.civilization.colonies.push(colony);
     this.objects.set(colony.id, colony);
     this._colonies.push(colony);
   }
@@ -68,6 +70,7 @@ export class Store {
     fleet.destination = this.objects.get(fleet.destinationId) as StarSystem;
     fleet.origin = this.objects.get(fleet.originId) as StarSystem;
     fleet.civilization = this.objects.get(fleet.civilizationId) as Civilization;
+    fleet.civilization.fleets.push(fleet);
     this.objects.set(fleet.id, fleet);
     this._fleets.push(fleet);
   }
