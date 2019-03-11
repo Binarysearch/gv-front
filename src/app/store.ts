@@ -131,7 +131,7 @@ export class Store {
 
   public get gameTime() {
     const localTime = new Date().getTime();
-    return localTime + this.lag;
+    return localTime - this.lag;
   }
 
   public set serverTime(serverTime: number) {

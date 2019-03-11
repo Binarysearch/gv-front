@@ -1,3 +1,4 @@
+import { TravelDTO } from './../dtos/travel';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FleetDTO } from '../dtos/fleet';
@@ -11,6 +12,7 @@ import { StarSystem } from '../game-objects/star-system';
 export class FleetsService {
 
   private fleetsUrl = 'https://galaxyvictor.com/api/fleets';
+  private travelsUrl = 'https://galaxyvictor.com/api/travels';
 
 
   constructor(private http: HttpClient, private store: Store) {
@@ -29,10 +31,13 @@ export class FleetsService {
   }
 
   startTravel(fleet: Fleet, destination: StarSystem): any {
-    this.store.removeFleet(fleet);
-    fleet.travelStartTime = this.store.gameTime;
-    fleet.destinationId = destination.id;
-    fleet.originId = fleet.destination.id;
-    this.store.addFleet(fleet);
+    this.http.post<TravelDTO>(this.travelsUrl, {fleet: fleet.id, destination: destination.id})
+    .subscribe((travel: TravelDTO) => {
+      this.store.removeFleet(fleet);
+      fleet.travelStartTime = travel.startTime;
+      fleet.destinationId = travel.destination;
+      fleet.originId = travel.origin;
+      this.store.addFleet(fleet);
+    });
   }
 }

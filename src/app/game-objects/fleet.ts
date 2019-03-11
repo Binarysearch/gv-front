@@ -17,7 +17,7 @@ export class Fleet implements GameObject {
   originId: number;
   travelStartTime: number;
   orbit = 7;
-  speed = 0.1;
+  speed = 1;
   store: Store;
 
   constructor(data: FleetDTO) {
