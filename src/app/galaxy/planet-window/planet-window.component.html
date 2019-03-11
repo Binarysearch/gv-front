@@ -1,3 +1,12 @@
-<p>
-  planet-window works!
-</p>
+<div class="container box" [class.maximized]="maximized">
+  <div class="header">
+    <div class="title">{{ title }}</div>
+    <div class="close-button" (click)="closeButtonClick();"><i class="fa fa-times" aria-hidden="true"></i></div>
+    <div *ngIf="!maximized" class="maximize-button" (click)="maximizeButtonClick();"><i class="fa fa-window-maximize" aria-hidden="true"></i></div>
+    <div *ngIf="maximized" class="restore-button" (click)="restoreButtonClick();"><i class="fa fa-window-restore" aria-hidden="true"></i></div>
+  </div>
+  <div class="body">
+    <app-planet-details [planet]="planet"></app-planet-details>
+    <app-colony-details *ngIf="planet.colony" [colony]="planet.colony"></app-colony-details>
+  </div>
+</div>
