@@ -58,5 +58,12 @@ export const PLANET_SIZES = [
   'Gigante'
 ];
 
+
+// Rotation speeds
 export const PLANET_ROTATION_SPEED_MULT = 0.01;
 export const FLEET_ROTATION_SPEED_MULT = 0.2;
+
+
+// Render sizes
+export const PLANET_RENDER_SCALE_ZI = 0.001; // Zoom independent component
+export const PLANET_RENDER_SCALE_ZD = 0.0002; // Zoom dependent component

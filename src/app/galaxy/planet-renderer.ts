@@ -2,7 +2,7 @@ import { Camera } from './camera';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { PLANET_VS_SOURCE, PLANET_FS_SOURCE } from './gl/shaders/planet-shader';
-import { PLANET_COLORS } from './galaxy-constants';
+import { PLANET_COLORS, PLANET_RENDER_SCALE_ZD, PLANET_RENDER_SCALE_ZI } from './galaxy-constants';
 import { Planet } from '../game-objects/planet';
 
 export class PlanetRenderer implements Renderer {
@@ -65,7 +65,7 @@ export class PlanetRenderer implements Renderer {
 
   getElementRenderScale(p: Planet): number {
     const zoom = this.camera.zoom;
-    const scale = (0.0001 * p.size * p.size + 0.003) / zoom + (0.0001 * p.size * p.size);
+    const scale = (PLANET_RENDER_SCALE_ZI * p.size * p.size) / zoom + (PLANET_RENDER_SCALE_ZD * p.size * p.size);
     return scale;
   }
 }
