@@ -1,0 +1,6 @@
+.link{
+  cursor: pointer;
+}
+.link:hover {
+  filter: brightness(200%);
+}
