@@ -20,7 +20,14 @@ export class FleetsService {
     this.http.get<FleetDTO[]>(this.fleetsUrl)
     .subscribe((data: FleetDTO[]) => {
       data.forEach(f => {
-        this.store.addFleet(new Fleet(f));
+        const fake = {
+          id: 1000000,
+          civilization: 28918,
+          destination: 28803,
+          origin: 28728,
+          travelStartedTime: new Date().getTime() - 1000
+        };
+        this.store.addFleet(new Fleet(fake));
       });
     }, (error: any) => {
       console.log(error);

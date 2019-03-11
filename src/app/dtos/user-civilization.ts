@@ -3,6 +3,7 @@
 export interface UserCivilizationDTO {
   id: number;
   name: string;
+  serverTime: number;
   homeworld: {
     id: number;
     orbit: number;

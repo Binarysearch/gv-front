@@ -42,6 +42,7 @@ export class CivilizationsService {
       ).pipe(
       tap<UserCivilizationDTO>((civ: UserCivilizationDTO) => {
         this.currentCivilizationSubject.next(civ);
+        this.store.serverTime = civ.serverTime;
         this._currentCivilization = civ;
       })
     );
@@ -56,6 +57,7 @@ export class CivilizationsService {
       this.http.get<UserCivilizationDTO>(this.civilizationUrl + `?galaxy=${this.currentGalaxyId}`)
         .subscribe((data: UserCivilizationDTO) => {
           this.currentCivilizationSubject.next(data);
+          this.store.serverTime = data.serverTime;
           this._currentCivilization = data;
         }, (error: any) => {
           this._currentCivilization = null;

@@ -67,6 +67,4 @@ export class CoreService {
   public get currentCivilization(): UserCivilizationDTO {
     return this.civilizationsService.currentCivilization;
   }
-
-
 }

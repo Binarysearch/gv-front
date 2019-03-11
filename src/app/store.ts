@@ -22,6 +22,7 @@ export class Store {
   private _fleets: Fleet[] = [];
   private _session: SessionDTO;
   private _galaxy: GalaxyDTO;
+  private lag = 0;
 
   public get session(): SessionDTO {
     return this._session;
@@ -95,6 +96,7 @@ export class Store {
     fleet.civilization = this.objects.get(fleet.civilizationId) as Civilization;
     fleet.civilization.fleets.push(fleet);
     fleet.destination.fleets.push(fleet);
+    fleet.store = this;
     this.objects.set(fleet.id, fleet);
     this._fleets.push(fleet);
   }
@@ -112,4 +114,12 @@ export class Store {
     return this.objects.get(id);
   }
 
+  public get gameTime() {
+    const localTime = new Date().getTime();
+    return localTime + this.lag;
+  }
+
+  public set serverTime(serverTime: number) {
+    this.lag = new Date().getTime() - serverTime;
+  }
 }
