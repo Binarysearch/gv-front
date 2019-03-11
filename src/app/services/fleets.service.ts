@@ -30,7 +30,7 @@ export class FleetsService {
 
   startTravel(fleet: Fleet, destination: StarSystem): any {
     this.store.removeFleet(fleet);
-    fleet.travelStartedTime = this.store.gameTime;
+    fleet.travelStartTime = this.store.gameTime;
     fleet.destinationId = destination.id;
     fleet.originId = fleet.destination.id;
     this.store.addFleet(fleet);

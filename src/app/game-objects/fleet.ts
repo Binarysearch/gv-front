@@ -15,7 +15,7 @@ export class Fleet implements GameObject {
   civilizationId: number;
   destinationId: number;
   originId: number;
-  travelStartedTime: number;
+  travelStartTime: number;
   orbit = 7;
   speed = 0.1;
   store: Store;
@@ -25,7 +25,7 @@ export class Fleet implements GameObject {
     this.destinationId = data.destination;
     this.originId = data.origin;
     this.civilizationId = data.civilization;
-    this.travelStartedTime = data.travelStartedTime;
+    this.travelStartTime = data.travelStartTime;
   }
 
   get objectType() { return 'Fleet'; }
@@ -68,8 +68,9 @@ export class Fleet implements GameObject {
 
   get travelPercent() {
     if (this.destinationId !== this.originId) {
+
       const travelTime = this.travelDistance / this.speed;
-      const timeElapsed = this.store.gameTime - this.travelStartedTime;
+      const timeElapsed = this.store.gameTime - this.travelStartTime;
       const remainingTime = travelTime - timeElapsed;
       return 1 - Math.max(Math.min(remainingTime / travelTime, 1), 0);
     }

@@ -3,5 +3,5 @@ export interface FleetDTO {
   civilization: number;
   destination: number;
   origin: number;
-  travelStartedTime: number;
+  travelStartTime: number;
 }
