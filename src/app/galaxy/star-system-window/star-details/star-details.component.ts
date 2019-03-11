@@ -1,8 +1,8 @@
 import { TextService } from './../../../services/text.service';
-import { StarSystemDTO } from './../../../dtos/star-system';
 import { CoreService } from './../../../services/core.service';
 import { Component, Input } from '@angular/core';
 import { STAR_TYPES, STAR_SIZES } from '../../galaxy-constants';
+import { StarSystem } from 'src/app/game-objects/star-system';
 
 @Component({
   selector: 'app-star-details',
@@ -11,15 +11,9 @@ import { STAR_TYPES, STAR_SIZES } from '../../galaxy-constants';
 })
 export class StarDetailsComponent {
 
-  starSystem: StarSystemDTO;
+  @Input() starSystem: StarSystem;
 
   constructor(private core: CoreService, public ts: TextService) { }
-
-  @Input() set starSystemId(id: number) {
-    this.core.getStarSystem(id).subscribe(starSystem => {
-      this.starSystem = starSystem;
-    });
-  }
 
   get starSystemType() {
     return STAR_TYPES[this.starSystem.type - 1];
@@ -28,6 +22,5 @@ export class StarDetailsComponent {
   get starSystemSize() {
     return STAR_SIZES[this.starSystem.size - 1];
   }
-
 
 }
