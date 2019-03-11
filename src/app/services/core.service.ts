@@ -8,8 +8,10 @@ import { StarSystemsService } from './star-systems.service';
 import { SessionDTO } from '../dtos/session';
 import { StarSystemDTO } from '../dtos/star-system';
 import { UserCivilizationDTO } from '../dtos/user-civilization';
-import { PlanetsService } from './planets.service';
+import { FleetsService } from './fleets.service';
 import { Store } from '../store';
+import { StarSystem } from '../game-objects/star-system';
+import { Fleet } from '../game-objects/fleet';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,7 @@ export class CoreService {
   constructor(
     private authService: AuthService,
     private starSystemsService: StarSystemsService,
+    private fleetService: FleetsService,
     private store: Store,
     private civilizationsService: CivilizationsService,
     private galaxiesService: GalaxiesService
@@ -66,5 +69,9 @@ export class CoreService {
 
   public get currentCivilization(): UserCivilizationDTO {
     return this.civilizationsService.currentCivilization;
+  }
+
+  public startTravel(fleet: Fleet, destination: StarSystem): void {
+    this.fleetService.startTravel(fleet, destination);
   }
 }

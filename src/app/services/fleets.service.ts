@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { FleetDTO } from '../dtos/fleet';
 import { Store } from '../store';
 import { Fleet } from '../game-objects/fleet';
+import { StarSystem } from '../game-objects/star-system';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,13 @@ export class FleetsService {
     }, (error: any) => {
       console.log(error);
     });
+  }
+
+  startTravel(fleet: Fleet, destination: StarSystem): any {
+    this.store.removeFleet(fleet);
+    fleet.travelStartedTime = this.store.gameTime;
+    fleet.destinationId = destination.id;
+    fleet.originId = fleet.destination.id;
+    this.store.addFleet(fleet);
   }
 }

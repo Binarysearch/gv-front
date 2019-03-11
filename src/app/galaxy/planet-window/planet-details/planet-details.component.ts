@@ -34,6 +34,6 @@ export class PlanetDetailsComponent implements OnInit {
   }
 
   clickStarSystem() {
-    this.map.selectAndFocus(this.planet.starSystem.id);
+    this.map.select(this.planet.starSystem.id);
   }
 }

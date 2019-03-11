@@ -23,7 +23,7 @@ export class StarFleetsComponent implements OnInit {
   }
 
   selectFleet(fleet: Fleet) {
-    this.map.selectAndFocus(fleet.id);
+    this.map.select(fleet.id);
   }
 
 }

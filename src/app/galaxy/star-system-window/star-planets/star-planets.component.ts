@@ -24,6 +24,6 @@ export class StarPlanetsComponent implements OnInit {
   }
 
   selectPlanet(planet: Planet) {
-    this.map.selectAndFocus(planet.id);
+    this.map.select(planet.id);
   }
 }

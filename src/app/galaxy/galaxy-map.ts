@@ -1,3 +1,4 @@
+import { StarSystem } from 'src/app/game-objects/star-system';
 import { UserCivilizationDTO } from './../dtos/user-civilization';
 import { HoverManager } from './hover-manager';
 import { Injectable } from '@angular/core';
@@ -10,6 +11,7 @@ import { PlanetRenderer } from './planet-renderer';
 import { GameObject } from '../game-objects/game-object';
 import { Store } from '../store';
 import { FleetRenderer } from './fleet-renderer';
+import { Fleet } from '../game-objects/fleet';
 
 @Injectable({
   providedIn: 'root'
@@ -171,7 +173,10 @@ export class GalaxyMap {
     this._selected = this.hovered;
   }
 
-  onMouseDown() {
+  onMouseDown(event: MouseEvent) {
+    if (event.button === 2) {
+      return;
+    }
     this.mouseDown = true;
     this.mouseDownX = this._mouseX;
     this.mouseDownY = this._mouseY;
@@ -180,8 +185,15 @@ export class GalaxyMap {
 
   }
 
-  onMouseUp() {
+  onMouseUp(event: MouseEvent) {
     this.mouseDown = false;
+    if (event.button === 2) {
+      if (this._selected && this._selected.objectType === 'Fleet') {
+        if (this.hovered && this.hovered.objectType === 'StarSystem') {
+          this.core.startTravel(this._selected as Fleet, this.hovered as StarSystem);
+        }
+      }
+    }
   }
 
   deselect() {
@@ -199,6 +211,11 @@ export class GalaxyMap {
     this.camera.x = element.x;
     this.camera.y = element.y;
     this.camera.zoom = 5;
+    this._selected = element;
+  }
+
+  public select(id: number) {
+    const element = this.store.getObjectById(id);
     this._selected = element;
   }
 }

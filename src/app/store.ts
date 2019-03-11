@@ -7,6 +7,7 @@ import { Colony } from './game-objects/colony';
 import { Civilization } from './game-objects/civilization';
 import { Fleet } from './game-objects/fleet';
 import { SessionDTO } from './dtos/session';
+import { UserCivilizationDTO } from './dtos/user-civilization';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,7 @@ export class Store {
   private _fleets: Fleet[] = [];
   private _session: SessionDTO;
   private _galaxy: GalaxyDTO;
+  private _userCivilization: UserCivilizationDTO;
   private lag = 0;
 
   public get session(): SessionDTO {
@@ -101,6 +103,19 @@ export class Store {
     this._fleets.push(fleet);
   }
 
+  removeFleet(fleet: Fleet): any {
+    if (fleet.civilization.fleets.indexOf(fleet) > -1) {
+      fleet.civilization.fleets.splice(fleet.civilization.fleets.indexOf(fleet), 1);
+    }
+    if (fleet.destination.fleets.indexOf(fleet) > -1) {
+      fleet.destination.fleets.splice(fleet.destination.fleets.indexOf(fleet), 1);
+    }
+    if (this._fleets.indexOf(fleet) > -1) {
+      this._fleets.splice(this._fleets.indexOf(fleet), 1);
+    }
+    this.objects.delete(fleet.id);
+  }
+
   public clear(): void {
     this.objects.clear();
     this._fleets = [];
@@ -121,5 +136,13 @@ export class Store {
 
   public set serverTime(serverTime: number) {
     this.lag = new Date().getTime() - serverTime;
+  }
+
+  public set userCivilization(civ: UserCivilizationDTO) {
+    this._userCivilization = civ;
+  }
+
+  public get userCivilization(): UserCivilizationDTO {
+    return this._userCivilization;
   }
 }

@@ -34,9 +34,13 @@ export class GalaxyComponent implements OnInit {
     event.preventDefault();
   }
 
-  @HostListener('window:mouseup')
-  windowMouseUp() {
-    this.galaxyMap.onMouseUp();
+  cancelContextMenu(event) {
+    event.preventDefault();
+  }
+
+  @HostListener('window:mouseup', ['$event'])
+  windowMouseUp(event: MouseEvent) {
+    this.galaxyMap.onMouseUp(event);
   }
 
   @HostListener('window:mousemove', ['$event'])
@@ -73,12 +77,8 @@ export class GalaxyComponent implements OnInit {
     this.galaxyMap.mouseClick();
   }
 
-  mouseDown() {
-    this.galaxyMap.onMouseDown();
-  }
-
-  mouseUp() {
-    this.galaxyMap.onMouseUp();
+  mouseDown(event: MouseEvent) {
+    this.galaxyMap.onMouseDown(event);
   }
 
   public get createCivilizationWindowVisible(): boolean {
