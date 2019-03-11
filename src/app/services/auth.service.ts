@@ -5,6 +5,7 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SessionDTO } from '../dtos/session';
 import { GalaxyDTO } from '../dtos/galaxy';
+import { Store } from '../store';
 
 @Injectable({
   providedIn: 'root'
@@ -13,21 +14,26 @@ export class AuthService {
 
   redirectUrl = '/galaxy';
 
+  private authUrl = 'https://galaxyvictor.com/api/auth';
   private loginUrl = 'https://galaxyvictor.com/api/login';
   private registerUrl = 'https://galaxyvictor.com/api/register';
+
   private session: SessionDTO;
   private currentSessionSubject: Subject<SessionDTO> = new Subject<SessionDTO>();
 
-  constructor(private http: HttpClient, private router: Router) {
-
+  constructor(private http: HttpClient, private router: Router, private store: Store) {
+    const sessionToken = localStorage.getItem('sessionToken');
+    if (sessionToken) {
+      this.http.post<SessionDTO>(this.authUrl, sessionToken).subscribe((session: SessionDTO) => {
+        this.onSessionStart(session);
+      }, (error) => {
+        console.log(error);
+        localStorage.removeItem('sessionToken');
+      });
+    }
   }
 
   public get isAuthenticated(): boolean {
-    if (!this.session) {
-      const sessionString = localStorage.getItem('session');
-      this.session = JSON.parse(sessionString);
-      this.currentSessionSubject.next(this.session);
-    }
     return this.session != null && this.session.token != null;
   }
 
@@ -60,7 +66,8 @@ export class AuthService {
 
   private onSessionStart(session: SessionDTO) {
     this.session = session;
-    localStorage.setItem('session', JSON.stringify(session));
+    this.store.setSession(session);
+    localStorage.setItem('sessionToken', session.token);
     this.currentSessionSubject.next(this.session);
     this.router.navigate([this.redirectUrl]);
   }

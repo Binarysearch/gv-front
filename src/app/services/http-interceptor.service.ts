@@ -10,17 +10,27 @@ import {
 
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Store } from '../store';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
-  constructor(private authService: AuthService) { }
+  constructor(private store: Store) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this.authService.sessionToken;
-    if (token) {
-      req = req.clone({ headers: req.headers.set('token', token) });
+    // exclude login requests...
+    if (req.url.search('/api/auth') !== -1 || req.url.search('/api/login') !== -1 || req.url.search('/api/register') !== -1) {
+      return next.handle(req);
     }
+
+
+    if (this.store.session) {
+      const token = this.store.session.token;
+      if (token) {
+        req = req.clone({ headers: req.headers.set('token', token) });
+      }
+    }
+
 
     return next.handle(req).pipe(
       catchError((error: HttpErrorResponse) => {

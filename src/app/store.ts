@@ -1,3 +1,4 @@
+import { GalaxyDTO } from './dtos/galaxy';
 import { GameObject } from './game-objects/game-object';
 import { Injectable } from '@angular/core';
 import { StarSystem } from './game-objects/star-system';
@@ -5,6 +6,7 @@ import { Planet } from './game-objects/planet';
 import { Colony } from './game-objects/colony';
 import { Civilization } from './game-objects/civilization';
 import { Fleet } from './game-objects/fleet';
+import { SessionDTO } from './dtos/session';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +20,12 @@ export class Store {
   private _civilizations: Civilization[] = [];
   private _colonies: Colony[] = [];
   private _fleets: Fleet[] = [];
+  private _session: SessionDTO;
+  private _galaxy: GalaxyDTO;
+
+  public get session(): SessionDTO {
+    return this._session;
+  }
 
   public get starSystems(): StarSystem[] {
     return this._starSystems;
@@ -37,6 +45,21 @@ export class Store {
 
   public get civilizations(): Civilization[] {
     return this._civilizations;
+  }
+
+  public get galaxy(): GalaxyDTO {
+    return this._galaxy;
+  }
+
+  public setSession(session: SessionDTO): void {
+    this._session = session;
+    if (session.user.currentGalaxy) {
+      this.setGalaxy(session.user.currentGalaxy);
+    }
+  }
+
+  public setGalaxy(galaxy: GalaxyDTO): void {
+    this._galaxy = galaxy;
   }
 
   public addStarSystem(starSystem: StarSystem): void {

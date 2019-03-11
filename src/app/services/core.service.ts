@@ -9,6 +9,7 @@ import { SessionDTO } from '../dtos/session';
 import { StarSystemDTO } from '../dtos/star-system';
 import { UserCivilizationDTO } from '../dtos/user-civilization';
 import { PlanetsService } from './planets.service';
+import { Store } from '../store';
 
 @Injectable({
   providedIn: 'root'
@@ -18,21 +19,13 @@ export class CoreService {
   constructor(
     private authService: AuthService,
     private starSystemsService: StarSystemsService,
-    private planetsService: PlanetsService,
+    private store: Store,
     private civilizationsService: CivilizationsService,
     private galaxiesService: GalaxiesService
   ) { }
 
   public get isAuthenticated(): boolean {
-    return this.authService.isAuthenticated;
-  }
-
-  public get currentGalaxy(): GalaxyDTO {
-    return this.galaxiesService.currentGalaxy;
-  }
-
-  public get currentSession(): SessionDTO {
-    return this.authService.currentSession;
+    return this.store.session != null;
   }
 
   public logout() {
@@ -60,7 +53,7 @@ export class CoreService {
   }
 
   public createCivilization(civilizationName: string, homeStarName: string): Observable<UserCivilizationDTO> {
-    return this.civilizationsService.createCivilization(this.currentGalaxy.id, civilizationName, homeStarName);
+    return this.civilizationsService.createCivilization(this.store.galaxy.id, civilizationName, homeStarName);
   }
 
   public get hasCivilization(): boolean {

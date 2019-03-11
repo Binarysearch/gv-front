@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TextService } from '../services/text.service';
 import { CoreService } from '../services/core.service';
+import { Store } from '../store';
 
 export interface NavButton {
   text: string;
@@ -18,7 +19,7 @@ export class HeaderComponent implements OnInit {
   @Output() btnMenuClick = new EventEmitter();
   @Input() asideMenuVisible: boolean;
 
-  constructor(public coreService: CoreService, public ts: TextService) { }
+  constructor(public store: Store, public coreService: CoreService, public ts: TextService) { }
 
   ngOnInit() {
   }
