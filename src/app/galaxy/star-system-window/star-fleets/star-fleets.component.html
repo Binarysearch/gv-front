@@ -1,3 +1,4 @@
-<p>
-  star-fleets works!
-</p>
+<ul *ngIf="starSystem">
+  <h3 *ngIf="starSystem.fleets.length === 0">{{ ts.strings.noFleets }}</h3>
+  <li *ngFor="let fleet of starSystem.fleets" (click)="selectFleet(fleet)">{{ getFleetDescription(fleet) }}</li>
+</ul>

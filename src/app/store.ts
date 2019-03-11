@@ -94,6 +94,7 @@ export class Store {
     fleet.origin = this.objects.get(fleet.originId) as StarSystem;
     fleet.civilization = this.objects.get(fleet.civilizationId) as Civilization;
     fleet.civilization.fleets.push(fleet);
+    fleet.destination.fleets.push(fleet);
     this.objects.set(fleet.id, fleet);
     this._fleets.push(fleet);
   }
