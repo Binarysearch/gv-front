@@ -65,5 +65,10 @@ export const FLEET_ROTATION_SPEED_MULT = 0.2;
 
 
 // Render sizes
-export const PLANET_RENDER_SCALE_ZI = 0.001; // Zoom independent component
-export const PLANET_RENDER_SCALE_ZD = 0.0002; // Zoom dependent component
+export const PLANET_RENDER_SCALE_ZI_SI = 0.005; // Zoom and size independent component
+export const PLANET_RENDER_SCALE_ZI = 0.0003; // Zoom independent component
+export const PLANET_RENDER_SCALE_ZD = 0.0001; // Zoom dependent component
+
+export const STAR_RENDER_SCALE_ZI_SI = 0.03; // Zoom and size independent
+export const STAR_RENDER_SCALE_ZI = 0.003; // Zoom independent component
+export const STAR_RENDER_SCALE_ZD = 0.01; // Zoom dependent component

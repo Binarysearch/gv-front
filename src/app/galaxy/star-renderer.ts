@@ -2,7 +2,7 @@ import { Camera } from './camera';
 import { Renderer } from './renderer';
 import { ShaderProgramCompiler } from './gl/shader-program-compiler';
 import { STAR_SYSTEM_VS_SOURCE, STAR_SYSTEM_FS_SOURCE } from './gl/shaders/star-system-shader';
-import { STAR_COLORS } from './galaxy-constants';
+import { STAR_COLORS, STAR_RENDER_SCALE_ZD, STAR_RENDER_SCALE_ZI_SI, STAR_RENDER_SCALE_ZI } from './galaxy-constants';
 import { StarSystem } from '../game-objects/star-system';
 
 export class StarRenderer implements Renderer {
@@ -66,7 +66,7 @@ export class StarRenderer implements Renderer {
 
   getElementRenderScale(ss: StarSystem): number {
     const zoom = this.camera.zoom;
-    const scale = (0.01 * ss.size + 0.03) / zoom + 0.003;
+    const scale = (STAR_RENDER_SCALE_ZI * ss.size * ss.size + STAR_RENDER_SCALE_ZI_SI) / zoom + STAR_RENDER_SCALE_ZD;
     return scale;
   }
 }
