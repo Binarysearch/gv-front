@@ -1,3 +1,4 @@
+import { Store } from './../store';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -15,22 +16,15 @@ export class GalaxiesService {
   private currentGalaxyUrl = 'https://galaxyvictor.com/api/current-galaxy';
 
   private currentGalaxySubject: Subject<GalaxyDTO> = new Subject<GalaxyDTO>();
-  private _currentGalaxy: GalaxyDTO;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient, private authService: AuthService, private store: Store) {
     this.authService.getCurrentSession().subscribe((session: SessionDTO) => {
       if (session) {
         this.currentGalaxySubject.next(session.user.currentGalaxy);
-        this._currentGalaxy = session.user.currentGalaxy;
       } else {
         this.currentGalaxySubject.next(null);
-        this._currentGalaxy = null;
       }
     });
-  }
-
-  public get currentGalaxy(): GalaxyDTO {
-    return this._currentGalaxy;
   }
 
   getGalaxies(): Observable<GalaxyDTO[]> {
@@ -41,11 +35,7 @@ export class GalaxiesService {
     return this.http.put<GalaxyDTO>(this.currentGalaxyUrl, {id: id}).pipe(
       tap<GalaxyDTO>((galaxy: GalaxyDTO) => {
         this.currentGalaxySubject.next(galaxy);
-        this._currentGalaxy = galaxy;
-        const sessionString = localStorage.getItem('session');
-        const session: SessionDTO = JSON.parse(sessionString);
-        session.user.currentGalaxy = this._currentGalaxy;
-        localStorage.setItem('session', JSON.stringify(session));
+        this.store.setGalaxy(galaxy);
       })
     );
   }
