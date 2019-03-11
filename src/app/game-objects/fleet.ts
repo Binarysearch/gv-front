@@ -40,4 +40,8 @@ export class Fleet implements GameObject {
     const speed = FLEET_ROTATION_SPEED_MULT / Math.sqrt(this.orbit);
     return (startingAngle + speed * time) % (Math.PI * 2);
   }
+
+  get isTravelling(): boolean {
+    return this.destinationId !== this.originId;
+  }
 }

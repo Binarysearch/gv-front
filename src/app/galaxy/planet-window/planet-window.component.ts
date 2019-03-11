@@ -13,7 +13,6 @@ export class PlanetWindowComponent implements OnInit {
   @Input() planet: Planet;
   @Output() closeButton = new EventEmitter();
   maximized = false;
-  activeTab = 'planet';
 
   constructor(private map: GalaxyMap, public ts: TextService) { }
 
@@ -22,7 +21,6 @@ export class PlanetWindowComponent implements OnInit {
     if (statusString) {
       const status = JSON.parse(statusString);
       this.maximized = status.maximized;
-      this.activeTab = status.activeTab;
     }
   }
 
@@ -44,15 +42,9 @@ export class PlanetWindowComponent implements OnInit {
     this.storeStatus();
   }
 
-  activateTab(tabName: string) {
-    this.activeTab = tabName;
-    this.storeStatus();
-  }
-
   storeStatus() {
     const status = {
       maximized: this.maximized,
-      activeTab: this.activeTab
     };
     localStorage.setItem('planet-window-status', JSON.stringify(status));
   }

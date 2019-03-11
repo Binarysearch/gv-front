@@ -2,4 +2,5 @@
 <div *ngIf="galaxyMap.hovered" style="position: absolute;color:white;bottom: 0; left:0;">{{ hoveredTitle }}</div>
 <app-star-system-window *ngIf="galaxyMap.selected && galaxyMap.selected.objectType === 'StarSystem'" [starSystem]="galaxyMap.selected" (closeButton)="galaxyMap.deselect()"></app-star-system-window>
 <app-planet-window *ngIf="galaxyMap.selected && galaxyMap.selected.objectType === 'Planet'" [planet]="galaxyMap.selected" (closeButton)="galaxyMap.deselect()"></app-planet-window>
+<app-fleet-window *ngIf="galaxyMap.selected && galaxyMap.selected.objectType === 'Fleet'" [fleet]="galaxyMap.selected" (closeButton)="galaxyMap.deselect()"></app-fleet-window>
 <app-create-civilization-window *ngIf="createCivilizationWindowVisible"></app-create-civilization-window>

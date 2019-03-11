@@ -12,6 +12,8 @@ export class TextService {
     planet: 'Planeta',
     nextPlanet: 'Planeta siguiente',
     previousPlanet: 'Planeta anterior',
+    nextFleet: 'Flota siguiente',
+    previousFleet: 'Flota anterior',
     planets: 'Planetas',
     colony: 'Colonia',
     colonies: 'Colonias',
@@ -49,6 +51,7 @@ export class TextService {
     noPlanets: 'No hay planetas',
     noFleets: 'No hay flotas',
     travellingFrom: 'Viajando desde',
+    travelling: 'Viajando',
     to: 'a',
     orbiting: 'Orbitando',
     civilizationName: 'Nombre de la civilización',
@@ -60,6 +63,7 @@ export class TextService {
     invalidLoginCredentials: 'Email o Contraseña incorrecta',
     passwordsDontMatch: 'Las contraseñas no coinciden',
     unknown: 'Desconocido',
+    status: 'Estado',
     na: 'N/A'
   };
 
