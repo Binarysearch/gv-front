@@ -12,6 +12,7 @@
           <i class="fa fa-arrow-right navigate-btn" aria-hidden="true" [title]="ts.strings.nextFleet" (click)="nextFleet()"></i>
       </div>
       <div>Id: {{ fleet.id }}</div>
+      <div>{{ ts.strings.civilization }}: {{ fleet.civilization.name }}</div>
       <div class='link' (click)="clickStarSystem()">{{ ts.strings.destination }}: {{ starSystemName }}</div>
       <div>{{ ts.strings.status }}: {{ getFleetStatus() }}</div>
       <div *ngIf="fleet.isTravelling" class='link' (click)="clickOriginStarSystem()">{{ ts.strings.origin }}: {{ originStarSystemName }}</div>
