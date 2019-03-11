@@ -1,7 +1,7 @@
 import { Planet } from './../../game-objects/planet';
 import { TextService } from './../../services/text.service';
-import { CoreService } from './../../services/core.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { GalaxyMap } from '../galaxy-map';
 
 @Component({
   selector: 'app-planet-window',
@@ -15,7 +15,7 @@ export class PlanetWindowComponent implements OnInit {
   maximized = false;
   activeTab = 'planet';
 
-  constructor(private core: CoreService, public ts: TextService) { }
+  constructor(private map: GalaxyMap, public ts: TextService) { }
 
   ngOnInit() {
     const statusString = localStorage.getItem('planet-window-status');
@@ -56,4 +56,25 @@ export class PlanetWindowComponent implements OnInit {
     };
     localStorage.setItem('planet-window-status', JSON.stringify(status));
   }
+
+  previousPlanet() {
+    let idx = -1;
+    this.planet.starSystem.planets.find((p, i) => {
+      idx = i;
+      return this.planet === p;
+    });
+    const prev = this.planet.starSystem.planets[(idx + this.planet.starSystem.planets.length - 1) % this.planet.starSystem.planets.length];
+    this.map.selectAndFocus(prev.id);
+  }
+
+  nextPlanet() {
+    let idx = -1;
+    this.planet.starSystem.planets.find((p, i) => {
+      idx = i;
+      return this.planet === p;
+    });
+    const prev = this.planet.starSystem.planets[(idx + this.planet.starSystem.planets.length + 1) % this.planet.starSystem.planets.length];
+    this.map.selectAndFocus(prev.id);
+  }
+
 }

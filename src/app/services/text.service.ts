@@ -10,6 +10,8 @@ export class TextService {
     star: 'Estrella',
     starSystem: 'Sistema estelar',
     planet: 'Planeta',
+    nextPlanet: 'Planeta siguiente',
+    previousPlanet: 'Planeta anterior',
     planets: 'Planetas',
     colony: 'Colonia',
     colonies: 'Colonias',

@@ -7,6 +7,12 @@
   background-color: rgba(50, 50, 50, 0.9);
 }
 
+.navigate-btn {
+  cursor: pointer;
+}
+.navigate-btn:hover {
+  filter: brightness(200%);
+}
 .container.maximized{
   top: 0%;
   left: 0%;

@@ -6,6 +6,11 @@
     <div *ngIf="maximized" class="restore-button" (click)="restoreButtonClick();"><i class="fa fa-window-restore" aria-hidden="true"></i></div>
   </div>
   <div class="body">
+    <div>
+        <i class="fa fa-arrow-left navigate-btn" aria-hidden="true" [title]="ts.strings.previousPlanet" (click)="previousPlanet()"></i>
+        &nbsp;
+        <i class="fa fa-arrow-right navigate-btn" aria-hidden="true" [title]="ts.strings.nextPlanet" (click)="nextPlanet()"></i>
+    </div>
     <app-planet-details [planet]="planet"></app-planet-details>
     <app-colony-details *ngIf="planet.colony" [colony]="planet.colony"></app-colony-details>
   </div>
