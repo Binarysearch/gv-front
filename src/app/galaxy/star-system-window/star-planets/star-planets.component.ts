@@ -1,3 +1,4 @@
+import { GalaxyMap } from './../../galaxy-map';
 import { Planet } from './../../../game-objects/planet';
 import { TextService } from './../../../services/text.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -13,12 +14,16 @@ export class StarPlanetsComponent implements OnInit {
   @Input() starSystem: StarSystem;
 
 
-  constructor(public ts: TextService) { }
+  constructor(public ts: TextService, private map: GalaxyMap) { }
 
   ngOnInit() {
   }
 
   getPlanetDescription(planet: Planet) {
     return this.ts.strings.orbit + ' ' + planet.orbit;
+  }
+
+  selectPlanet(planet: Planet) {
+    this.map.selectAndFocus(planet.id);
   }
 }
