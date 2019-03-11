@@ -1,3 +1,4 @@
-<p>
-  star-planets works!
-</p>
+<ul *ngIf="starSystem">
+  <h3 *ngIf="starSystem.planets.length === 0">{{ ts.strings.noPlanets }}</h3>
+  <li *ngFor="let planet of starSystem.planets">{{ getPlanetDescription(planet) }}</li>
+</ul>

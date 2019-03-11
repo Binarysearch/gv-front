@@ -13,7 +13,7 @@
     </div>
     <div class="tabs-body">
       <app-star-details *ngIf="activeTab === 'star'" [starSystemId]="starSystem.id"></app-star-details>
-      <app-star-planets *ngIf="activeTab === 'planets'"></app-star-planets>
+      <app-star-planets *ngIf="activeTab === 'planets'" [starSystem]="starSystem"></app-star-planets>
       <app-star-fleets *ngIf="activeTab === 'fleets'">Flotas</app-star-fleets>
     </div>
   </div>

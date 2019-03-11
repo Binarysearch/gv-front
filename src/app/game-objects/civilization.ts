@@ -10,8 +10,8 @@ export class Civilization implements GameObject {
   name: string;
   homeworld: Planet;
   homeworldId: number;
-  colonies: Colony[];
-  fleets: Fleet[];
+  colonies: Colony[] = [];
+  fleets: Fleet[] = [];
 
   constructor(data: CivilizationDTO) {
     this.id = data.id;

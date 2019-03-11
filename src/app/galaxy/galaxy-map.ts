@@ -47,7 +47,6 @@ export class GalaxyMap {
       this.camera.x = civ.homeworld.starSystem.x;
       this.camera.y = civ.homeworld.starSystem.y;
       this.camera.zoom = 5;
-      this._selected = {...civ.homeworld.starSystem, objectType: 'StarSystem'};
     });
 
     const animate = () => {

@@ -9,7 +9,7 @@ export class StarSystem implements GameObject {
   y: number;
   type: number;
   size: number;
-  planets: Planet[];
+  planets: Planet[] = [];
 
   constructor (data: StarSystemDTO) {
     this.id = data.id;

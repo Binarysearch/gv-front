@@ -42,6 +42,7 @@ export class TextService {
     origin: 'Origen',
     destination: 'Destino',
     location: 'Localización',
+    noPlanets: 'No hay planetas',
     travellingFrom: 'Viajando desde',
     to: 'a',
     orbiting: 'Orbitando',
