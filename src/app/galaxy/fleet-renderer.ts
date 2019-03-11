@@ -65,6 +65,6 @@ export class FleetRenderer implements Renderer {
   getElementRenderScale(f: Fleet): number {
     const zoom = this.camera.zoom;
     const scale = (0.02) / zoom + (0.0005);
-    return 0;//scale;
+    return scale;
   }
 }

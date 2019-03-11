@@ -28,6 +28,7 @@ import { CivilizationsComponent } from './civilizations/civilizations.component'
 import { PlanetWindowComponent } from './galaxy/planet-window/planet-window.component';
 import { PlanetDetailsComponent } from './galaxy/planet-window/planet-details/planet-details.component';
 import { ColonyDetailsComponent } from './galaxy/planet-window/colony-details/colony-details.component';
+import { FleetWindowComponent } from './galaxy/fleet-window/fleet-window.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ColonyDetailsComponent } from './galaxy/planet-window/colony-details/co
     CivilizationsComponent,
     PlanetWindowComponent,
     PlanetDetailsComponent,
-    ColonyDetailsComponent
+    ColonyDetailsComponent,
+    FleetWindowComponent
   ],
   imports: [
     BrowserModule,

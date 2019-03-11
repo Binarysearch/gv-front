@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let colony of colonies" (click)="clickInColony(colony.id)" [title]="ts.strings.viewColonyInMap">
+    <tr *ngFor="let colony of colonies" (click)="clickInColony(colony.planet.id)" [title]="ts.strings.viewColonyInMap">
       <td>{{ (colony.planet.starSystem.name)?colony.planet.starSystem.name:'Sistema ' + colony.planet.starSystemId }}</td>
       <td>{{ colony.planet.orbit }}</td>
       <td>{{ colony.civilization.name }}</td>
