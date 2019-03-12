@@ -68,7 +68,9 @@ export class MessagingService {
       if (m.type === 'ExploringResult') {
         const exploringResult = m.payload as ExploringResultDTO;
         exploringResult.planets.forEach((p: PlanetDTO) => {
-          this.store.addPlanet(new Planet(p));
+          if (!this.store.getObjectById(p.id)) {
+            this.store.addPlanet(new Planet(p));
+          }
         });
       }
       if (m.type === 'RemoveFleet') {
