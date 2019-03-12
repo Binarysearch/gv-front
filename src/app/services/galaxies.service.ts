@@ -1,5 +1,5 @@
 import { Store } from './../store';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
@@ -12,8 +12,10 @@ import { SessionDTO } from '../dtos/session';
 })
 export class GalaxiesService {
 
-  private galaxiesUrl = 'https://galaxyvictor.com/api/galaxies';
-  private currentGalaxyUrl = 'https://galaxyvictor.com/api/current-galaxy';
+  private host = (isDevMode()) ? 'http://localhost:8080' : 'https://galaxyvictor.com';
+
+  private galaxiesUrl = this.host + '/api/galaxies';
+  private currentGalaxyUrl = this.host + '/api/current-galaxy';
 
   private currentGalaxySubject: Subject<GalaxyDTO> = new Subject<GalaxyDTO>();
 

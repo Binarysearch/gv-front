@@ -1,6 +1,6 @@
 import { TravelDTO } from './../dtos/travel';
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { FleetDTO } from '../dtos/fleet';
 import { Store } from '../store';
 import { Fleet } from '../game-objects/fleet';
@@ -11,8 +11,10 @@ import { StarSystem } from '../game-objects/star-system';
 })
 export class FleetsService {
 
-  private fleetsUrl = 'https://galaxyvictor.com/api/fleets';
-  private travelsUrl = 'https://galaxyvictor.com/api/travels';
+  private host = (isDevMode()) ? 'http://localhost:8080' : 'https://galaxyvictor.com';
+
+  private fleetsUrl = this.host + '/api/fleets';
+  private travelsUrl = this.host + '/api/travels';
 
 
   constructor(private http: HttpClient, private store: Store) {

@@ -1,5 +1,5 @@
 import { AuthService } from './auth.service';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { UserCivilizationDTO } from '../dtos/user-civilization';
 import { HttpClient } from '@angular/common/http';
@@ -17,8 +17,10 @@ import { FleetsService } from './fleets.service';
 })
 export class CivilizationsService {
 
-  private civilizationUrl = 'https://galaxyvictor.com/api/civilization';
-  private civilizationsUrl = 'https://galaxyvictor.com/api/civilizations';
+  private host = (isDevMode()) ? 'http://localhost:8080' : 'https://galaxyvictor.com';
+
+  private civilizationUrl = this.host + '/api/civilization';
+  private civilizationsUrl = this.host + '/api/civilizations';
 
   private _currentCivilization: UserCivilizationDTO;
   private currentCivilizationSubject: Subject<UserCivilizationDTO> = new Subject<UserCivilizationDTO>();

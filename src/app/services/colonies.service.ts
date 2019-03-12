@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { ColonyDTO } from '../dtos/colony';
 import { Store } from '../store';
 import { Colony } from '../game-objects/colony';
@@ -9,7 +9,9 @@ import { Colony } from '../game-objects/colony';
 })
 export class ColoniesService  {
 
-  private coloniesUrl = 'https://galaxyvictor.com/api/colonies';
+  private host = (isDevMode()) ? 'http://localhost:8080' : 'https://galaxyvictor.com';
+
+  private coloniesUrl = this.host + '/api/colonies';
 
 
   constructor(private http: HttpClient, private store: Store) {

@@ -1,5 +1,5 @@
 import { Store } from './../store';
-import { Injectable } from '@angular/core';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { StarSystemDTO } from '../dtos/star-system';
@@ -13,7 +13,9 @@ import { PlanetsService } from './planets.service';
 })
 export class StarSystemsService {
 
-  private starSystemsUrl = 'https://galaxyvictor.com/api/star-systems';
+  private host = (isDevMode()) ? 'http://localhost:8080' : 'https://galaxyvictor.com';
+
+  private starSystemsUrl = this.host + '/api/star-systems';
 
   private currentGalaxyId: number;
 

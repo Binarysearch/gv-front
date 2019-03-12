@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { MessagingService } from './messaging.service';
+import { Injectable, isDevMode } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
@@ -14,14 +15,16 @@ export class AuthService {
 
   redirectUrl = '/galaxy';
 
-  private authUrl = 'https://galaxyvictor.com/api/auth';
-  private loginUrl = 'https://galaxyvictor.com/api/login';
-  private registerUrl = 'https://galaxyvictor.com/api/register';
+  private host = (isDevMode()) ? 'http://localhost:8080' : 'https://galaxyvictor.com';
+
+  private authUrl = this.host + '/api/auth';
+  private loginUrl = this.host + '/api/login';
+  private registerUrl = this.host + '/api/register';
 
   private session: SessionDTO;
   private currentSessionSubject: Subject<SessionDTO> = new Subject<SessionDTO>();
 
-  constructor(private http: HttpClient, private router: Router, private store: Store) {
+  constructor(private http: HttpClient, private router: Router, private store: Store, private messagingService: MessagingService) {
     const sessionToken = localStorage.getItem('sessionToken');
     if (sessionToken) {
       this.http.post<SessionDTO>(this.authUrl, sessionToken).subscribe((session: SessionDTO) => {
@@ -70,6 +73,7 @@ export class AuthService {
     localStorage.setItem('sessionToken', session.token);
     this.currentSessionSubject.next(this.session);
     this.router.navigate([this.redirectUrl]);
+    this.messagingService.send({type: 'authToken', payload: session.token});
   }
 
   public get sessionToken() {
