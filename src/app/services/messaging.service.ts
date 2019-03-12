@@ -1,7 +1,10 @@
+import { PlanetDTO } from './../dtos/planet';
+import { Store } from './../store';
 import { Injectable, isDevMode } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WebsocketService } from './websocket.service';
+import { Planet } from '../game-objects/planet';
 
 const DEV_SOCKET_URL = `ws://localhost:8080/socket`;
 const PROD_SOCKET_URL = `wss://galaxyvictor.com/socket/`;
@@ -11,20 +14,24 @@ export interface Message {
   payload: any;
 }
 
+interface ExploringResultDTO {
+  starSystem: number;
+  planets: PlanetDTO[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class MessagingService {
   private subject: Subject<Message>;
 
-  constructor(wsService: WebsocketService) {
+  constructor(wsService: WebsocketService, private store: Store) {
     this.subject = <Subject<Message>>wsService
       .connect((isDevMode()) ? DEV_SOCKET_URL : PROD_SOCKET_URL)
       .pipe(
         map((response: MessageEvent): Message => {
           let type: string;
           let payload: any;
-
           try {
             const data = JSON.parse(response.data);
             type = data.type;
@@ -37,6 +44,17 @@ export class MessagingService {
           return { type: type, payload: payload };
         })
       );
+
+    this.getMessages().subscribe((m: Message) => {
+      console.log(m);
+      if (m.type === 'ExploringResult') {
+        const exploringResult = m.payload as ExploringResultDTO;
+        exploringResult.planets.forEach((p: PlanetDTO) => {
+          this.store.addPlanet(new Planet(p));
+        });
+      }
+
+    });
   }
 
   send(msg: Message) {
