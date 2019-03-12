@@ -25,15 +25,7 @@ export class AuthService {
   private currentSessionSubject: Subject<SessionDTO> = new Subject<SessionDTO>();
 
   constructor(private http: HttpClient, private router: Router, private store: Store, private messagingService: MessagingService) {
-    const sessionToken = localStorage.getItem('sessionToken');
-    if (sessionToken) {
-      this.http.post<SessionDTO>(this.authUrl, sessionToken).subscribe((session: SessionDTO) => {
-        this.onSessionStart(session);
-      }, (error) => {
-        console.log(error);
-        localStorage.removeItem('sessionToken');
-      });
-    }
+
   }
 
   public get isAuthenticated(): boolean {
@@ -49,6 +41,18 @@ export class AuthService {
     localStorage.removeItem('session');
     this.session = null;
     this.router.navigate(['']);
+  }
+
+  auth() {
+    const sessionToken = localStorage.getItem('sessionToken');
+    if (sessionToken) {
+      this.http.post<SessionDTO>(this.authUrl, sessionToken).subscribe((session: SessionDTO) => {
+        this.onSessionStart(session);
+      }, (error) => {
+        console.log(error);
+        localStorage.removeItem('sessionToken');
+      });
+    }
   }
 
   login(email: string, password: string): Observable<SessionDTO> {
