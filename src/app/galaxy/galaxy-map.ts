@@ -26,7 +26,7 @@ export class GalaxyMap {
   private camera: Camera;
   private hoverManager: HoverManager;
   private hoverHubRenderer: HoverHubRenderer;
-  private _selected: GameObject;
+  private _selected: number;
   private _mouseX: number;
   private _mouseY: number;
   private mouseDownX: number;
@@ -159,7 +159,7 @@ export class GalaxyMap {
   }
 
   public get selected(): GameObject {
-    return this._selected;
+    return this.store.getObjectById(this._selected);
   }
 
   mouseClick(): void {
@@ -170,7 +170,11 @@ export class GalaxyMap {
     if (delta > epsilon) {
       return;
     }
-    this._selected = this.hovered;
+    if (this.hovered) {
+      this._selected = this.hovered.id;
+    } else {
+      this._selected = null;
+    }
   }
 
   onMouseDown(event: MouseEvent) {
@@ -188,9 +192,9 @@ export class GalaxyMap {
   onMouseUp(event: MouseEvent) {
     this.mouseDown = false;
     if (event.button === 2) {
-      if (this._selected && this._selected.objectType === 'Fleet') {
+      if (this.selected && this.selected.objectType === 'Fleet') {
         if (this.hovered && this.hovered.objectType === 'StarSystem') {
-          this.core.startTravel(this._selected as Fleet, this.hovered as StarSystem);
+          this.core.startTravel(this.selected as Fleet, this.hovered as StarSystem);
         }
       }
     }
@@ -211,11 +215,11 @@ export class GalaxyMap {
     this.camera.x = element.x;
     this.camera.y = element.y;
     this.camera.zoom = 5;
-    this._selected = element;
+    this._selected = element.id;
   }
 
   public select(id: number) {
     const element = this.store.getObjectById(id);
-    this._selected = element;
+    this._selected = id;
   }
 }
