@@ -35,11 +35,11 @@ export class FleetsService {
   startTravel(fleet: Fleet, destination: StarSystem): any {
     this.http.post<TravelDTO>(this.travelsUrl, {fleet: fleet.id, destination: destination.id})
     .subscribe((travel: TravelDTO) => {
-      this.store.removeFleet(fleet);
+      /*this.store.removeFleet(fleet);
       fleet.travelStartTime = travel.startTime;
       fleet.destinationId = travel.destination;
       fleet.originId = travel.origin;
-      this.store.addFleet(fleet);
+      this.store.addFleet(fleet);*/
     });
   }
 }

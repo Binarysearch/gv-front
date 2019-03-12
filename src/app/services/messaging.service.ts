@@ -1,3 +1,4 @@
+import { StarSystem } from './../game-objects/star-system';
 import { PlanetDTO } from './../dtos/planet';
 import { Store } from './../store';
 import { Injectable, isDevMode } from '@angular/core';
@@ -5,6 +6,10 @@ import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WebsocketService } from './websocket.service';
 import { Planet } from '../game-objects/planet';
+import { Fleet } from '../game-objects/fleet';
+import { FleetDTO } from '../dtos/fleet';
+import { ColonyDTO } from '../dtos/colony';
+import { Colony } from '../game-objects/colony';
 
 const DEV_SOCKET_URL = `ws://localhost:8080/socket`;
 const PROD_SOCKET_URL = `wss://galaxyvictor.com/socket/`;
@@ -17,6 +22,19 @@ export interface Message {
 interface ExploringResultDTO {
   starSystem: number;
   planets: PlanetDTO[];
+}
+
+interface RemoveFleetDTO {
+  id: number;
+}
+
+interface VisibilityGainedDTO {
+  fleets: FleetDTO[];
+  colonies: ColonyDTO[];
+}
+
+interface VisibilityLostDTO {
+  starSystem: number;
 }
 
 @Injectable({
@@ -52,6 +70,50 @@ export class MessagingService {
         exploringResult.planets.forEach((p: PlanetDTO) => {
           this.store.addPlanet(new Planet(p));
         });
+      }
+      if (m.type === 'RemoveFleet') {
+        const payload = m.payload as RemoveFleetDTO;
+        const fleet = this.store.getObjectById(payload.id) as Fleet;
+        if (fleet) {
+          this.store.removeFleet(fleet);
+        }
+      }
+      if (m.type === 'Fleet') {
+        const payload = m.payload as FleetDTO;
+        const fleet = this.store.getObjectById(payload.id) as Fleet;
+        if (fleet) {
+          this.store.removeFleet(fleet);
+        }
+        this.store.addFleet(new Fleet(payload));
+      }
+      if (m.type === 'VisibilityLost') {
+        const payload = m.payload as VisibilityLostDTO;
+        const starSystem = this.store.getObjectById(payload.starSystem) as StarSystem;
+        if (starSystem) {
+          // TODO: remove all fleets and colonies from store that arent owned by user civilization
+          starSystem.fleets.forEach((f: Fleet) => {
+            if (f.civilizationId !== this.store.userCivilization.id) {
+              this.store.removeFleet(f);
+            }
+          });
+          starSystem.planets.forEach((p: Planet) => {
+            if (p.colony && p.colony.civilizationId !== this.store.userCivilization.id) {
+              this.store.removeColony(p.colony);
+            }
+          });
+
+
+        }
+      }
+      if (m.type === 'VisibilityGained') {
+        const payload = m.payload as VisibilityGainedDTO;
+        payload.fleets.forEach((f: FleetDTO) => {
+          this.store.addFleet(new Fleet(f));
+        });
+        payload.colonies.forEach((c: ColonyDTO) => {
+          this.store.addColony(new Colony(c));
+        });
+
       }
 
     });

@@ -92,6 +92,18 @@ export class Store {
     this._colonies.push(colony);
   }
 
+  removeColony(colony: Colony): any {
+    colony.planet.colony = null;
+    if (colony.civilization.colonies.indexOf(colony) > -1) {
+      colony.civilization.colonies.splice(colony.civilization.colonies.indexOf(colony), 1);
+    }
+    if (this._colonies.indexOf(colony) > -1) {
+      this._colonies.splice(this._colonies.indexOf(colony), 1);
+    }
+    this.objects.delete(colony.id);
+
+  }
+
   addFleet(fleet: Fleet): any {
     fleet.destination = this.objects.get(fleet.destinationId) as StarSystem;
     fleet.origin = this.objects.get(fleet.originId) as StarSystem;
