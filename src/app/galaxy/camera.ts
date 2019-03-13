@@ -1,3 +1,4 @@
+import { GameObject } from './../game-objects/game-object';
 import { Store } from './../store';
 
 const MIN_ZOOM = 0.00002;
@@ -28,7 +29,7 @@ export class Camera {
   private _movingDown: boolean;
   cX: number;
   cY: number;
-  following: number;
+  following: GameObject;
 
   constructor(private store: Store) {
     this._zoom = 0.00002;
@@ -44,15 +45,15 @@ export class Camera {
   }
 
   get x() {
-    if (this.following && this.store.getObjectById(this.following) && this.store.getObjectById(this.following).x) {
-      this._x = this.store.getObjectById(this.following).x;
+    if (this.following && this.following.x) {
+      this._x = this.following.x;
     }
     return this._x;
   }
 
   get y() {
-    if (this.following && this.store.getObjectById(this.following) && this.store.getObjectById(this.following).y) {
-      this._y = this.store.getObjectById(this.following).y;
+    if (this.following && this.following.y) {
+      this._y = this.following.y;
     }
     return this._y;
   }
@@ -164,6 +165,6 @@ export class Camera {
   }
 
   follow(id: number): any {
-    this.following = id;
+    this.following = this.store.getObjectById(id);
   }
 }
