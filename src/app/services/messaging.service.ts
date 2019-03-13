@@ -86,11 +86,11 @@ export class MessagingService {
       if (m.type === 'Fleet') {
         const payload = m.payload as FleetDTO;
         const fleet = this.store.getObjectById(payload.id) as Fleet;
+        const newFleet = new Fleet(payload);
         if (fleet) {
+          newFleet.ships = fleet.ships;
           this.store.removeFleet(fleet);
         }
-        const newFleet = new Fleet(payload);
-        newFleet.ships = fleet.ships;
         this.store.addFleet(newFleet);
       }
       if (m.type === 'Civilization') {

@@ -5,6 +5,7 @@ import { Renderer } from './renderer';
 import { GameObject } from '../game-objects/game-object';
 import { PlanetRenderer } from './planet-renderer';
 import { FleetRenderer } from './fleet-renderer';
+import { MIN_ZOOM_TO_VIEW_PLANETS } from './galaxy-constants';
 
 interface IntersectingElement {
   x: number;
@@ -59,6 +60,9 @@ export class HoverManager {
   }
 
   getintersectingPlanets(x: number, y: number) {
+    if (this.camera.zoom < MIN_ZOOM_TO_VIEW_PLANETS) {
+      return [];
+    }
     return this.getIntersectingElements(x, y, this.store.planets, this.planetRenderer);
   }
 

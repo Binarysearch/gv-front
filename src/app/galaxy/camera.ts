@@ -45,16 +45,10 @@ export class Camera {
   }
 
   get x() {
-    if (this.following && this.following.x) {
-      this._x = this.following.x;
-    }
     return this._x;
   }
 
   get y() {
-    if (this.following && this.following.y) {
-      this._y = this.following.y;
-    }
     return this._y;
   }
 
@@ -98,6 +92,13 @@ export class Camera {
   }
 
   public update() {
+
+    if (this.following && this.following.x) {
+      this._x = this.following.x;
+    }
+    if (this.following && this.following.y) {
+      this._y = this.following.y;
+    }
 
     if (this._movingLeft) {
       this._speedX = -SPEED / this._zoom;
