@@ -1,8 +1,11 @@
+import { ShipDTO } from './../../dtos/ship';
 import { Planet } from './../../game-objects/planet';
 import { TextService } from './../../services/text.service';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GalaxyMap } from '../galaxy-map';
 import { Fleet } from 'src/app/game-objects/fleet';
+import { CoreService } from 'src/app/services/core.service';
+import { Ship } from 'src/app/game-objects/ship';
 
 @Component({
   selector: 'app-fleet-window',
@@ -15,7 +18,7 @@ export class FleetWindowComponent implements OnInit {
   @Output() closeButton = new EventEmitter();
   maximized = false;
 
-  constructor(private map: GalaxyMap, public ts: TextService) { }
+  constructor(private map: GalaxyMap, public ts: TextService, public core: CoreService) { }
 
   ngOnInit() {
     const statusString = localStorage.getItem('fleet-window-status');
@@ -104,4 +107,18 @@ export class FleetWindowComponent implements OnInit {
     return this.ts.strings.orbiting;
   }
 
+  get shipsLoaded(): boolean {
+    return this.fleet.ships != null;
+  }
+
+  loadShips() {
+    this.core.getFleetShips(this.fleet.id).subscribe((ships: ShipDTO[]) => {
+      this.fleet.ships = [];
+      ships.forEach(s => {
+        const ship = new Ship(s);
+        ship.fleet = this.fleet;
+        this.fleet.ships.push(ship);
+      });
+    });
+  }
 }

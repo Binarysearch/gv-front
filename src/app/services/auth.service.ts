@@ -38,7 +38,7 @@ export class AuthService {
 
   public logout() {
     // TODO: logout in server, destroy session
-    localStorage.removeItem('session');
+    localStorage.removeItem('sessionToken');
     this.session = null;
     this.router.navigate(['']);
   }

@@ -1,3 +1,4 @@
+import { ShipsService } from './ships.service';
 import { CivilizationsService } from './civilizations.service';
 import { GalaxiesService } from './galaxies.service';
 import { Injectable } from '@angular/core';
@@ -12,6 +13,7 @@ import { FleetsService } from './fleets.service';
 import { Store } from '../store';
 import { StarSystem } from '../game-objects/star-system';
 import { Fleet } from '../game-objects/fleet';
+import { ShipDTO } from '../dtos/ship';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,7 @@ export class CoreService {
     private authService: AuthService,
     private starSystemsService: StarSystemsService,
     private fleetService: FleetsService,
+    private shipsService: ShipsService,
     private store: Store,
     private civilizationsService: CivilizationsService,
     private galaxiesService: GalaxiesService
@@ -73,5 +76,9 @@ export class CoreService {
 
   public startTravel(fleet: Fleet, destination: StarSystem): void {
     this.fleetService.startTravel(fleet, destination);
+  }
+
+  public getFleetShips(fleetId: number): Observable<ShipDTO[]> {
+    return this.shipsService.getFleetShips(fleetId);
   }
 }

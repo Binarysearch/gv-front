@@ -16,5 +16,10 @@
       <div class='link' (click)="clickStarSystem()">{{ ts.strings.destination }}: {{ starSystemName }}</div>
       <div>{{ ts.strings.status }}: {{ getFleetStatus() }}</div>
       <div *ngIf="fleet.isTravelling" class='link' (click)="clickOriginStarSystem()">{{ ts.strings.origin }}: {{ originStarSystemName }}</div>
+      <hr>
+      <div *ngIf="shipsLoaded">
+        <div *ngFor="let ship of fleet.ships">{{ ship.modelName }}</div>
+      </div>
+      <button *ngIf="!shipsLoaded" (click)="loadShips()">Ver naves</button>
     </div>
   </div>

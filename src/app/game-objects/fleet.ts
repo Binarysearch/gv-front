@@ -5,6 +5,7 @@ import { GameObject } from './game-object';
 import { StarSystem } from './star-system';
 import { Civilization } from './civilization';
 import { FLEET_ROTATION_SPEED_MULT } from '../galaxy/galaxy-constants';
+import { Ship } from './ship';
 
 export class Fleet implements GameObject {
 
@@ -12,6 +13,7 @@ export class Fleet implements GameObject {
   civilization: Civilization;
   destination: StarSystem;
   origin: StarSystem;
+  ships: Ship[];
   civilizationId: number;
   destinationId: number;
   originId: number;
