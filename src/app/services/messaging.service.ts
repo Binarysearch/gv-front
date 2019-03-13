@@ -10,6 +10,8 @@ import { Fleet } from '../game-objects/fleet';
 import { FleetDTO } from '../dtos/fleet';
 import { ColonyDTO } from '../dtos/colony';
 import { Colony } from '../game-objects/colony';
+import { CivilizationDTO } from '../dtos/civilization';
+import { Civilization } from '../game-objects/civilization';
 
 const DEV_SOCKET_URL = `ws://localhost:8080/socket`;
 const PROD_SOCKET_URL = `wss://galaxyvictor.com/socket/`;
@@ -31,6 +33,7 @@ interface RemoveFleetDTO {
 interface VisibilityGainedDTO {
   fleets: FleetDTO[];
   colonies: ColonyDTO[];
+  civilizations: CivilizationDTO[];
 }
 
 interface VisibilityLostDTO {
@@ -88,6 +91,13 @@ export class MessagingService {
         }
         this.store.addFleet(new Fleet(payload));
       }
+      if (m.type === 'Civilization') {
+        const payload = m.payload as CivilizationDTO;
+        const civilization = this.store.getObjectById(payload.id) as Civilization;
+        if (!civilization) {
+          this.store.addCivilization(new Civilization(payload));
+        }
+      }
       if (m.type === 'VisibilityLost') {
         const payload = m.payload as VisibilityLostDTO;
         const starSystem = this.store.getObjectById(payload.starSystem) as StarSystem;
@@ -109,6 +119,12 @@ export class MessagingService {
       }
       if (m.type === 'VisibilityGained') {
         const payload = m.payload as VisibilityGainedDTO;
+        payload.civilizations.forEach((c: CivilizationDTO) => {
+          const civilization = this.store.getObjectById(c.id) as Civilization;
+          if (!civilization) {
+            this.store.addCivilization(new Civilization(c));
+          }
+        });
         payload.fleets.forEach((f: FleetDTO) => {
           this.store.addFleet(new Fleet(f));
         });
