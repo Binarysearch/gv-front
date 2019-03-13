@@ -12,6 +12,7 @@ import { GameObject } from '../game-objects/game-object';
 import { Store } from '../store';
 import { FleetRenderer } from './fleet-renderer';
 import { Fleet } from '../game-objects/fleet';
+import { MIN_ZOOM_TO_VIEW_PLANETS } from './galaxy-constants';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,7 @@ export class GalaxyMap {
       this.camera.x = civ.homeworld.starSystem.x;
       this.camera.y = civ.homeworld.starSystem.y;
       this.camera.zoom = 5;
+      this.select(civ.homeworld.id);
     });
 
     const animate = () => {
@@ -97,10 +99,12 @@ export class GalaxyMap {
     });
 
 
-    this.planetRenderer.prepareRender(gl);
-    this.store.planets.forEach(planet => {
-        this.planetRenderer.render(gl, planet);
-    });
+    if (this.camera.zoom >= MIN_ZOOM_TO_VIEW_PLANETS) {
+      this.planetRenderer.prepareRender(gl);
+      this.store.planets.forEach(planet => {
+          this.planetRenderer.render(gl, planet);
+      });
+    }
 
 
     this.fleetRenderer.prepareRender(gl);

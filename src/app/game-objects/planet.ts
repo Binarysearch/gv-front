@@ -1,7 +1,7 @@
 import { StarSystem } from './star-system';
 import { GameObject } from './game-object';
 import { PlanetDTO } from '../dtos/planet';
-import { PLANET_ROTATION_SPEED_MULT } from '../galaxy/galaxy-constants';
+import { PLANET_ROTATION_SPEED_MULT, PLANET_ORBIT_SCALE_MULTIPLIER } from '../galaxy/galaxy-constants';
 import { Colony } from './colony';
 
 export class Planet implements GameObject {
@@ -24,11 +24,11 @@ export class Planet implements GameObject {
   get objectType() { return 'Planet'; }
 
   get x(): number {
-    return Math.cos(this.angle) * this.orbit * 0.01 + this.starSystem.x;
+    return Math.cos(this.angle) * this.orbit * PLANET_ORBIT_SCALE_MULTIPLIER + this.starSystem.x;
   }
 
   get y(): number {
-    return Math.sin(this.angle) * this.orbit * 0.01 + this.starSystem.y;
+    return Math.sin(this.angle) * this.orbit * PLANET_ORBIT_SCALE_MULTIPLIER + this.starSystem.y;
   }
 
   get angle(): number {
