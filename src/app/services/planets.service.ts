@@ -27,6 +27,7 @@ export class PlanetsService {
           this.store.addPlanet(new Planet(p));
         });
         this.civilizationsService.loadCivilizations();
+        this.civilizationsService.reloadCurrentCivilization();
       }, (error: any) => {
         console.log(error);
       });

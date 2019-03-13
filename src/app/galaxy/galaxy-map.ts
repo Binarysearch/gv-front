@@ -47,10 +47,7 @@ export class GalaxyMap {
 
     this.focusHome();
     core.getCurrentCivilization().subscribe((civ: UserCivilizationDTO) => {
-      this.camera.x = civ.homeworld.starSystem.x;
-      this.camera.y = civ.homeworld.starSystem.y;
-      this.camera.zoom = 5;
-      this.select(civ.homeworld.id);
+      this.selectAndFocus(civ.homeworld.id);
     });
 
     const animate = () => {
@@ -219,7 +216,7 @@ export class GalaxyMap {
     const element = this.store.getObjectById(id);
     this.camera.x = element.x;
     this.camera.y = element.y;
-    this.camera.zoom = 5;
+    this.camera.zoom = 1;
     this._selected = element.id;
     this.camera.follow(element.id);
   }

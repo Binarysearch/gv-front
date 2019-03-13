@@ -7,6 +7,7 @@ import { GalaxyDTO } from '../dtos/galaxy';
 import { GalaxiesService } from './galaxies.service';
 import { StarSystem } from '../game-objects/star-system';
 import { PlanetsService } from './planets.service';
+import { CivilizationsService } from './civilizations.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,9 @@ export class StarSystemsService {
   private currentGalaxyId: number;
 
   constructor(private http: HttpClient, private galaxiesService: GalaxiesService,
-     private planetsService: PlanetsService, private store: Store) {
+     private planetsService: PlanetsService,
+     private civilizationsService: CivilizationsService,
+      private store: Store) {
     this.galaxiesService.getCurrentGalaxy().subscribe((currentGalaxy: GalaxyDTO) => {
       if (currentGalaxy) {
         this.currentGalaxyId = currentGalaxy.id;

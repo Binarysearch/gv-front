@@ -11,6 +11,7 @@ import { CivilizationDTO } from '../dtos/civilization';
 import { Civilization } from '../game-objects/civilization';
 import { ColoniesService } from './colonies.service';
 import { FleetsService } from './fleets.service';
+import { Planet } from '../game-objects/planet';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,7 @@ export class CivilizationsService {
       } else {
         this.currentGalaxyId = null;
       }
-      this.reloadCurrentCivilization();
+      //this.reloadCurrentCivilization();
     });
   }
 
@@ -43,6 +44,7 @@ export class CivilizationsService {
       {galaxyId: galaxyId, name: civilizationName, homeStarName: homeStarName}
       ).pipe(
       tap<UserCivilizationDTO>((civ: UserCivilizationDTO) => {
+        //this.store.addPlanet(new Planet(civ.homeworld));
         this.currentCivilizationSubject.next(civ);
         this.store.serverTime = civ.serverTime;
         this.store.userCivilization = civ;
@@ -55,10 +57,11 @@ export class CivilizationsService {
     return this._currentCivilization;
   }
 
-  private reloadCurrentCivilization(): void {
+  reloadCurrentCivilization(): void {
     if (this.currentGalaxyId) {
       this.http.get<UserCivilizationDTO>(this.civilizationUrl + `?galaxy=${this.currentGalaxyId}`)
         .subscribe((data: UserCivilizationDTO) => {
+          //this.store.addPlanet(new Planet(data.homeworld));
           this.currentCivilizationSubject.next(data);
           this.store.serverTime = data.serverTime;
           this.store.userCivilization = data;
