@@ -31,11 +31,11 @@ export class GalaxyComponent implements OnInit {
   }
 
   cancelWindowWheel() {
-    window.addEventListener('wheel', function(e) {
+    /*window.addEventListener('wheel', function(e) {
       e.preventDefault();
     }, {
       passive: false
-    });
+    });*/
   }
 
   cancelContextMenu(event) {
