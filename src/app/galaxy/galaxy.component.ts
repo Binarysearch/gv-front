@@ -22,6 +22,7 @@ export class GalaxyComponent implements OnInit {
     this.galaxyMap.setup(gl);
 
     this.onResize();
+    this.cancelWindowWheel();
   }
 
   onScroll(event: WheelEvent) {
@@ -29,9 +30,12 @@ export class GalaxyComponent implements OnInit {
     event.preventDefault();
   }
 
-  @HostListener('window:wheel')
   cancelWindowWheel() {
-    event.preventDefault();
+    window.addEventListener('wheel', function(e) {
+      e.preventDefault();
+    }, {
+      passive: false
+    });
   }
 
   cancelContextMenu(event) {
