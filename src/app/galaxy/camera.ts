@@ -1,3 +1,4 @@
+import { Store } from './../store';
 
 const MIN_ZOOM = 0.00002;
 const MAX_ZOOM = 20;
@@ -27,8 +28,9 @@ export class Camera {
   private _movingDown: boolean;
   cX: number;
   cY: number;
+  following: number;
 
-  constructor() {
+  constructor(private store: Store) {
     this._zoom = 0.00002;
     this._vZoom = 0;
 
@@ -42,10 +44,16 @@ export class Camera {
   }
 
   get x() {
+    if (this.following && this.store.getObjectById(this.following) && this.store.getObjectById(this.following).x) {
+      this._x = this.store.getObjectById(this.following).x;
+    }
     return this._x;
   }
 
   get y() {
+    if (this.following && this.store.getObjectById(this.following) && this.store.getObjectById(this.following).y) {
+      this._y = this.store.getObjectById(this.following).y;
+    }
     return this._y;
   }
 
@@ -153,5 +161,9 @@ export class Camera {
     this._movingRight = false;
     this._movingDown = false;
     this._movingUp = false;
+  }
+
+  follow(id: number): any {
+    this.following = id;
   }
 }

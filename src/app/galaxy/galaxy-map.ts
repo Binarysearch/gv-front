@@ -36,7 +36,7 @@ export class GalaxyMap {
   private mouseDownCameraY: number;
 
   constructor(private core: CoreService, shaderCompiler: ShaderProgramCompiler, private store: Store) {
-    this.camera = new Camera();
+    this.camera = new Camera(store);
     this.animate = true;
     this.starRenderer = new StarRenderer(this.camera, shaderCompiler);
     this.planetRenderer = new PlanetRenderer(this.camera, shaderCompiler);
@@ -171,9 +171,9 @@ export class GalaxyMap {
       return;
     }
     if (this.hovered) {
-      this._selected = this.hovered.id;
+      this.select(this.hovered.id);
     } else {
-      this._selected = null;
+      this.select(null);
     }
   }
 
@@ -216,10 +216,11 @@ export class GalaxyMap {
     this.camera.y = element.y;
     this.camera.zoom = 5;
     this._selected = element.id;
+    this.camera.follow(element.id);
   }
 
   public select(id: number) {
-    const element = this.store.getObjectById(id);
+    this.camera.follow(null);
     this._selected = id;
   }
 }

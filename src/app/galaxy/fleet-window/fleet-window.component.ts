@@ -61,7 +61,7 @@ export class FleetWindowComponent implements OnInit {
       return this.fleet === f;
     });
     const prev = this.fleet.destination.fleets[(idx + this.fleet.destination.fleets.length - 1) % this.fleet.destination.fleets.length];
-    this.map.select(prev.id);
+    this.map.selectAndFocus(prev.id);
   }
 
   nextFleet() {
@@ -71,7 +71,7 @@ export class FleetWindowComponent implements OnInit {
       return this.fleet === f;
     });
     const prev = this.fleet.destination.fleets[(idx + this.fleet.destination.fleets.length + 1) % this.fleet.destination.fleets.length];
-    this.map.select(prev.id);
+    this.map.selectAndFocus(prev.id);
   }
 
   get starSystemName() {

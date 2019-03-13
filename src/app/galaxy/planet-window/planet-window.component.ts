@@ -56,7 +56,7 @@ export class PlanetWindowComponent implements OnInit {
       return this.planet === p;
     });
     const prev = this.planet.starSystem.planets[(idx + this.planet.starSystem.planets.length - 1) % this.planet.starSystem.planets.length];
-    this.map.select(prev.id);
+    this.map.selectAndFocus(prev.id);
   }
 
   nextPlanet() {
@@ -66,7 +66,7 @@ export class PlanetWindowComponent implements OnInit {
       return this.planet === p;
     });
     const prev = this.planet.starSystem.planets[(idx + this.planet.starSystem.planets.length + 1) % this.planet.starSystem.planets.length];
-    this.map.select(prev.id);
+    this.map.selectAndFocus(prev.id);
   }
 
 }
