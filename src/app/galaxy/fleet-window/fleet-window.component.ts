@@ -26,6 +26,7 @@ export class FleetWindowComponent implements OnInit {
       const status = JSON.parse(statusString);
       this.maximized = status.maximized;
     }
+    this.loadShips();
   }
 
   get title(): string {

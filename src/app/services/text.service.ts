@@ -6,6 +6,9 @@ import { Injectable } from '@angular/core';
 export class TextService {
 
   private _strings = {
+    colonyShip: 'Nave colonizadora',
+    fighterShip: 'Nave de guerra',
+    explorerShip: 'Nave exploradora',
     galaxy: 'Galaxia',
     star: 'Estrella',
     starSystem: 'Sistema estelar',
@@ -15,6 +18,8 @@ export class TextService {
     nextFleet: 'Flota siguiente',
     previousFleet: 'Flota anterior',
     planets: 'Planetas',
+    ships: 'Naves',
+    ship: 'Nave',
     colony: 'Colonia',
     colonies: 'Colonias',
     fleets: 'Flotas',
