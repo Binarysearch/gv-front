@@ -147,6 +147,7 @@ export class GalaxyMap {
       if (delta < epsilon) {
         return;
       }
+      this.camera.follow(null);
       const offseX = (x - this.mouseDownX) / this.camera.zoom * this.camera.aspectRatio;
       const offseY = (y - this.mouseDownY) / this.camera.zoom;
       this.camera.x = this.mouseDownCameraX - offseX;
