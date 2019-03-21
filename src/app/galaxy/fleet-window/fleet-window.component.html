@@ -18,8 +18,8 @@
     <div *ngIf="fleet.isTravelling" class='link' (click)="clickOriginStarSystem()">{{ ts.strings.origin }}: {{ originStarSystemName }}</div>
     <hr>
     <h4>{{ ts.strings.ships }}</h4>
-    <div *ngIf="shipsLoaded">
-      <app-ship *ngFor="let ship of fleet.ships" [ship]="ship" [selected]="isShipSelected(ship)" (select)="onShipSelected(ship);" (deselect)="onShipDeselected(ship);"></app-ship>
+    <div >
+      <app-ship *ngFor="let ship of ships" [ship]="ship" [selected]="isShipSelected(ship)" (select)="onShipSelected(ship);" (deselect)="onShipDeselected(ship);"></app-ship>
     </div>
   </div>
 </div>

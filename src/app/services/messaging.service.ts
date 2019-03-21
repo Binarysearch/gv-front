@@ -1,3 +1,4 @@
+import { GalaxyMap } from './../galaxy/galaxy-map';
 import { StarSystem } from './../game-objects/star-system';
 import { PlanetDTO } from './../dtos/planet';
 import { Store } from './../store';
@@ -34,6 +35,11 @@ interface VisibilityGainedDTO {
   fleets: FleetDTO[];
   colonies: ColonyDTO[];
   civilizations: CivilizationDTO[];
+}
+
+interface MergeFleetsDTO {
+  fleets: number[];
+  resultingFleet: number;
 }
 
 interface VisibilityLostDTO {
@@ -88,11 +94,26 @@ export class MessagingService {
         const fleet = this.store.getObjectById(payload.id) as Fleet;
         const newFleet = new Fleet(payload);
         if (fleet) {
-          newFleet.ships = fleet.ships;
-          newFleet.selectedShips = fleet.selectedShips;
+          newFleet.ships = null;
           this.store.removeFleet(fleet);
         }
         this.store.addFleet(newFleet);
+      }
+      if (m.type === 'MergeFleets') {
+        const payload = m.payload as MergeFleetsDTO;
+        const resultingFleet = this.store.getObjectById(payload.resultingFleet) as Fleet;
+        if (resultingFleet) {
+          payload.fleets.forEach(id => {
+            if (id !== payload.resultingFleet) {
+              const fleet = this.store.getObjectById(id) as Fleet;
+              if (fleet) {
+                this.store.removeFleet(fleet);
+              }
+            }
+          });
+          resultingFleet.ships = null;
+          resultingFleet.selectedShips = [];
+        }
       }
       if (m.type === 'Civilization') {
         const payload = m.payload as CivilizationDTO;

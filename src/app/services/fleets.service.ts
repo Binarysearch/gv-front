@@ -42,7 +42,8 @@ export class FleetsService {
       });
       this.http.post<TravelDTO>(this.fleetsUrl, {fleet: fleet.id, shipIds: shipIds, destination: destination.id})
       .subscribe((tr: TravelDTO) => {
-        fleet.ships = fleet.ships.filter((elem) => !fleet.selectedShips.includes(elem));
+        fleet.ships = null;
+        fleet.selectedShips = [];
       });
     }
 
