@@ -1,0 +1,9 @@
+:host{
+  cursor: pointer;
+}
+:host:hover{
+  filter: brightness(150%);
+}
+.selected{
+  filter: brightness(200%);
+}

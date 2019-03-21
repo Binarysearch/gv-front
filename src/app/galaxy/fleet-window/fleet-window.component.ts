@@ -113,13 +113,32 @@ export class FleetWindowComponent implements OnInit {
   }
 
   loadShips() {
-    this.core.getFleetShips(this.fleet.id).subscribe((ships: ShipDTO[]) => {
-      this.fleet.ships = [];
-      ships.forEach(s => {
-        const ship = new Ship(s);
-        ship.fleet = this.fleet;
-        this.fleet.ships.push(ship);
+    if (!this.fleet.ships) {
+      this.core.getFleetShips(this.fleet.id).subscribe((ships: ShipDTO[]) => {
+        this.fleet.ships = [];
+        ships.forEach(s => {
+          const ship = new Ship(s);
+          ship.fleet = this.fleet;
+          this.fleet.ships.push(ship);
+          this.fleet.selectedShips.push(ship);
+        });
       });
-    });
+    }
+  }
+
+  onShipSelected(ship: Ship) {
+    if (this.fleet.selectedShips.indexOf(ship) === -1) {
+      this.fleet.selectedShips.push(ship);
+    }
+  }
+
+  onShipDeselected(ship: Ship) {
+    if (this.fleet.selectedShips.indexOf(ship) > -1) {
+      this.fleet.selectedShips.splice(this.fleet.selectedShips.indexOf(ship), 1);
+    }
+  }
+
+  isShipSelected(ship: Ship) {
+    return this.fleet.selectedShips.indexOf(ship) > -1;
   }
 }

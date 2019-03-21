@@ -89,6 +89,7 @@ export class MessagingService {
         const newFleet = new Fleet(payload);
         if (fleet) {
           newFleet.ships = fleet.ships;
+          newFleet.selectedShips = fleet.selectedShips;
           this.store.removeFleet(fleet);
         }
         this.store.addFleet(newFleet);

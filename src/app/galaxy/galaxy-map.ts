@@ -173,6 +173,7 @@ export class GalaxyMap {
       return;
     }
     if (this.hovered) {
+      this.select(null);
       this.select(this.hovered.id);
     } else {
       this.select(null);

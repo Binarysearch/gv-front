@@ -14,6 +14,7 @@ export class Fleet implements GameObject {
   destination: StarSystem;
   origin: StarSystem;
   ships: Ship[];
+  selectedShips: Ship[] = [];
   civilizationId: number;
   destinationId: number;
   originId: number;

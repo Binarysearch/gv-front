@@ -33,13 +33,18 @@ export class FleetsService {
   }
 
   startTravel(fleet: Fleet, destination: StarSystem): any {
-    this.http.post<TravelDTO>(this.travelsUrl, {fleet: fleet.id, destination: destination.id})
-    .subscribe((travel: TravelDTO) => {
-      /*this.store.removeFleet(fleet);
-      fleet.travelStartTime = travel.startTime;
-      fleet.destinationId = travel.destination;
-      fleet.originId = travel.origin;
-      this.store.addFleet(fleet);*/
-    });
+    if (fleet.ships.length === fleet.selectedShips.length) {
+      this.http.post<TravelDTO>(this.travelsUrl, {fleet: fleet.id, destination: destination.id}).subscribe();
+    } else {
+      const shipIds = [];
+      fleet.selectedShips.forEach(s => {
+        shipIds.push(s.id);
+      });
+      this.http.post<TravelDTO>(this.fleetsUrl, {fleet: fleet.id, shipIds: shipIds, destination: destination.id})
+      .subscribe((tr: TravelDTO) => {
+        fleet.ships = fleet.ships.filter((elem) => !fleet.selectedShips.includes(elem));
+      });
+    }
+
   }
 }

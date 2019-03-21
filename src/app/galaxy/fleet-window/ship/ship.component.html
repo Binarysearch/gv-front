@@ -1,0 +1,6 @@
+<div [class.selected]="selected" (click)="onClick()">
+  {{ ts.strings.ship + ' ' + ship.id + ': ' + ship.modelName }}
+  <i *ngIf="ship.canColonize" class="fa fa-globe pointer" aria-hidden="true" [title]="ts.strings.colonyShip"></i>
+  <i *ngIf="ship.canFight" class="fa fa-fighter-jet pointer" aria-hidden="true" [title]="ts.strings.fighterShip"></i>
+  <i *ngIf="!ship.canColonize && !ship.canFight" class="fa fa-eye pointer" aria-hidden="true" [title]="ts.strings.explorerShip"></i>
+</div>
